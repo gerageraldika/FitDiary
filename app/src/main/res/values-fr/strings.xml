@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crime_title_hint">Votre poids</string>
+    <string name="cancel">ANNULER</string>
+    <string name="changing_weight_by_day">Le changement de poids\nmoyen par jour</string>
+    <string name="correct_data">Entrez les données personnelles</string>
+    <string name="correct_personal_data">Entrez les données correctes!</string>
+    <string name="counter">tâches accomplies:</string>
+    <string name="date">DATE</string>
+    <string name="date_picker_title">De poids aujourd\'hui</string>
+    <string name="from_start_changing_weight">Changement total\nde poids</string>
+    <string name="from_start_remind_graph_date">Objectifs atteints</string>
+    <string name="from_start_weight_changed">\nDepuis le début du journal</string>
+    <string name="good_day">Bonjour</string>
+    <string name="good_evening">Bonsoir</string>
+    <string name="good_morning">Bonjour</string>
+    <string name="good_night">Bonjour Midnighter</string>
+    <string name="graph_date">date: </string>
+    <string name="high_imt">L\'indice de masse corporelle supérieur à la normale. \n</string>
+    <string name="hint">Tâches</string>
+    <string name="imt">imc:</string>
+    <string name="imt_message">IMC:</string>
+    <string name="insert_correct_weight">Entrez le poids correct!</string>
+    <string name="insert_date_and_time">Entrez la date et l\'heure!</string>
+    <string name="insert_reminding">Entrez les rappels de texte!</string>
+    <string name="insert_weight">Entrez le poids</string>
+    <string name="kg">kg</string>
+    <string name="minus">moins</string>
+    <string name="no_changes">poids n\'a pas changé: 0 </string>
+    <string name="norm_imt">L\'indice de masse corporelle est normale. \n</string>
+    <string name="ok">OK</string>
+    <string name="person_name">Nom</string>
+    <string name="plus">plus</string>
+    <string name="redaction">EDIT</string>
+    <string name="remind_check_textview">répéter la tâche tous les jours</string>
+    <string name="remove">CLAIR</string>
+    <string name="show_change_image">Installer/supprimer l\'écran d\'arrière-plan</string>
+    <string name="show_personal_data">Modifier des données</string>
+    <string name="small_imt">Indice de masse corporelle est inférieur à la normale. \n</string>
+    <string name="start_app_message">Pour continuer à travailler avec le programme, entrez vos données</string>
+    <string name="string_weight_graph">Aucune donnée pour le tableau</string>
+    <string name="sure_to_delete">Êtes-vous sûr?</string>
+    <string name="time">TEMPS</string>
+    <string name="very_high_imt">Indice de masse corporelle est beaucoup plus élevé que la normale. \n</string>
+    <string name="weight">poids:</string>
+    <string name="weight_details_label">Votre poids :</string>
+    <string name="weights">poids\n(kg)</string>
+    <string name="zametki">Notes...</string>
+    <string name="calorii">"calories: "</string>
+    <string name="calories">calories\n(kcal)</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9016583513972837/4811357109</string>
+    <string name="average_weight">Le poids moyen\npar jour</string>
+    <string name="average_calories">L\'apport calorique\nmoyen par jour</string>
+    <string name="Start_app_weight">Poids</string>
+    <string name="Start_app_height">Taille</string>
+
+    <string-array name="titles_tab">
+        <item>Résultats</item>
+        <item>Tâches</item>
+    </string-array>
+
+    <string-array name="titles_graph_tab">
+        <item>Poids</item>
+        <item>Calories</item>
+        <item>Tâches</item>
+    </string-array>
+
+</resources>

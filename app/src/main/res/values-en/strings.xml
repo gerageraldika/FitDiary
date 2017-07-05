@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crime_title_hint">Your weight</string>
+    <string name="Start_app_height">Height</string>
+    <string name="Start_app_weight">Weight</string>
+    <string name="person_name">Name</string>
+    <string name="show_personal_data">Edit personal data</string>
+    <string name="calories">calories\n(kcal)</string>
+    <string name="calorii">calories: </string>
+    <string name="cancel">CANCEL</string>
+    <string name="correct_data">Enter your personal information</string>
+    <string name="correct_personal_data">Enter the correct data!</string>
+    <string name="counter">Completed tasks: </string>
+    <string name="date">DATE</string>
+    <string name="date_picker_title">Weight today</string>
+    <string name="good_day">Good day</string>
+    <string name="good_evening">Good evening </string>
+    <string name="good_morning">Good morning </string>
+    <string name="good_night">Hello to the night owls </string>
+    <string name="graph_date">date: </string>
+    <string name="high_imt">Body mass index is above the norm. \n</string>
+    <string name="imt">bmi: </string>
+    <string name="hint">Tasks:</string>
+    <string name="imt_message">BMI: </string>
+    <string name="insert_correct_weight">Enter correct weight! </string>
+    <string name="insert_date_and_time">Enter date and time!</string>
+    <string name="insert_reminding">Enter reminder text!</string>
+    <string name="insert_weight">Enter weight</string>
+    <string name="kg">kg</string>
+    <string name="minus">minus</string>
+    <string name="norm_imt">Body mass index is normal. \n</string>
+    <string name="ok">OK</string>
+    <string name="plus">plus</string>
+    <string name="remind_check_textview">repeat the task every day</string>
+    <string name="remove">DELETE</string>
+    <string name="small_imt">Body mass index is below the norm. \n</string>
+    <string name="start_app_message">To continue working with the program, enter your personal data</string>
+    <string name="string_weight_graph">No data for graph</string>
+    <string name="sure_to_delete">Are you sure?</string>
+    <string name="time">TIME</string>
+    <string name="very_high_imt">Body mass index is much higher than norm. \n</string>
+    <string name="weight">weight: </string>
+    <string name="weight_details_label">Your weight: </string>
+    <string name="weights">weight\n(kg)</string>
+    <string name="zametki">Notes...</string>
+    <string name="from_start_weight_changed">\nFrom the beginning of the Diary</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9016583513972837/4811357109</string>
+    <string name="from_start_remind_graph_date">Completed tasks</string>
+    <string name="show_change_image">Set/delete wallpaper</string>
+    <string name="redaction">EDIT</string>
+    <string name="no_changes">weihgt didn\'t change: 0</string>
+    <string name="average_calories">Average calorie\nintake per day</string>
+    <string name="average_weight">Average weight\nper day</string>
+    <string name="changing_weight_by_day">Average change\nin weight per day</string>
+    <string name="from_start_changing_weight">Total weight\nchange</string>
+
+    <string-array name="titles_tab">
+        <item>Results</item>
+        <item>Tasks</item>
+    </string-array>
+
+    <string-array name="titles_graph_tab">
+        <item>Weight</item>
+        <item>Calories</item>
+        <item>Tasks</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,69 @@
+<resources>
+
+    <string name="weight_details_label">Ваш вес :</string>
+    <string name="date_picker_title">Вес сегодня</string>
+    <string name="crime_title_hint">Ваш вес</string>
+    <string name="ok">OK</string>
+    <string name="show_personal_data">Редактировать данные</string>
+    <string name="person_name">Имя</string>
+    <string name="Start_app_height">Рост</string>
+    <string name="Start_app_weight">Вес</string>
+    <string name="hint">Задачи</string>
+    <string name="string_weight_graph">Нет данных для графика</string>
+    <string name="remind_check_textview">повторять задачу каждый день</string>
+    <string name="very_high_imt">Индекс массы тела намного выше нормы. \n</string>
+    <string name="high_imt">Индекс массы тела выше нормы. \n</string>
+    <string name="norm_imt">Индекс массы тела в норме. \n</string>
+    <string name="small_imt">Индекс массы тела ниже нормы. \n</string>
+    <string name="insert_weight">Введите вес</string>
+    <string name="insert_correct_weight">Введите корректный вес!</string>
+    <string name="good_morning">Доброе утро</string>
+    <string name="good_day">Добрый день</string>
+    <string name="good_evening">Добрый вечер</string>
+    <string name="good_night">Привет полуночникам</string>
+    <string name="sure_to_delete">Вы уверены?</string>
+    <string name="remove">УДАЛИТЬ</string>
+    <string name="cancel">ОТМЕНА</string>
+    <string name="calorii">калории:</string>
+    <string name="weight">вес:</string>
+    <string name="imt">имт:</string>
+    <string name="imt_message">ИМТ: </string>
+    <string name="plus">плюс</string>
+    <string name="minus">минус</string>
+    <string name="date">ДАТА</string>
+    <string name="time">ВРЕМЯ</string>
+    <string name="insert_date_and_time">Введите дату и время!</string>
+    <string name="insert_reminding">Введите текст напоминания!</string>
+    <string name="start_app_message">Для продолжения работы с программой введите ваши данные</string>
+    <string name="correct_data">Введите персональные данные</string>
+    <string name="correct_personal_data">Введите корректные данные!</string>
+    <string name="graph_date">дата:</string>
+    <string name="counter">выполнено задач:</string>
+    <string name="kg">кг</string>
+    <string name="zametki">Заметки...</string>
+    <string name="calories">калории\n(ккал)</string>
+    <string name="weights">вес \n(кг)</string>
+    <string name="from_start_weight_changed">\nС начала ведения дневника</string>
+    <string name="banner_ad_unit_id">ca-app-pub-9016583513972837/4811357109</string>
+    <string name="show_change_image">Установить/удалить обои</string>
+    <string name="no_changes">вес не изменился: 0 </string>
+    <string name="redaction">РЕДАКТИРОВАТЬ</string>
+    <string name="from_start_remind_graph_date">Выполнено задач</string>
+    <string name="from_start_changing_weight">Общее изменение\nвеса</string>
+    <string name="average_weight">Средний вес\nпо дням</string>
+    <string name="changing_weight_by_day">Среднее изменение\nвеса в день</string>
+    <string name="average_calories">Среднее потребление\nкалорий в день</string>
+
+
+    <string-array name="titles_tab">
+        <item>Результаты</item>
+        <item>Задачи</item>
+    </string-array>
+
+    <string-array name="titles_graph_tab">
+        <item>Вес</item>
+        <item>Калории</item>
+        <item>Задачи</item>
+    </string-array>
+
+</resources>

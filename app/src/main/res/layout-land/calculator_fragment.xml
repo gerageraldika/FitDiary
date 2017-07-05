@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/colorDeepGrey"
+    tools:context="com.carpediemsolution.fitdiary.CalculatorNewActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_photo_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorGrey">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="3dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            >
+            <ImageView
+                android:id="@+id/view_photo"
+                android:layout_width="180dp"
+                android:layout_height="124dp"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:background="@drawable/rectangle_imageview"
+                />
+
+            <EditText
+                android:id="@+id/view_weight"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_margin="1dp"
+                android:padding="3dp"
+                android:layout_toEndOf="@+id/view_photo"
+                android:background="@drawable/rectangle_imageview"
+                android:drawableLeft="@drawable/ic_weight"
+                android:textCursorDrawable="@drawable/cursor"
+                android:drawablePadding="4dp"
+                android:hint=""
+                android:textColor="#fff"
+                android:textColorHint="#FFFFFF"
+                tools:ignore="LabelFor" />
+
+            <EditText
+                android:id="@+id/view_calories"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/view_weight"
+                android:layout_margin="1dp"
+                android:padding="3dp"
+                android:layout_toEndOf="@+id/view_photo"
+                android:background="@drawable/rectangle_imageview"
+                android:drawableLeft="@drawable/ic_food"
+                android:textCursorDrawable="@drawable/cursor"
+                android:drawablePadding="4dp"
+                android:hint=""
+                android:textSize="11dp"
+                android:textColor="#fff"
+                android:textColorHint="#FFFFFF"
+                tools:ignore="LabelFor"
+                />
+            <Button
+                android:id="@+id/view_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/view_calories"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginLeft="1dp"
+                android:padding="3dp"
+                android:layout_toEndOf="@+id/view_photo"
+                android:background="@drawable/rectangle_imageview"
+                android:drawableLeft="@drawable/ic_cal_date"
+                android:drawablePadding="0dp"
+                android:text=""
+                android:textColor="#FFFFFF" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/rectangle_calories">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/linear"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="58dp"
+            android:orientation="vertical">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/view_notes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:hint=""
+                android:textColor="@color/colorWhite"
+                android:textCursorDrawable="@drawable/cursor"
+                android:theme="@style/EditStyle"
+                tools:ignore="LabelFor"/>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/button_for_rewrite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="15dp"
+                        android:clickable="true"
+                        app:backgroundTint="#009884"
+                        />
+        </RelativeLayout>
+        </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.design.widget.CoordinatorLayout>

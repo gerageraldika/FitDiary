@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#00BFA5</color>
+    <color name="colorFloatingButton">#21BBA9</color>
+    <color name="colorLightGrey">#566471</color>
+    <color name="colorGrey">#37474F</color>
+    <color name="photoBackgroungGrey">#AEB4B7</color>
+    <color name="colorDeepOrange">#EA993F</color>
+    <color name="colorLightBlue">#EEEEEE</color>
+    <color name="colorBlue">#26A69A</color>
+    <color name="colorNiceGrey">#607D8B</color>
+    <color name="colorDeepGrey">#37474F</color>
+    <color name="colorDeepGreen">#558B2F</color>
+    <color name="colorWhite">#FFFF</color>
+    <color name="colorDeepBlue">#009884</color>
+    <color name="colorDeepYellow">#FFFF00</color>
+    <color name="colorOneMoreGrey">#3F515A</color>
+    <color name="colorBrownGrey">#616161</color>
+
+</resources>

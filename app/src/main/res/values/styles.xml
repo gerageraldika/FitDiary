@@ -1,0 +1,54 @@
+<resources>
+
+  <style name="WeightStyle" parent="Theme.AppCompat.Light.NoActionBar">
+<item name="android:actionBarStyle">@style/MyActionBar</item>
+      <item name="android:windowAnimationStyle">@null</item>
+  </style>
+
+    <style name="EditStyle" parent="android:style/Widget.EditText">
+        <item name="colorControlNormal">@color/colorGrey</item>
+        <item name="colorControlActivated">@color/colorGrey</item>
+        <item name="colorControlHighlight">@color/colorGrey</item>
+        <item name="android:textColorHint">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="MyApp.ActionBar1" parent="android:Widget.Holo.ActionBar.Solid">
+        <!-- Blue background color & black bottom border -->
+        <item name="android:background">@color/colorGrey</item>
+        <item name="android:colorBackground">@color/colorGrey</item>
+        <item name="android:backgroundSplit">@color/colorGrey</item>
+        <item name="android:backgroundStacked">@color/colorGrey</item>
+    </style>
+
+    <style name="MyActionBar" parent="Widget.AppCompat.ActionBar.TabView">
+  </style>
+
+    <style name="WeightStyle_2" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyTheme.Blue.Dialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/TextAppearance.DialogWindowTitle</item>
+        <item name="android:buttonStyle">@style/Widget.G4S.Button.Borderless</item>
+        <item name="android:windowBackground">@color/colorDeepBlue</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+    </style>
+
+    <style name="TextAppearance.DialogWindowTitle" parent="@android:style/TextAppearance.Holo.DialogWindowTitle">
+        <item name="android:textColor">@color/colorDeepOrange</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:titleTextStyle">@array/titles_graph_tab</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.G4S.Button.Borderless" parent="@android:style/Widget.Holo.Button.Borderless">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+ </resources>

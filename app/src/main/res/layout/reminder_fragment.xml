@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorOneMoreGrey"
+    tools:context="com.carpediemsolution.fitdiary.ReminderActivity">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view_photo_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorGrey">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/rectangle_calories">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:orientation="vertical">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorDeepBlue"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="18dp">
+
+
+
+                        <TextView
+                            android:id="@+id/date_for_reminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:drawableLeft="@drawable/ic_date_range_white_24dp"
+                            android:drawablePadding="5dp"
+                            android:background="@color/colorDeepBlue"
+                            android:gravity="center_horizontal"
+                            android:stateListAnimator="@null"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/time_for_reminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:background="@color/colorDeepBlue"
+                            android:drawableLeft="@drawable/ic_query_builder_white_24dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="center_horizontal"
+                            android:stateListAnimator="@null"
+                            android:text=""
+                            android:textColor="#fff"
+                            android:textSize="16dp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorDeepBlue"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <CheckBox
+                        android:id="@+id/remind_repeat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="14dp"
+                        android:buttonTint="#EEEEEE" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="4dp"
+                        android:textSize="16dp"
+                        android:text="@string/remind_check_textview"
+                        android:textColor="#EEEEEE" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGrey"
+                    android:orientation="vertical">
+
+
+                    <EditText
+                        android:id="@+id/notes_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="1dp"
+                        android:gravity="top"
+                        android:textColor="@color/colorWhite"
+                        android:textCursorDrawable="@drawable/cursor"
+                        android:textSize="20dp"
+                        android:theme="@style/EditStyle" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/fab_reminding_write"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="20dp"
+                            android:clickable="true"
+                            app:backgroundTint="@color/colorDeepBlue"
+                            app:layout_anchorGravity="bottom|end" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</android.support.design.widget.CoordinatorLayout>

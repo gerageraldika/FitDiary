@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/start_app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/person_name" />
+
+    <EditText
+        android:id="@+id/person_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:hint=""
+        android:theme="@style/EditStyle"
+        android:textColor="@color/colorWhite"
+        android:maxLength="15" />
+
+    <TextView
+        android:id="@+id/start_app_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/Start_app_weight" />
+
+    <EditText
+        android:id="@+id/person_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:theme="@style/EditStyle"
+        android:textColor="@color/colorWhite"
+        android:ems="6"
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/start_app_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/colorWhite"
+        android:text="@string/Start_app_height" />
+
+    <EditText
+        android:id="@+id/person_height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:theme="@style/EditStyle"
+        android:textColor="@color/colorWhite"
+        android:ems="6"
+        android:inputType="numberDecimal"
+        tools:ignore="LabelFor" />
+
+</LinearLayout>

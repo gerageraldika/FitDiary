@@ -1,0 +1,102 @@
+{
+  "project_info": {
+    "project_number": "605188172167",
+    "firebase_url": "https://weightcalculator-b8fdb.firebaseio.com",
+    "project_id": "weightcalculator-b8fdb",
+    "storage_bucket": "weightcalculator-b8fdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605188172167:android:0161790f26d4af76",
+        "android_client_info": {
+          "package_name": "com.example.weightcalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605188172167-g4mkn7u1mvf3slnpf2p1s8fjisq8cjfs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.weightcalculator",
+            "certificate_hash": "fb0d89a7711951f4c72b78f4bccc19f886733342"
+          }
+        },
+        {
+          "client_id": "605188172167-u1f0fp761mln0lnkqcqgt0i0olahvg7u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.weightcalculator",
+            "certificate_hash": "ab59eb164c6303a8d0a292b0063d960dd53f5a30"
+          }
+        },
+        {
+          "client_id": "605188172167-uut7prvidmo5eqck97p877ks0eg8r9fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA9fqCfklHokfDov3bb_nXYe-w8ehH99s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605188172167-uut7prvidmo5eqck97p877ks0eg8r9fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605188172167:android:d31aafd1a5ff1936",
+        "android_client_info": {
+          "package_name": "com.carpediemsolution.fitdiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605188172167-5rglrfg74m4sn3sa6k1ajloi1mdp3rsn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carpediemsolution.fitdiary",
+            "certificate_hash": "fb0d89a7711951f4c72b78f4bccc19f886733342"
+          }
+        },
+        {
+          "client_id": "605188172167-uut7prvidmo5eqck97p877ks0eg8r9fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA9fqCfklHokfDov3bb_nXYe-w8ehH99s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
