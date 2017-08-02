@@ -1,13 +1,17 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.uiutils;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+
+import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
@@ -31,23 +35,23 @@ public class WeightMessageDialog extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         String weightToday = (String)getArguments().getSerializable(ARG_WEIGHT_TODAY);
-        CalculatorLab calculatorLab = CalculatorLab.get(getActivity());
-        mPerson = calculatorLab.getPerson();
+        CalculatorLab sCalcLab = CalculatorLab.get();
+        mPerson = sCalcLab.getPerson();
 
 
-        Person mPerson = calculatorLab.getPerson();
+        Person mPerson = sCalcLab.getPerson();
         double changedWeihgt  = Double.parseDouble(weightToday);
 
        View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.weight_message_dialog, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyTheme_Blue_Dialog);
 
-        builder.setTitle(new MathUtils(getActivity()).getHoursOfDate() + ", "+ mPerson.getPersonName() + "!")
-                .setMessage(new MathUtils(getActivity()).personIMT(changedWeihgt) + "\n" +
+        builder.setTitle(new MathUtils().getHoursOfDate() + ", "+ mPerson.getPersonName() + "!")
+                .setMessage(new MathUtils().personIMT(sCalcLab,changedWeihgt) + "\n" +
                         getString(R.string.from_start_weight_changed) + " "
-                        + new MathUtils(getActivity()).changingWeight(changedWeihgt) +  " " + getString(R.string.kg))
+                        + new MathUtils().changingWeight(sCalcLab,changedWeihgt) +  " " + getString(R.string.kg))
         .setPositiveButton(R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

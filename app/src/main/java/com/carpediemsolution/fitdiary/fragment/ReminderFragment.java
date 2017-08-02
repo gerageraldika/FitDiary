@@ -1,4 +1,5 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,13 +14,14 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Reminder;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.google.android.gms.ads.AdListener;
@@ -37,23 +39,22 @@ import java.util.UUID;
  * Created by Юлия on 03.03.2017.
  */
 
-public class ReminderFragment   extends DialogFragment implements CompoundButton.OnCheckedChangeListener{
-    Reminder reminder;
-    Date date;
-    EditText notesInput;
-    CheckBox remindRepeat;
+public class ReminderFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener {
+    private Reminder reminder;
+    private Date date;
+    private EditText notesInput;
+    private CheckBox remindRepeat;
+    private InterstitialAd interstitial;
+    private List<Date> newDateList;
+    private Date dateData;
+    private Date timeData;
+    private TextView dateInput;
+    private TextView timeInput;
+    private CalculatorLab sCalcLab;
     private static final String CALENDAR_DIALOG_DATE = "CalendarDialogDate";
     private static final String CALENDAR_DIALOG_TIME = "CalendarDialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
-    private InterstitialAd interstitial;
-    List<Date> newDateList;
-    UUID id;
-    Date dateData;
-    Date timeData;
-    Date newdate;
-    private TextView dateInput;
-    private TextView timeInput;
 
     String REMIND_LOG = "RemindLog";
 
@@ -62,7 +63,9 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
         super.onCreate(savedInstanceState);
         UUID id = UUID.randomUUID();
         reminder = new Reminder(id);
+        sCalcLab = CalculatorLab.get();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         newDateList = new ArrayList();
@@ -72,12 +75,17 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
         notesInput = (EditText) view.findViewById(R.id.notes_reminder);
         notesInput.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-             reminder.setReminding(s.toString());}
+                reminder.setReminding(s.toString());
+            }
+
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         dateInput = (TextView) view.findViewById(R.id.date_for_reminder);
@@ -106,7 +114,7 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
             }
         });
 
-        remindRepeat = (CheckBox)view.findViewById(R.id.remind_repeat);
+        remindRepeat = (CheckBox) view.findViewById(R.id.remind_repeat);
         remindRepeat.setOnCheckedChangeListener(this);
 
 
@@ -115,11 +123,11 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
         fabWriteReminding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (interstitial.isLoaded()) {
-                   interstitial.show();}
-                else
+                if (interstitial.isLoaded()) {
+                    interstitial.show();
+                } else
                     onWriteRemind();
-           }
+            }
         });
 
         interstitial = new InterstitialAd(getActivity());
@@ -137,7 +145,7 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
         return view;
     }
 
-    public void onWriteRemind(){
+    public void onWriteRemind() {
         if (reminder.getDate() == null) {
             Toast toast = Toast.makeText(getActivity(),
                     getString(R.string.insert_date_and_time), Toast.LENGTH_SHORT);
@@ -145,11 +153,11 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
             toast.show();
         } else if (reminder.getReminding() != null && reminder.getDate() != null) {
             reminder.setCounter(false);
-            CalculatorLab.get(getActivity()).addReminder(reminder);
+            sCalcLab.addReminder(reminder);
 
-            CalculatorLab.get(getActivity()).createRepeatedRemind();
-            Log.d(REMIND_LOG, "---reminder" +reminder.getFlag());
-            CalculatorLab.get(getActivity());
+            sCalcLab.createRepeatedRemind();
+            Log.d(REMIND_LOG, "---reminder" + reminder.getFlag());
+            // CalculatorLab.get(getActivity());
             Intent intent = new Intent(getActivity(), PagerMainActivity.class);
             startActivity(intent);
 
@@ -163,23 +171,24 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Date newdate;
         if (requestCode == REQUEST_DATE) {
-             dateData = (Date) data
+            dateData = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             newDateList.add(dateData);
             newdate = newDate(newDateList);
-            dateInput.setText(DateFormat.format("dd MM yyyy",dateData));
+            dateInput.setText(DateFormat.format("dd MM yyyy", dateData));
             reminder.setDate(newdate);
-            Log.d(REMIND_LOG, "----date"+ dateData + "---newdate" + newdate );
+            Log.d(REMIND_LOG, "----date" + dateData + "---newdate" + newdate);
 
         } else if (requestCode == REQUEST_TIME) {
-             timeData = (Date) data
+            timeData = (Date) data
                     .getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             newDateList.add(timeData);
             newdate = newDate(newDateList);
-            timeInput.setText(DateFormat.format("HH:mm",timeData));
+            timeInput.setText(DateFormat.format("HH:mm", timeData));
             reminder.setDate(newdate);
-            Log.d(REMIND_LOG, "----time"+ timeData + newDateList + "---newdate" + newdate);
+            Log.d(REMIND_LOG, "----time" + timeData + newDateList + "---newdate" + newdate);
         }
     }
 
@@ -187,9 +196,11 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
 
         Date remindDate = new Date();
 
-        if ((dateData ==null)&&(timeData==null)) {return remindDate = null;}
+        if ((dateData == null) && (timeData == null)) {
+            return remindDate = null;
+        }
 
-        if ((dateData !=null)&&(timeData!=null)&& (newDate.size() == 2))  {
+        if ((dateData != null) && (timeData != null) && (newDate.size() == 2)) {
 
             Calendar calendarDate = Calendar.getInstance();
             calendarDate.setTime(dateData);
@@ -207,31 +218,31 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
         }
         Log.d(REMIND_LOG, "----list metod" + remindDate);
 
-         if (newDate.size() > 2){
-             newDate.remove(0);
-             Calendar calendarDate = Calendar.getInstance();
-             calendarDate.setTime(dateData);
-             int year = calendarDate.get(Calendar.YEAR);
-             int month = calendarDate.get(Calendar.MONTH);
-             int day = calendarDate.get(Calendar.DAY_OF_MONTH);
+        if (newDate.size() > 2) {
+            newDate.remove(0);
+            Calendar calendarDate = Calendar.getInstance();
+            calendarDate.setTime(dateData);
+            int year = calendarDate.get(Calendar.YEAR);
+            int month = calendarDate.get(Calendar.MONTH);
+            int day = calendarDate.get(Calendar.DAY_OF_MONTH);
 
-             Calendar calendarTime = Calendar.getInstance();
-             calendarTime.setTime(timeData);
+            Calendar calendarTime = Calendar.getInstance();
+            calendarTime.setTime(timeData);
 
-             int hour = calendarTime.get(Calendar.HOUR_OF_DAY);
-             int min = calendarTime.get(Calendar.MINUTE);
+            int hour = calendarTime.get(Calendar.HOUR_OF_DAY);
+            int min = calendarTime.get(Calendar.MINUTE);
 
-             remindDate = new GregorianCalendar(year, month, day, hour, min).getTime();
-             Log.d(REMIND_LOG, "----list metod" + remindDate);
+            remindDate = new GregorianCalendar(year, month, day, hour, min).getTime();
+            Log.d(REMIND_LOG, "----list metod" + remindDate);
         }
-        if ( (dateData !=null)&&(timeData ==null) && (newDate.size() == 1 )){
-             remindDate = dateData;
+        if ((dateData != null) && (timeData == null) && (newDate.size() == 1)) {
+            remindDate = dateData;
         }
-        if ( (dateData ==null)&&(timeData !=null) && (newDate.size() == 1 )){
+        if ((dateData == null) && (timeData != null) && (newDate.size() == 1)) {
             remindDate = timeData;
         }
         return remindDate;
-        }
+    }
 
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
@@ -243,15 +254,17 @@ public class ReminderFragment   extends DialogFragment implements CompoundButton
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked) {
-            reminder.setFlag(1);}
-        else {reminder.setFlag(0);}
+        if (isChecked) {
+            reminder.setFlag(1);
+        } else {
+            reminder.setFlag(0);
+        }
 
-        CalculatorLab.get(getActivity()).getData();
-        Log.d(REMIND_LOG, "----" + "update remind "  +
-                reminder.getFlag() );
+        sCalcLab.getData();
+        Log.d(REMIND_LOG, "----" + "update remind " +
+                reminder.getFlag());
     }
-    }
+}
 
 
 

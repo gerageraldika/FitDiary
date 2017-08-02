@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.activity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
 
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
 
 import java.io.File;

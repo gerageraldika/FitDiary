@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.uiutils;
 
 
 import android.annotation.TargetApi;
@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
@@ -28,17 +30,20 @@ import com.carpediemsolution.fitdiary.utils.MathUtils;
  */
 
 public class StartAppDialog extends DialogFragment {
-    EditText personName;
-    EditText getPersonHeight;
-    EditText getPersonWeight;
-    Person person=Person.get();
-    String MY_LOG  = "StartDialogLog";
+    private EditText personName;
+    private EditText getPersonHeight;
+    private EditText getPersonWeight;
+    private Person person=Person.get();
+    private static final String MY_LOG  = "StartDialogLog";
+    private CalculatorLab sCalcLab;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity())
          .inflate(R.layout.start_app_dialog, null);
+
+        sCalcLab = CalculatorLab.get();
 
         Log.d(MY_LOG, "----Person" + v);
 
@@ -106,9 +111,9 @@ public class StartAppDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),R.style.MyTheme_Blue_Dialog);
 
-        if((CalculatorLab.get(getActivity()).getPerson() == null))
+        if(sCalcLab.getPerson() == null)
            {
-            builder.setTitle(new MathUtils(getActivity()).getHoursOfDate()+"!");
+            builder.setTitle(new MathUtils().getHoursOfDate()+"!");
             builder.setMessage("\n"+
                     getString(R.string.start_app_message)+ "\n")
             .setPositiveButton(R.string.ok,
@@ -121,7 +126,7 @@ public class StartAppDialog extends DialogFragment {
                                     (Double.parseDouble(person.getPersonHeight().toString()) <= 250)&&
                                     (Double.parseDouble(person.getPersonWeight().toString()) > 0)&&
                                     (Double.parseDouble(person.getPersonWeight().toString()) <= 300 )) {
-                                CalculatorLab.get(getActivity()).addPerson(person);
+                                sCalcLab.addPerson(person);
 
                                 Log.d(MY_LOG, "----addPerson" + person.getPersonName() +
                                         "---" + person.getPersonHeight());
@@ -142,8 +147,8 @@ public class StartAppDialog extends DialogFragment {
                         }
                     });
         }
-         else if((CalculatorLab.get(getActivity()).getPerson() != null))      {
-            builder.setTitle(new MathUtils(getActivity()).getHoursOfDate()+ ", " + person.getPersonName() +"!")
+         else if((sCalcLab.getPerson() != null))      {
+            builder.setTitle(new MathUtils().getHoursOfDate()+ ", " + person.getPersonName() +"!")
                     .setPositiveButton(R.string.ok,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -154,7 +159,7 @@ public class StartAppDialog extends DialogFragment {
                                     (Double.parseDouble(person.getPersonHeight().toString()) <= 250)&&
                                     (Double.parseDouble(person.getPersonWeight().toString()) > 0)&&
                                     (Double.parseDouble(person.getPersonWeight().toString()) <= 300 )) {
-                                CalculatorLab.get(getActivity()).updatePerson(person);
+                                sCalcLab.updatePerson(person);
                                 Log.d(MY_LOG, "----upDatePerson" + person.getPersonName() +
                                         "---" +person.getPersonHeight());
 

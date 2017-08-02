@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
@@ -32,9 +34,8 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class CaloriesGraphFragment extends Fragment {
 
-    List<Weight> weights;
-    List<Weight> weightsForGraph;
-
+    private List<Weight> weights;
+    private List<Weight> weightsForGraph;
     private ColumnChartView chart;
     private ColumnChartData data;
     private boolean hasAxes = true;
@@ -73,10 +74,10 @@ public class CaloriesGraphFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.graph_layout_calories, container, false);
 
-        CalculatorLab calculatorLab = CalculatorLab.get(getActivity());
+        CalculatorLab sCalcLab = CalculatorLab.get();
 
-        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && calculatorLab.getWeights().size() > 0) {
-            weights = CalculatorLab.get(getActivity()).getWeights();
+        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
+            weights = sCalcLab.getWeights();
             weightsForGraph = getWeightsForCaloriesGraph(weights);
 
             chart = (ColumnChartView) view.findViewById(R.id.chart);

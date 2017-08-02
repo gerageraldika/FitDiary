@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.carpediemsolution.fitdiary.CalculatorListFragment;
-import com.carpediemsolution.fitdiary.ReminderListFragment;
+import com.carpediemsolution.fitdiary.fragment.CalculatorListFragment;
+import com.carpediemsolution.fitdiary.fragment.ReminderListFragment;
 
 /**
  * Created by Юлия on 04.03.2017.

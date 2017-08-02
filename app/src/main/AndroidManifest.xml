@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Fit Diary"
@@ -26,7 +27,7 @@
         android:theme="@style/WeightStyle">
 
         <activity
-            android:name=".PagerMainActivity"
+            android:name=".activity.PagerMainActivity"
             android:label="Fit Diary"
             android:theme="@style/WeightStyle">
 
@@ -44,28 +45,28 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.CalculatorPagerActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity"
             android:label=" "
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.GraphicActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.GraphicActivity"
             android:label="График изменения веса"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.CalculatorNewActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.CalculatorNewActivity"
             android:label=" "
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.OpenPhotoForViewActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.OpenPhotoForViewActivity"
             android:label=" "
             android:theme="@android:style/Theme.Holo.DialogWhenLarge"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.ReminderActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.ReminderActivity"
             android:label=" "></activity>
 
         <meta-data

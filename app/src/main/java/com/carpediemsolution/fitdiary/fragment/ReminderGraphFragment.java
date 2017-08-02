@@ -1,10 +1,9 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.ReminderCounter;
@@ -21,9 +22,7 @@ import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.AsynkUtils;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
-import com.google.android.gms.ads.InterstitialAd;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,15 +31,11 @@ import java.util.List;
 
 public class ReminderGraphFragment extends Fragment implements OnBackListener {
 
-    private String GRAPHIC_LOG = "GraphicLog";
+    private static final String GRAPHIC_LOG = "GraphicLog";
 
-    public ReminderGraphFragment() {}
+    public ReminderGraphFragment() {
+    }
 
-    private TableLayout tableLayoutForReminds;
-    private TableLayout tabLayoutForWeights;
-    private TableLayout tableLayoutForWeightStatistics;
-    private TableLayout tableLayoutForWeightResults;
-    private TableLayout tableLayoutAverageCalories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,29 +46,27 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graph_layout_reminds, container, false);
 
-        tableLayoutForReminds = (TableLayout) view.findViewById(R.id.tab_remind_layout);
-        tabLayoutForWeights = (TableLayout) view.findViewById(R.id.tab_weight_layout_1);
-        tableLayoutForWeightStatistics = (TableLayout)view.findViewById(R.id.tab_weight_layout_2);
-        tableLayoutForWeightResults = (TableLayout)view.findViewById(R.id.tab_weight_layout_3);
-        tableLayoutAverageCalories = (TableLayout)view.findViewById(R.id.tab_calories_layout);
+        TableLayout tableLayoutForReminds = (TableLayout) view.findViewById(R.id.tab_remind_layout);
+        TableLayout tabLayoutForWeights = (TableLayout) view.findViewById(R.id.tab_weight_layout_1);
+        TableLayout tableLayoutForWeightStatistics = (TableLayout) view.findViewById(R.id.tab_weight_layout_2);
+        TableLayout tableLayoutForWeightResults = (TableLayout) view.findViewById(R.id.tab_weight_layout_3);
+        TableLayout tableLayoutAverageCalories = (TableLayout) view.findViewById(R.id.tab_calories_layout);
 
-        CalculatorLab calculatorLab = CalculatorLab.get(getActivity());
+        CalculatorLab sCalcLab = CalculatorLab.get();
         if (!CalculatorDbSchema.CalculatorTable.NAME_COUNTER.isEmpty() &&
-                calculatorLab.getRemindCounts().size() > 0) {
-            List<ReminderCounter>reminderCounters = CalculatorLab.get(getActivity()).getRemindCounts();
+                sCalcLab.getRemindCounts().size() > 0) {
+            List<ReminderCounter> reminderCounters = sCalcLab.getRemindCounts();
             getRemindsStatistic(reminderCounters, tableLayoutForReminds);
         }
 
-        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty()&& calculatorLab.getWeights().size() > 0 ){
-            List<Weight> weights = calculatorLab.getWeights();
-            Person person = calculatorLab.getPerson();
-            new AsynkUtils.WeightAverageTask(tabLayoutForWeights,weights,getActivity()).execute();
-            new AsynkUtils.WeightStaticticTask(tableLayoutForWeightStatistics,weights,person,getActivity()).execute();
-            new AsynkUtils.WeightResultTask(tableLayoutForWeightResults,weights,person,getActivity()).execute();
-            new AsynkUtils.CaloriesStaticticTask(tableLayoutAverageCalories,weights,getActivity()).execute();
-        }
-
-        else {
+        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
+            List<Weight> weights = sCalcLab.getWeights();
+            Person person = sCalcLab.getPerson();
+            new AsynkUtils.WeightAverageTask(tabLayoutForWeights, weights, getActivity()).execute();
+            new AsynkUtils.WeightStaticticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
+            new AsynkUtils.WeightResultTask(tableLayoutForWeightResults, weights, person, getActivity()).execute();
+            new AsynkUtils.CaloriesStaticticTask(tableLayoutAverageCalories, weights, getActivity()).execute();
+        } else {
             Toast toast = Toast.makeText(getActivity(),
                     R.string.string_weight_graph, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -82,7 +75,7 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
         return view;
     }
 
-    public void getRemindsStatistic(List<ReminderCounter> reminderCounters, TableLayout tabLayout){
+    public void getRemindsStatistic(List<ReminderCounter> reminderCounters, TableLayout tabLayout) {
 
         tabLayout.setStretchAllColumns(true);
         tabLayout.bringToFront();
@@ -94,7 +87,7 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
         TextView c11 = new TextView(getActivity());
         c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.from_start_remind_graph_date));
-       // c11.setTextSize(15);
+        // c11.setTextSize(15);
         c11.setPadding(15, 20, 15, 20);
         c11.setBackgroundResource(R.color.colorDeepGreen);
         c11.setGravity(Gravity.CENTER);
@@ -122,9 +115,9 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
             c2.setPadding(0, 20, 0, 20);
             c2.setBackgroundResource(R.drawable.rectangle_graph_grey);
             c2.setText(String.valueOf(reminderCounters.get(i).getCounterFlag()));
-            tableRow.addView(c1,new TableRow.LayoutParams(0,
+            tableRow.addView(c1, new TableRow.LayoutParams(0,
                     TableRow.LayoutParams.WRAP_CONTENT, 1.5f));
-            tableRow.addView(c2,new TableRow.LayoutParams(0,
+            tableRow.addView(c2, new TableRow.LayoutParams(0,
                     TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
             tabLayout.addView(tableRow);
         }

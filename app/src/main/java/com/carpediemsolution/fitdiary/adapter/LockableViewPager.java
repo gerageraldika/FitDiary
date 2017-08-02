@@ -14,17 +14,12 @@ public class LockableViewPager extends ViewPager {
 
 
     public LockableViewPager(Context context) {
-
         super(context);
-
     }
 
     public LockableViewPager(Context context, AttributeSet attrs) {
-
         super(context, attrs);
-
         this.swipeable = true;
-
     }
 
 
@@ -33,14 +28,9 @@ public class LockableViewPager extends ViewPager {
     public boolean onTouchEvent(MotionEvent event) {
 
         if (this.swipeable) {
-
             return super.onTouchEvent(event);
-
         }
-
-
         return false;
-
     }
 
 
@@ -49,20 +39,13 @@ public class LockableViewPager extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent event) {
 
         if (this.swipeable) {
-
             return super.onInterceptTouchEvent(event);
-
         }
-
-
         return false;
-
     }
 
 
     public void setSwipeable(boolean swipeable) {
-
         this.swipeable = swipeable;
-
     }
 }

@@ -13,7 +13,7 @@ public class PictureUtils {
         return getScaledBitmap(path, size.x, size.y);
     }
 
-    public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
+    private static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
         // чтение размеров изображения
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
@@ -46,8 +46,6 @@ public class PictureUtils {
         cropW = (cropW < 0)? 0: cropW;
         int cropH = (height - width) / 2;
         cropH = (cropH < 0)? 0: cropH;
-        Bitmap cropImg = Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
-
-        return cropImg;
+        return Bitmap.createBitmap(bitmap, cropW, cropH, newWidth, newHeight);
     }
 }

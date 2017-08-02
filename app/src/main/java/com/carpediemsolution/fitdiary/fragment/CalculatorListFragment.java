@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity;
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
@@ -36,11 +39,11 @@ import java.util.List;
 
 public class CalculatorListFragment extends Fragment implements OnBackListener {
 
-    static final String LOG_TAG = "CalculatorListFragment";
     private RecyclerView mCrimeRecyclerView;
     private CalcAdapter mAdapter;
-    List<Weight> weights;
-    Weight weight;
+    private List<Weight> weights;
+    private Weight weight;
+    private static final String LOG_TAG = "CalculatorListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,8 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.calculator_list, container, false);
 
-        CalculatorLab calcLab = CalculatorLab.get(getActivity());
-        weights = calcLab.getWeights();
+        CalculatorLab sCalcLab = CalculatorLab.get();
+        weights = sCalcLab.getWeights();
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.weight_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
@@ -93,17 +96,15 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
                         mAdapter.notifyItemRemoved(position);//item removed from recylcerview
                         weight = weights.get(position);
                         String uuidString = weight.getId().toString();
-                        CalculatorLab.get(getActivity()).mDatabase.delete(CalculatorTable.NAME,
+                        CalculatorLab.get().mDatabase.delete(CalculatorTable.NAME,
                                 CalculatorTable.Cols.UUID + " = '" + uuidString + "'", null);
                         weights.remove(position);  //then remove item
-                        return;
                     }
                 }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mAdapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
                         mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
-                        return;
                     }
                 }).show();}
         }
@@ -119,23 +120,23 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
         private static final int EMPTY_VIEW = 10;
         private Weight mWeight;
 
-        CalculatorLab calculatorLabLab = CalculatorLab.get(getActivity());
-        List<Weight> mWeights;
+        private CalculatorLab sCalcLab = CalculatorLab.get();
+        private List<Weight> mWeights;
         private TextView mTitleTextView;
         private TextView mDateTextView;
         private TextView mCaloriesTextView;
         private ImageView mPhotoView;
         private TextView mIMTView;
-        Person mPerson = calculatorLabLab.getPerson();
+        Person mPerson = sCalcLab.getPerson();
 
-        public class EmptyViewHolder extends RecyclerView.ViewHolder {
-            public EmptyViewHolder(View itemView) {
+        private class EmptyViewHolder extends RecyclerView.ViewHolder {
+            private EmptyViewHolder(View itemView) {
                 super(itemView);}
         }
 
         private class CalcHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            public CalcHolder(View itemView) {
+            private CalcHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(this);
                 mTitleTextView = (TextView) itemView.findViewById(R.id.list_item_weight_title_text_view);
@@ -203,7 +204,7 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
         }
 
 
-        public class PhotoItemsTask extends AsyncTask<Void, Void, Bitmap> {
+        private class PhotoItemsTask extends AsyncTask<Void, Void, Bitmap> {
             ImageView mPhotoView;
             Weight mWeight;
 

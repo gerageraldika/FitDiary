@@ -1,12 +1,11 @@
 package com.carpediemsolution.fitdiary.utils;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.database.CalculatorBaseHelper;
 import com.carpediemsolution.fitdiary.database.CalculatorCursorWrapper;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
@@ -22,7 +21,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -32,18 +30,16 @@ import java.util.UUID;
 public class CalculatorLab {
     private static CalculatorLab calcLab;
 
-    private Context mContext;
     public SQLiteDatabase mDatabase;
     private static String LAB_LOG = "LabLog";
 
-    public static CalculatorLab get(Context context) {
+    public static CalculatorLab get() {
         if (calcLab == null) {
-            calcLab = new CalculatorLab(context);}
+            calcLab = new CalculatorLab();}
         return calcLab;}
 
-    private CalculatorLab(Context context) {
-        mContext = context.getApplicationContext();
-        mDatabase = new CalculatorBaseHelper(mContext)
+    private CalculatorLab() {
+        mDatabase = new CalculatorBaseHelper(App.getAppContext())
                 .getWritableDatabase();}
 
     public void addWeight(Weight c) {
@@ -69,7 +65,7 @@ public class CalculatorLab {
             }
         });
         Collections.reverse(weights);
-        cursor.close();
+        //
         return weights;
     }
 
@@ -161,7 +157,7 @@ public class CalculatorLab {
                 return null;
             }
             cursor.moveToFirst();
-            String id = "1";
+           // String id = "1";
             String name = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.NAME));
             String height = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.HEIGHT));
             String weight = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.PERSON_WEIGHT));
@@ -194,10 +190,11 @@ public class CalculatorLab {
         );
         if ((cursor != null) && (cursor.getCount() > 0)) {
             empty = true;
+            cursor.close();
         } else {
             empty = false;
         }
-        cursor.close();
+
         return empty;}
 
     private static ContentValues getReminderContentValues(Reminder reminder) {
@@ -330,6 +327,7 @@ public class CalculatorLab {
                 null, // having
                 CalculatorTable.Cols.COUNTER_DATE + " ASC"   // orderBy
         );
+        cursor.close();
         return new CalculatorCursorWrapper(cursor);
     }
 
@@ -363,7 +361,7 @@ public class CalculatorLab {
         return values;
     }
 
-    public ReminderCounter getReminderCount(String date) {
+    private ReminderCounter getReminderCount(String date) {
         CalculatorCursorWrapper cursor = queryReminderCount(
                 CalculatorTable.Cols.COUNTER_DATE + " = ?",
                 new String[]{date.toString()}
@@ -426,6 +424,7 @@ public class CalculatorLab {
             int counter = cursor.getInt(3);
             buffer.append("\n" + newDate + "\n" + counter + "\n");
         }
+        cursor.close();
         Log.d(LAB_LOG, "----" + "ListCounter" + "----" + buffer.toString());
         return buffer.toString();}
 }

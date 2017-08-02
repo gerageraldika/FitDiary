@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.EntryXComparator;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,9 +35,9 @@ import java.util.List;
 
 public class WeightGraphicFragment extends Fragment {
 
-    private String GRAPHIC_LOG = "GraphicLog";
-    LineChart chart;
-    List<Weight> weights = new ArrayList<>();
+    private LineChart chart;
+    private List<Weight> weights = new ArrayList<>();
+    private static final String GRAPHIC_LOG = "GraphicLog";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +62,12 @@ public class WeightGraphicFragment extends Fragment {
 
         ArrayList<Entry> yVals = setYAxisValues();
         LineDataSet set1 = new LineDataSet(yVals, " ");
-        set1.setFillColor(Color.rgb(97,97,97));
+        set1.setFillColor(Color.rgb(97, 97, 97));
         set1.setFillAlpha(140);
-        set1.setCircleColor(Color.rgb(105,158,58));
+        set1.setCircleColor(Color.rgb(105, 158, 58));
         set1.setColor(Color.GRAY);
-        set1.setValueTextColor(Color.rgb(105,158,58));
-        set1.setColors(new int[]{Color.rgb(69,139,116), Color.rgb(47,79,79)});
+        set1.setValueTextColor(Color.rgb(105, 158, 58));
+        set1.setColors(new int[]{Color.rgb(69, 139, 116), Color.rgb(47, 79, 79)});
         set1.setLineWidth(1f);
         set1.setCircleRadius(5f);
         set1.setDrawCircleHole(false);
@@ -108,9 +111,9 @@ public class WeightGraphicFragment extends Fragment {
         View view = inflater.inflate(R.layout.graph_layout_weight, container, false);
         Log.d(GRAPHIC_LOG, "----Start GraphView---");
 
-        CalculatorLab calculatorLab = CalculatorLab.get(getActivity());
+        CalculatorLab calculatorLab = CalculatorLab.get();
 
-          if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty()&& calculatorLab.getWeights().size() > 0 ) {
+        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && calculatorLab.getWeights().size() > 0) {
 
             weights = calculatorLab.getWeights();
 
@@ -124,9 +127,7 @@ public class WeightGraphicFragment extends Fragment {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
-
         return view;
-
     }
 }
 

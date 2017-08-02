@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,14 +24,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.activity.OpenPhotoForViewActivity;
+import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
-import com.google.android.gms.ads.InterstitialAd;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
@@ -43,7 +44,6 @@ import java.util.UUID;
 
 public class CalculatorFragment extends Fragment implements OnBackListener {
 
-    private static String LOG_TAG = "CalculatorFragment";
     private Button viewDate;
     private EditText viewWeight;
     private EditText viewCalories;
@@ -51,38 +51,45 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
     private ImageView viewPhoto;
     private Weight mWeight;
     private UUID weightId;
+    private CalculatorLab sCalcLab;
+
+    private static String LOG_TAG = "CalculatorFragment";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0; //константа для кода запроса
     private static final String ARG_WEIGHT_ID = "weight_id";
     private boolean isEnabledPhoto = true;
+
 
     public static CalculatorFragment newInstance(UUID weightId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_WEIGHT_ID, weightId);
         CalculatorFragment fragment = new CalculatorFragment();
         fragment.setArguments(args);
-        return fragment;}
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weightId = (UUID) getArguments().getSerializable(ARG_WEIGHT_ID);
-         mWeight = CalculatorLab.get(getActivity()).getWeight(weightId);}
+        sCalcLab = CalculatorLab.get();
+        mWeight = sCalcLab.getWeight(weightId);
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.calculator_fragment, parent, false);
 
         weightId = (UUID) getArguments().getSerializable(ARG_WEIGHT_ID);
-        mWeight = CalculatorLab.get(getActivity()).getWeight(weightId);
+        mWeight = sCalcLab.getWeight(weightId);
 
-        int type = InputType.TYPE_CLASS_NUMBER |  InputType.TYPE_NUMBER_FLAG_DECIMAL;
+        int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
         int maxLength = 6;
         InputFilter[] FilterArray = new InputFilter[1];
         FilterArray[0] = new InputFilter.LengthFilter(maxLength);
 
 
-        viewDate = (Button)v.findViewById(R.id.view_date);
+        viewDate = (Button) v.findViewById(R.id.view_date);
         viewDate.setText(DateFormat.format("dd MM yyyy", mWeight.getDate()));
         viewDate.setEnabled(false);
         viewDate.setOnClickListener(new View.OnClickListener() {
@@ -96,29 +103,28 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             }
         });
 
-        viewWeight = (EditText)v.findViewById(R.id.view_weight);
+        viewWeight = (EditText) v.findViewById(R.id.view_weight);
         viewWeight.setInputType(type);
         viewWeight.setFilters(FilterArray);
         viewWeight.setText(mWeight.getsWeight());
         viewWeight.setEnabled(false);
 
-        viewCalories = (EditText)v.findViewById(R.id.view_calories);
+        viewCalories = (EditText) v.findViewById(R.id.view_calories);
         viewCalories.setInputType(type);
         viewCalories.setFilters(FilterArray);
         viewCalories.setText(mWeight.getCalories());
         viewCalories.setEnabled(false);
 
-        viewNotes = (EditText)v.findViewById(R.id.view_notes);
+        viewNotes = (EditText) v.findViewById(R.id.view_notes);
         viewNotes.setText(mWeight.getNotes());
         viewNotes.setEnabled(false);
 
 
-        viewPhoto = (ImageView)v.findViewById(R.id.view_photo);
+        viewPhoto = (ImageView) v.findViewById(R.id.view_photo);
         viewPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_perm_identity_white_24dp));
         viewPhoto.setScaleType(ImageView.ScaleType.CENTER);
-       // showPhotoInHolder(mWeight);
+        // showPhotoInHolder(mWeight);
         showAsynkPhoto(mWeight);
-
 
 
         viewPhoto.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +132,12 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             public void onClick(View v) {
                 Log.d(LOG_TAG, "----" + "mWeight intent" + mWeight.getPhotoUri());
 
-                if (isEnabledPhoto == false) {
+                if (!isEnabledPhoto) {
                     Intent intent = new Intent(getActivity(), OpenPhotoForViewActivity.class);
                     intent.putExtra("weight_uri", mWeight.getPhotoUri());
                     startActivity(intent);
-                }}
+                }
+            }
 
         });
 
@@ -139,10 +146,12 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mWeight.setWeight(s.toString());
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -153,10 +162,12 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mWeight.setNotes(s.toString());
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -166,10 +177,12 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mWeight.setCalories(s.toString());
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -180,9 +193,10 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
         buttonForRewrite.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_create_white_24dp));
         buttonForRewrite.setOnClickListener(new View.OnClickListener() {
             boolean isEnabledText = true;
+
             @Override
             public void onClick(View view) {
-                if (isEnabledText == false ) { //enabled for update
+                if (!isEnabledText) { //enabled for update
                     viewWeight.setEnabled(false);
                     viewNotes.setEnabled(false);
                     viewDate.setEnabled(false);
@@ -193,10 +207,10 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
                                 , Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                    } else if (Double.parseDouble(mWeight.getsWeight().toString()) <= 300) {
-                        CalculatorLab.get(getActivity()).updateWeight(mWeight);
+                    } else if (Double.parseDouble(String.valueOf(mWeight.getsWeight())) <= 300) {
+                        sCalcLab.updateWeight(mWeight);
 
-                    } else if (Double.parseDouble(mWeight.getsWeight().toString()) > 300) {
+                    } else if (Double.parseDouble(String.valueOf(mWeight.getsWeight())) > 300) {
                         Toast toast = Toast.makeText(getActivity(),
                                 getString(R.string.insert_correct_weight), Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -216,22 +230,19 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
                 }
             }
         });
-
-
-
         return v;
     }
+
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getActivity(), PagerMainActivity.class);
-            startActivity(i);}
+        startActivity(i);
+    }
 
-    public void showAsynkPhoto (Weight weight){
-
+    public void showAsynkPhoto(Weight weight) {
         if (mWeight.getPhotoUri() != null) {
             try {
                 new PhotoHolderTask(viewPhoto, mWeight).execute();
-
             } catch (Exception ex) {
                 viewPhoto.setImageResource(R.drawable.ic_perm_identity_white_24dp);
             }
@@ -261,17 +272,16 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
         }
     }
 
-        public void updateDate() {
-            viewDate.setText(DateFormat.format("dd MM yyyy", mWeight.getDate()));
-        }
+    public void updateDate() {
+        viewDate.setText(DateFormat.format("dd MM yyyy", mWeight.getDate()));
+    }
 
 
-
-    public class PhotoHolderTask extends AsyncTask<Void, Void, Bitmap> {
+    private class PhotoHolderTask extends AsyncTask<Void, Void, Bitmap> {
         ImageView mPhotoView;
         Weight mWeight;
 
-        public PhotoHolderTask(ImageView mPhotoView, Weight mWeight) {
+        private PhotoHolderTask(ImageView mPhotoView, Weight mWeight) {
             this.mPhotoView = mPhotoView;
             this.mWeight = mWeight;
         }
@@ -286,6 +296,7 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             }
             return bitmap;
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (bitmap == null) {
@@ -297,8 +308,7 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
             }
         }
     }
-
-    }
+}
 
 
 

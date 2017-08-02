@@ -7,9 +7,9 @@ package com.carpediemsolution.fitdiary.model;
 
 public class Person {
 
-    String personName;
-    String personHeight;
-    String personWeight;
+    private String personName;
+    private String personHeight;
+    private String personWeight;
 
     private static Person person;
 

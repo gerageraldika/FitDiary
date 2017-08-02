@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.fragment;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,12 +25,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.uiutils.WeightMessageDialog;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.google.android.gms.ads.AdListener;
@@ -47,15 +48,17 @@ import java.util.UUID;
  */
 
 public class CalculatorNewFragment extends Fragment {
-    private static String LOG_TAG = "CalculatorNewFragment";
+
     private TextView weightDate;
     private AutoCompleteTextView weighNow;
     private EditText notesNow;
     private EditText caloriesNow;
     private ImageView mPhotoView;
-    FloatingActionButton weightPhoto;
+    private FloatingActionButton weightPhoto;
     private InterstitialAd interstitial;
-    Weight mWeight;
+    private Weight mWeight;
+    private CalculatorLab sCalcLab;
+    private static String LOG_TAG = "CalculatorNewFragment";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0; //константа для кода запроса
     private static final String DIALOG_WEIGHT_MESSAGE = "DialogMessage";
@@ -70,12 +73,13 @@ public class CalculatorNewFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        CalculatorLab.get(getActivity())
-                .updateWeight(mWeight);}
+        sCalcLab.updateWeight(mWeight);}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_new_calculator, parent, false);
+
+        sCalcLab = CalculatorLab.get();
 
         int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
         int maxLength = 6;
@@ -145,17 +149,17 @@ public class CalculatorNewFragment extends Fragment {
                     Toast toast = Toast.makeText(getActivity(), getString(R.string.insert_weight), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                } else if (Double.parseDouble(mWeight.getsWeight().toString()) <= 300) {
-                    CalculatorLab.get(getActivity()).addWeight(mWeight);
+                } else if (Double.parseDouble(String.valueOf(mWeight.getsWeight())) <= 300) {
+                    sCalcLab.addWeight(mWeight);
                     Log.d(LOG_TAG, "---addweight" + mWeight.getPhotoUri());
-                    CalculatorLab.get(getActivity()).updateWeight(mWeight);
+                    sCalcLab.updateWeight(mWeight);
 
                     FragmentManager fm = getActivity().getSupportFragmentManager();
                     WeightMessageDialog dialogFragment = WeightMessageDialog
                             .newInstance(mWeight.getsWeight());
                     dialogFragment.show(fm, DIALOG_WEIGHT_MESSAGE);
 
-                } else if (Double.parseDouble(mWeight.getsWeight().toString()) > 300) {
+                } else if (Double.parseDouble(String.valueOf(mWeight.getsWeight())) > 300) {
                     Toast toast = Toast.makeText(getActivity(), getString(R.string.insert_correct_weight), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();}

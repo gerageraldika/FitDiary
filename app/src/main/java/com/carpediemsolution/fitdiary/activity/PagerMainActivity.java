@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,10 +20,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.uiutils.StartAppDialog;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.adapter.LockableViewPager;
@@ -33,18 +37,16 @@ import com.carpediemsolution.fitdiary.utils.PictureUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Created by Юлия on 04.03.2017.
  */
 public class PagerMainActivity extends AppCompatActivity {
 
-    private static final String START_APP_DIALOG = "StartUpDialog";
-    private TabLayout mTableLayout;
-    private LockableViewPager mViewPager;
     private ImageView imageView;
-    private static final int REQUEST_PHOTO = 5;
-
     private Toolbar mToolbar;
+    private static final int REQUEST_PHOTO = 5;
+    private static final String START_APP_DIALOG = "StartUpDialog";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,8 @@ public class PagerMainActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.background_imageview);
         new PhotoLoadingTask(imageView).execute();
 
-        mTableLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mViewPager = (LockableViewPager) findViewById(R.id.view_pager);
+        TabLayout mTableLayout = (TabLayout) findViewById(R.id.tab_layout);
+        LockableViewPager mViewPager = (LockableViewPager) findViewById(R.id.view_pager);
         mViewPager.setSwipeable(false);
 
         mViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
@@ -82,23 +84,24 @@ public class PagerMainActivity extends AppCompatActivity {
         if (id == R.id.action_new_remind) {
             Intent remindIntent = new Intent(PagerMainActivity.this, ReminderActivity.class);
             startActivity(remindIntent);
-            return true;}
+            return true;
+        }
 
-       if (id == R.id.action_show_graph) {
+        if (id == R.id.action_show_graph) {
             Intent graphIntent = new Intent(PagerMainActivity.this, GraphicActivity.class);
             startActivity(graphIntent);
 
-           return true;}
+            return true;
+        }
 
         if (id == R.id.action_new_weight) {
             if (CalculatorDbSchema.CalculatorTable.NAME_PERSON == null ||
-                    CalculatorLab.get(PagerMainActivity.this).returnPerson() == false ||
+                    CalculatorLab.get().returnPerson() == false ||
                     CalculatorDbSchema.CalculatorTable.NAME_PERSON.isEmpty()) {
                 FragmentManager fm = getSupportFragmentManager();
                 StartAppDialog dialogFragment = new StartAppDialog();
                 dialogFragment.show(fm, START_APP_DIALOG);
-            }
-            else {
+            } else {
                 Intent intent = new Intent(PagerMainActivity.this, CalculatorNewActivity.class);
                 startActivity(intent);
             }
@@ -116,7 +119,7 @@ public class PagerMainActivity extends AppCompatActivity {
             Bitmap bitmap = null;
             if (imagePath != null) {
                 if (!imagePath.equals("")) {
-                    prefs.edit().remove("Image").commit();
+                    prefs.edit().remove("Image").apply();
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.rectangle_imageview));
                     imageView.setBackgroundColor(getResources().getColor(R.color.colorDeepBlue));
                 } else {
@@ -124,7 +127,8 @@ public class PagerMainActivity extends AppCompatActivity {
                         checkPermissions();
                     }
                     Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, REQUEST_PHOTO);}
+                    startActivityForResult(i, REQUEST_PHOTO);
+                }
             }
             return true;
         }
@@ -141,6 +145,8 @@ public class PagerMainActivity extends AppCompatActivity {
 
                 Cursor cursor = PagerMainActivity.this.getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
+
+
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -148,7 +154,7 @@ public class PagerMainActivity extends AppCompatActivity {
                 cursor.close();
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PagerMainActivity.this);
-                prefs.edit().putString("Image", imgDecodableString).commit();
+                prefs.edit().putString("Image", imgDecodableString).apply();
 
                 imageView.setImageBitmap(BitmapFactory
                         .decodeFile(imgDecodableString));
@@ -214,7 +220,8 @@ public class PagerMainActivity extends AppCompatActivity {
         ImageView mPhotoView;
 
         public PhotoLoadingTask(ImageView mPhotoView) {
-            this.mPhotoView = mPhotoView;}
+            this.mPhotoView = mPhotoView;
+        }
 
         @Override
         protected Bitmap doInBackground(Void... param) {
@@ -231,6 +238,7 @@ public class PagerMainActivity extends AppCompatActivity {
             }
             return bitmap;
         }
+
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (bitmap == null) {

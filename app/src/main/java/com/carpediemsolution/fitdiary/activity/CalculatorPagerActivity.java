@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary;
+package com.carpediemsolution.fitdiary.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.fragment.CalculatorFragment;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
@@ -22,10 +24,7 @@ import java.util.UUID;
 
 public class CalculatorPagerActivity extends AppCompatActivity implements OnBackListener {
 
-    private ViewPager mViewPager;
     private List<Weight> mWeights;
-    UUID weightId;
-
     private static final String EXTRA_WEIGHT_ID = "com.carpediemsolution.fitdiary.weight_id";
 
     public static Intent newIntent(Context packageContext, UUID weightId) {
@@ -39,16 +38,19 @@ public class CalculatorPagerActivity extends AppCompatActivity implements OnBack
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc_pager);
 
-        weightId = (UUID) getIntent().getSerializableExtra(EXTRA_WEIGHT_ID);
-        mViewPager = (ViewPager) findViewById(R.id.activity_calc_pager_view_pager);
-        mWeights = CalculatorLab.get(this).getWeights();
+        UUID weightId = (UUID) getIntent().getSerializableExtra(EXTRA_WEIGHT_ID);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.activity_calc_pager_view_pager);
+        mWeights = CalculatorLab.get().getWeights();
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
 
             @Override
             public Fragment getItem(int position) {
                 Weight mWeight = mWeights.get(position);
-                return CalculatorFragment.newInstance(mWeight.getId());}
+                return CalculatorFragment.newInstance(mWeight.getId());
+            }
+
             @Override
             public int getCount() {
                 return mWeights.size();
@@ -57,22 +59,28 @@ public class CalculatorPagerActivity extends AppCompatActivity implements OnBack
 
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
             @Override
             public void onPageSelected(int position) {
                 Weight weight = mWeights.get(position);
                 if (weight.getsWeight() != null) {
-                    setTitle(weight.getsWeight());}
+                    setTitle(weight.getsWeight());
+                }
             }
+
             @Override
-            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrollStateChanged(int state) {
+            }
         });
 
 
         for (int i = 0; i < mWeights.size(); i++) {
             if (mWeights.get(i).getId().equals(weightId)) {
                 mViewPager.setCurrentItem(i);
-                break;}
+                break;
+            }
         }
     }
 
@@ -83,12 +91,14 @@ public class CalculatorPagerActivity extends AppCompatActivity implements OnBack
         for (Fragment fragment : fm.getFragments()) {
             if (fragment instanceof OnBackListener) {
                 backPressedListener = (OnBackListener) fragment;
-                break;}
+                break;
+            }
         }
         if (backPressedListener != null) {
             backPressedListener.onBackPressed();
         } else {
-            super.onBackPressed();}
+            super.onBackPressed();
+        }
     }
 }
 
