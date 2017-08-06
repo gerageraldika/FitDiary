@@ -118,7 +118,6 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
 
         private static final int EMPTY_VIEW = 5;
         private Reminder reminder;
-        // CalculatorLab calculatorLabLab = CalculatorLab.get(getActivity());
         List<Reminder> reminds = sCalcLab.getReminds();
         private TextView dateRemindTextView;
         private TextView notesRemindTextView;

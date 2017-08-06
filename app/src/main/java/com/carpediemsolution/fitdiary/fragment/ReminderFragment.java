@@ -68,7 +68,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        newDateList = new ArrayList();
+        newDateList = new ArrayList<>();
         date = new Date();
 
         View view = inflater.inflate(R.layout.reminder_fragment, container, false);

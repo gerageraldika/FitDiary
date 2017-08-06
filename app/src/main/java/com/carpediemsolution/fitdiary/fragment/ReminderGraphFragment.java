@@ -34,7 +34,7 @@ import java.util.List;
 
 public class ReminderGraphFragment extends Fragment implements OnBackListener {
 
-    private static final String GRAPHIC_LOG = "GraphicLog";
+    private static final String GRAPHIC_LOG = "ReminderGraphFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

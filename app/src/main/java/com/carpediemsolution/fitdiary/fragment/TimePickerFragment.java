@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import java.util.GregorianCalendar;
 
 public class TimePickerFragment extends DialogFragment {
     private TimePicker timePicker;
-    Calendar calendar;
+    private Calendar calendar;
 
     private static final String ARG_TIME = "time";
     public static final String EXTRA_TIME = "com.carpediemsolution.fitdiary.time";
@@ -38,7 +39,7 @@ public class TimePickerFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
        Date date = (Date)getArguments().getSerializable(ARG_TIME);
 
         View v = LayoutInflater.from(getActivity())

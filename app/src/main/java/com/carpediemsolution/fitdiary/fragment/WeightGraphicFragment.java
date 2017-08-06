@@ -46,7 +46,7 @@ public class WeightGraphicFragment extends Fragment {
 
     private ArrayList<Entry> setYAxisValues() {
 
-        ArrayList<Entry> entries = new ArrayList<Entry>();
+        ArrayList<Entry> entries = new ArrayList<>();
 
         for (int i = 0; i < weights.size(); i++) {
             float dateForGraph = weights.get(i).getDate().getTime();
