@@ -28,7 +28,7 @@ import com.carpediemsolution.fitdiary.activity.OpenPhotoForViewActivity;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
 

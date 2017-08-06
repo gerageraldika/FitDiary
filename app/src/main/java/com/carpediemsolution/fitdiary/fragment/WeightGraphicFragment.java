@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;

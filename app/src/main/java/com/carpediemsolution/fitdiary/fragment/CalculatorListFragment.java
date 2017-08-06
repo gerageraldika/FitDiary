@@ -14,22 +14,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
-import com.carpediemsolution.fitdiary.activity.ReminderActivity;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
 

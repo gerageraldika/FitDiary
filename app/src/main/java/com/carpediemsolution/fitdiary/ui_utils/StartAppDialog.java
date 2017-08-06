@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.UIutils;
+package com.carpediemsolution.fitdiary.ui_utils;
 
 
 import android.annotation.TargetApi;
@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Person;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
 
 /**

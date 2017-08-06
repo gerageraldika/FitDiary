@@ -19,7 +19,7 @@ import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Reminder;
 import com.carpediemsolution.fitdiary.model.ReminderCounter;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.UIutils;
+package com.carpediemsolution.fitdiary.ui_utils;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,7 +13,7 @@ import android.support.v7.app.AlertDialog;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.model.Person;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
 
 /**

@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.utils;
+package com.carpediemsolution.fitdiary.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;

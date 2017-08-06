@@ -26,9 +26,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.UIutils.StartAppDialog;
+import com.carpediemsolution.fitdiary.ui_utils.StartAppDialog;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;

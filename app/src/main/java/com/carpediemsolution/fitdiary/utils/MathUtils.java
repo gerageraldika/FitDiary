@@ -2,6 +2,7 @@ package com.carpediemsolution.fitdiary.utils;
 
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
 

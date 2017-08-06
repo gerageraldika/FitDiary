@@ -19,7 +19,7 @@ import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.ReminderCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesStaticticTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightAverageTask;
