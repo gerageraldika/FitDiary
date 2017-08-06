@@ -24,7 +24,7 @@ import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesStaticticTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightAverageTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightResultTask;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightStaticticTask;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightStatisticTask;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
             Person person = sCalcLab.getPerson();
 
             new WeightAverageTask(tabLayoutForWeights, weights, getActivity()).execute();
-            new WeightStaticticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
+            new WeightStatisticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
             new WeightResultTask(tableLayoutForWeightResults, weights, person, getActivity()).execute();
             new CaloriesStaticticTask(tableLayoutAverageCalories, weights, getActivity()).execute();
         } else {

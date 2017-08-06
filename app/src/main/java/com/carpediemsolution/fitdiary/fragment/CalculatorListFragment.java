@@ -212,7 +212,7 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
             ImageView mPhotoView;
             Weight mWeight;
 
-            public PhotoItemsTask(ImageView mPhotoView, Weight mWeight) {
+            private PhotoItemsTask(ImageView mPhotoView, Weight mWeight) {
                 this.mPhotoView = mPhotoView;
                 this.mWeight = mWeight;}
 
@@ -228,13 +228,11 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
 
                 } catch (NullPointerException e) {
                     bitmap = null;}
-               // Log.d( "777 ", "" + Thread.currentThread());
                 return bitmap;
             }
 
             @Override
             protected void onPostExecute(Bitmap bitmap) {
-              //  Log.d( "7778 ", "" + Thread.currentThread());
                 if (bitmap != null) {
                     bitmap = PictureUtils.cropToSquare(bitmap);
                     RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.
@@ -247,7 +245,6 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
                     mPhotoView.setImageResource(R.drawable.ic_perm_identity_white_24dp);
                 }
             }
-
         }
     }
 }

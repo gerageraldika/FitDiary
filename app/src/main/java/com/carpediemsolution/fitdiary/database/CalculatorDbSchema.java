@@ -37,8 +37,6 @@ public class CalculatorDbSchema {
             public static final String COUNTER_UUID = "counter_uuid";
             public static final String COUNTER_DATE = "counter_date";
             public static final String COUNTER_FLAG = "counter_flag";
-
-
         }
     }
 }

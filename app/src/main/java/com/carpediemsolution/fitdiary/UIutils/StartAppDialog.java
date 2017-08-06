@@ -47,7 +47,8 @@ public class StartAppDialog extends DialogFragment {
 
         Log.d(MY_LOG, "----Person" + v);
 
-        int type = InputType.TYPE_NUMBER_FLAG_DECIMAL |InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER ;
+        int type = InputType.TYPE_NUMBER_FLAG_DECIMAL |
+                InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER ;
         int maxLength = 6;
         InputFilter[] FilterArray = new InputFilter[1];
         FilterArray[0] = new InputFilter.LengthFilter(maxLength);
@@ -122,10 +123,10 @@ public class StartAppDialog extends DialogFragment {
 
                             if((person.getPersonName() != null) && (person.getPersonHeight() !=null)
                                     &&(person.getPersonWeight() != null) &&
-                                    (Double.parseDouble(person.getPersonHeight().toString()) > 0)&&
-                                    (Double.parseDouble(person.getPersonHeight().toString()) <= 250)&&
-                                    (Double.parseDouble(person.getPersonWeight().toString()) > 0)&&
-                                    (Double.parseDouble(person.getPersonWeight().toString()) <= 300 )) {
+                                    (Double.parseDouble(String.valueOf(person.getPersonHeight())) > 0)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonHeight())) <= 250)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonWeight())) > 0)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonWeight())) <= 300 )) {
                                 sCalcLab.addPerson(person);
 
                                 Log.d(MY_LOG, "----addPerson" + person.getPersonName() +
@@ -155,10 +156,10 @@ public class StartAppDialog extends DialogFragment {
 
                             if((person.getPersonName() != null) && (person.getPersonHeight() !=null)
                                     &&(person.getPersonWeight() != null) &&
-                                    (Double.parseDouble(person.getPersonHeight().toString()) > 0)&&
-                                    (Double.parseDouble(person.getPersonHeight().toString()) <= 250)&&
-                                    (Double.parseDouble(person.getPersonWeight().toString()) > 0)&&
-                                    (Double.parseDouble(person.getPersonWeight().toString()) <= 300 )) {
+                                    (Double.parseDouble(String.valueOf(person.getPersonHeight())) > 0)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonHeight())) <= 250)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonWeight())) > 0)&&
+                                    (Double.parseDouble(String.valueOf(person.getPersonWeight())) <= 300 )) {
                                 sCalcLab.updatePerson(person);
                                 Log.d(MY_LOG, "----upDatePerson" + person.getPersonName() +
                                         "---" +person.getPersonHeight());

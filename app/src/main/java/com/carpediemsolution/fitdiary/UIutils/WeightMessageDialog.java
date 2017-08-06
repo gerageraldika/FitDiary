@@ -20,7 +20,7 @@ import com.carpediemsolution.fitdiary.utils.MathUtils;
  * Created by Юлия on 22.02.2017.
  */
 public class WeightMessageDialog extends DialogFragment {
-    private static final String LOG = "Log";
+    private static final String LOG_TAG = "Log";
 
     Person mPerson;
 

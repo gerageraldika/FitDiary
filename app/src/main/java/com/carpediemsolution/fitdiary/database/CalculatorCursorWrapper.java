@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class CalculatorCursorWrapper extends CursorWrapper {
     //обертка для Cursor
-    private static String LOG_TAG = "My_log";
+    private static String LOG_TAG = "CalculatorCursorWrapper";
 
     public CalculatorCursorWrapper(Cursor cursor) {
         super(cursor);
@@ -63,11 +63,11 @@ public class CalculatorCursorWrapper extends CursorWrapper {
         long counterDate = getLong(getColumnIndex(CalculatorTable.Cols.COUNTER_DATE));
         int counterFlag = getInt(getColumnIndex(CalculatorTable.Cols.COUNTER_FLAG));
 
-        ReminderCounter remindercounterDB = new ReminderCounter(UUID.fromString(uuid));
-        remindercounterDB.setDate(new Date(counterDate));
-        remindercounterDB.setCounterFlag(counterFlag);
+        ReminderCounter reminderCounterDB = new ReminderCounter(UUID.fromString(uuid));
+        reminderCounterDB.setDate(new Date(counterDate));
+        reminderCounterDB.setCounterFlag(counterFlag);
 
-        return remindercounterDB;
+        return reminderCounterDB;
     }
 }
 

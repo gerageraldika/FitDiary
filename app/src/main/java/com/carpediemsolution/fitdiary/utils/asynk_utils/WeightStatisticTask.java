@@ -18,13 +18,13 @@ import java.util.List;
  * Created by Юлия on 06.08.2017.
  */
 
-public class WeightStaticticTask extends AsyncTask<Void, Void, String> {
+public class WeightStatisticTask extends AsyncTask<Void, Void, String> {
     private TableLayout tabLayout;
     private List<Weight> weights;
     private Person person;
     private Context context;
 
-    public WeightStaticticTask(TableLayout tabLayout, List<Weight> weights, Person person, Context context) {
+    public WeightStatisticTask(TableLayout tabLayout, List<Weight> weights, Person person, Context context) {
         this.tabLayout = tabLayout;
         this.weights = weights;
         this.person = person;

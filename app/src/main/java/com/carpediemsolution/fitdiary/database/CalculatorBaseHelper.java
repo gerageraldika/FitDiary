@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
 
 public class CalculatorBaseHelper extends SQLiteOpenHelper {
-    private static final String TAG = "CalculatorBaseHelper";
+    private static final String LOG_TAG = "CalculatorBaseHelper";
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "calculatorBase.db";
 
@@ -47,8 +47,7 @@ public class CalculatorBaseHelper extends SQLiteOpenHelper {
                 CalculatorTable.Cols.REM_FLAG +
                 ")"
         );
-        // дата та же мб несколько раз. Если одна и та же дата,
-        // то складывать значения счетчика - метод обновления
+
         db.execSQL("create table " + CalculatorTable.NAME_COUNTER + "(" +
                 " _counter_id integer primary key autoincrement, " +
                 CalculatorTable.Cols.COUNTER_UUID + ", " +
@@ -56,7 +55,6 @@ public class CalculatorBaseHelper extends SQLiteOpenHelper {
                 CalculatorTable.Cols.COUNTER_FLAG +
                 ")"
         );
-
     }
 
     @Override

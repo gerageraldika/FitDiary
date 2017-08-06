@@ -209,16 +209,16 @@ public class PagerMainActivity extends AppCompatActivity {
         if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //
             }
-            return;
         }
     }
 
 
-    public class PhotoLoadingTask extends AsyncTask<Void, Void, Bitmap> {
+    private class PhotoLoadingTask extends AsyncTask<Void, Void, Bitmap> {
         ImageView mPhotoView;
 
-        public PhotoLoadingTask(ImageView mPhotoView) {
+        private PhotoLoadingTask(ImageView mPhotoView) {
             this.mPhotoView = mPhotoView;
         }
 
@@ -241,7 +241,7 @@ public class PagerMainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (bitmap == null) {
-
+             //
             } else {
                 mPhotoView.setImageBitmap(bitmap);
             }
