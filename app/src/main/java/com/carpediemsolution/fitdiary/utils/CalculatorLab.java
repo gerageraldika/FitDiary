@@ -327,7 +327,7 @@ public class CalculatorLab {
                 null, // having
                 CalculatorTable.Cols.COUNTER_DATE + " ASC"   // orderBy
         );
-        cursor.close();
+
         return new CalculatorCursorWrapper(cursor);
     }
 

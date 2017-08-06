@@ -50,7 +50,7 @@ public class MathUtils {
     }
 
 
-    public static int daysBetween(Date d1, Date d2) {
+    private static int daysBetween(Date d1, Date d2) {
         return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
@@ -71,7 +71,7 @@ public class MathUtils {
         } else return App.getAppContext().getResources().getString(R.string.good_night);
     }
 
-    public static String getWeightProgress(List<Weight> weights) {
+    public String getWeightProgress(List<Weight> weights) {
         int days = daysBetween(weights.get(weights.size() - 1).getDate(), weights.get(0).getDate());
 
         if (weights.size() > 0 && days != 0) {

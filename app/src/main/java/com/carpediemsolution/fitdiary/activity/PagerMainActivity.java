@@ -20,14 +20,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.uiutils.StartAppDialog;
+import com.carpediemsolution.fitdiary.UIutils.StartAppDialog;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.adapter.LockableViewPager;

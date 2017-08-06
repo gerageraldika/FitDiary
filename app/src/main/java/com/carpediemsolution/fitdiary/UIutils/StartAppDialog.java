@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.uiutils;
+package com.carpediemsolution.fitdiary.UIutils;
 
 
 import android.annotation.TargetApi;

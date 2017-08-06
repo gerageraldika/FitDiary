@@ -19,9 +19,12 @@ import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.ReminderCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.AsynkUtils;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesStaticticTask;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightAverageTask;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightResultTask;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightStaticticTask;
 
 import java.util.List;
 
@@ -32,10 +35,6 @@ import java.util.List;
 public class ReminderGraphFragment extends Fragment implements OnBackListener {
 
     private static final String GRAPHIC_LOG = "GraphicLog";
-
-    public ReminderGraphFragment() {
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,10 +61,11 @@ public class ReminderGraphFragment extends Fragment implements OnBackListener {
         if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
             List<Weight> weights = sCalcLab.getWeights();
             Person person = sCalcLab.getPerson();
-            new AsynkUtils.WeightAverageTask(tabLayoutForWeights, weights, getActivity()).execute();
-            new AsynkUtils.WeightStaticticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
-            new AsynkUtils.WeightResultTask(tableLayoutForWeightResults, weights, person, getActivity()).execute();
-            new AsynkUtils.CaloriesStaticticTask(tableLayoutAverageCalories, weights, getActivity()).execute();
+
+            new WeightAverageTask(tabLayoutForWeights, weights, getActivity()).execute();
+            new WeightStaticticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
+            new WeightResultTask(tableLayoutForWeightResults, weights, person, getActivity()).execute();
+            new CaloriesStaticticTask(tableLayoutAverageCalories, weights, getActivity()).execute();
         } else {
             Toast toast = Toast.makeText(getActivity(),
                     R.string.string_weight_graph, Toast.LENGTH_SHORT);

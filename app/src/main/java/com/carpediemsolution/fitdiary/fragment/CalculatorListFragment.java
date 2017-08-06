@@ -14,14 +14,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity;
 import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
+import com.carpediemsolution.fitdiary.activity.ReminderActivity;
 import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
@@ -224,11 +228,13 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
 
                 } catch (NullPointerException e) {
                     bitmap = null;}
+               // Log.d( "777 ", "" + Thread.currentThread());
                 return bitmap;
             }
 
             @Override
             protected void onPostExecute(Bitmap bitmap) {
+              //  Log.d( "7778 ", "" + Thread.currentThread());
                 if (bitmap != null) {
                     bitmap = PictureUtils.cropToSquare(bitmap);
                     RoundedBitmapDrawable roundDrawable = RoundedBitmapDrawableFactory.

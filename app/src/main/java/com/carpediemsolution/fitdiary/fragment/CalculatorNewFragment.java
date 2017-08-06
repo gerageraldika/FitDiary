@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.uiutils.WeightMessageDialog;
+import com.carpediemsolution.fitdiary.UIutils.WeightMessageDialog;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.CalculatorLab;
 import com.google.android.gms.ads.AdListener;
