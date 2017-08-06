@@ -4,14 +4,14 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
+import com.carpediemsolution.fitdiary.database.DbSchema.CalculatorTable;
 
-public class CalculatorBaseHelper extends SQLiteOpenHelper {
-    private static final String LOG_TAG = "CalculatorBaseHelper";
+public class DBBaseHelper extends SQLiteOpenHelper {
+    private static final String LOG_TAG = "DBBaseHelper";
     private static final int VERSION = 1;
     private static final String DATABASE_NAME = "calculatorBase.db";
 
-    public CalculatorBaseHelper(Context context) {
+    public DBBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 

@@ -6,12 +6,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.carpediemsolution.fitdiary.App;
-import com.carpediemsolution.fitdiary.database.CalculatorBaseHelper;
-import com.carpediemsolution.fitdiary.database.CalculatorCursorWrapper;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
+import com.carpediemsolution.fitdiary.database.FitWrapper;
+import com.carpediemsolution.fitdiary.database.DBBaseHelper;
+import com.carpediemsolution.fitdiary.database.DbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Reminder;
-import com.carpediemsolution.fitdiary.model.ReminderCounter;
+import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
 
 import java.util.ArrayList;
@@ -27,19 +27,19 @@ import java.util.UUID;
  * Created by Юлия on 09.02.2017.
  */
 
-public class CalculatorLab {
-    private static CalculatorLab calcLab;
+public class FitLab {
+    private static FitLab calcLab;
 
     public SQLiteDatabase mDatabase;
     private static String LAB_LOG = "LabLog";
 
-    public static CalculatorLab get() {
+    public static FitLab get() {
         if (calcLab == null) {
-            calcLab = new CalculatorLab();}
+            calcLab = new FitLab();}
         return calcLab;}
 
-    private CalculatorLab() {
-        mDatabase = new CalculatorBaseHelper(App.getAppContext())
+    private FitLab() {
+        mDatabase = new DBBaseHelper(App.getAppContext())
                 .getWritableDatabase();}
 
     public void addWeight(Weight c) {
@@ -49,7 +49,7 @@ public class CalculatorLab {
 
     public List<Weight> getWeights() {
         List<Weight> weights = new ArrayList<>();
-        CalculatorCursorWrapper cursor = queryCalculator(null, null);
+        FitWrapper cursor = queryCalculator(null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             weights.add(cursor.getWeight());
@@ -70,7 +70,7 @@ public class CalculatorLab {
     }
 
     public Weight getWeight(UUID id) {
-        CalculatorCursorWrapper cursor = queryCalculator(
+        FitWrapper cursor = queryCalculator(
                 CalculatorTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
         );
@@ -94,7 +94,7 @@ public class CalculatorLab {
         values.put(CalculatorTable.Cols.PHOTOFILE, weight.getPhotoUri());
         return values;}
 
-    private CalculatorCursorWrapper queryCalculator(String whereClause, String[] whereArgs) {
+    private FitWrapper queryCalculator(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 CalculatorTable.NAME,
                 null, // Columns - null selects all columns
@@ -104,7 +104,7 @@ public class CalculatorLab {
                 null, // having
                 null  // orderBy
         );
-        return new CalculatorCursorWrapper(cursor);}
+        return new FitWrapper(cursor);}
 
     public void updateWeight(Weight weight) {
         String uuidString = weight.getId().toString();
@@ -258,7 +258,7 @@ public class CalculatorLab {
         }
     }
 
-    public ReminderCounter getReminderCount() {
+    public RemindsCounter getReminderCount() {
         String[] projection = {
                 CalculatorTable.Cols.COUNTER_UUID,
                 CalculatorTable.Cols.COUNTER_DATE,
@@ -282,7 +282,7 @@ public class CalculatorLab {
             long counterDate = cursor.getLong(cursor.getColumnIndex(CalculatorTable.Cols.COUNTER_DATE));
             int counterFlag = cursor.getInt(cursor.getColumnIndex(CalculatorTable.Cols.COUNTER_FLAG));
 
-            ReminderCounter remindercounterDB = new ReminderCounter(UUID.fromString(uuid));
+            RemindsCounter remindercounterDB = new RemindsCounter(UUID.fromString(uuid));
             remindercounterDB.setDate(new Date(counterDate));
             remindercounterDB.setCounterFlag(counterFlag);
             return remindercounterDB;
@@ -293,7 +293,7 @@ public class CalculatorLab {
     }
 
 
-    private CalculatorCursorWrapper queryReminder(String whereClause, String[] whereArgs) {
+    private FitWrapper queryReminder(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 CalculatorTable.NAME_REMEMBERING,
                 null, // Columns - null selects all columns
@@ -303,12 +303,12 @@ public class CalculatorLab {
                 null, // having
                 CalculatorTable.Cols.REM_DATE + " DESC"  // orderBy
         );
-        return new CalculatorCursorWrapper(cursor);}
+        return new FitWrapper(cursor);}
 
     public List<Reminder> getReminds() {
         List<Reminder> reminds = new ArrayList<>();
 
-        CalculatorCursorWrapper cursor = queryReminder(null, null);
+        FitWrapper cursor = queryReminder(null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             reminds.add(cursor.getReminder());
@@ -317,7 +317,7 @@ public class CalculatorLab {
         cursor.close();
         return reminds;}
 
-    private CalculatorCursorWrapper queryReminderCount(String whereClause, String[] whereArgs) {
+    private FitWrapper queryReminderCount(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
                 CalculatorTable.NAME_COUNTER,
                 null, // Columns - null selects all columns
@@ -328,13 +328,13 @@ public class CalculatorLab {
                 CalculatorTable.Cols.COUNTER_DATE + " ASC"   // orderBy
         );
 
-        return new CalculatorCursorWrapper(cursor);
+        return new FitWrapper(cursor);
     }
 
-    public List<ReminderCounter> getRemindCounts() {
-        List<ReminderCounter> reminderCounters = new ArrayList<>();
+    public List<RemindsCounter> getRemindCounts() {
+        List<RemindsCounter> reminderCounters = new ArrayList<>();
 
-        CalculatorCursorWrapper cursor = queryReminderCount(null, null);
+        FitWrapper cursor = queryReminderCount(null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             reminderCounters.add(cursor.getReminderCounter());
@@ -342,9 +342,9 @@ public class CalculatorLab {
         }
         cursor.close();
 
-       Collections.sort(reminderCounters, new Comparator<ReminderCounter>() {
+       Collections.sort(reminderCounters, new Comparator<RemindsCounter>() {
             @Override
-            public int compare(ReminderCounter o1, ReminderCounter o2) {
+            public int compare(RemindsCounter o1, RemindsCounter o2) {
                 return -o1.getDate().compareTo(o2.getDate());
             }
         });
@@ -352,7 +352,7 @@ public class CalculatorLab {
         return reminderCounters;
     }
 
-    private static ContentValues getCounterContentValues(ReminderCounter reminderCounter) {
+    private static ContentValues getCounterContentValues(RemindsCounter reminderCounter) {
         ContentValues values = new ContentValues();
         //values.put(CalculatorTable.Cols.ID, );
         values.put(CalculatorTable.Cols.COUNTER_UUID, reminderCounter.getUuid().toString());
@@ -361,8 +361,8 @@ public class CalculatorLab {
         return values;
     }
 
-    private ReminderCounter getReminderCount(String date) {
-        CalculatorCursorWrapper cursor = queryReminderCount(
+    private RemindsCounter getReminderCount(String date) {
+        FitWrapper cursor = queryReminderCount(
                 CalculatorTable.Cols.COUNTER_DATE + " = ?",
                 new String[]{date.toString()}
         );
@@ -377,11 +377,11 @@ public class CalculatorLab {
         }
     }
 
-    public void addCounter(ReminderCounter reminderCounter) {
+    public void addCounter(RemindsCounter reminderCounter) {
         try {
             String dateString = reminderCounter.getDate().toString();
 
-            ReminderCounter reminderCounter1 =
+            RemindsCounter reminderCounter1 =
                     getReminderCount(reminderCounter.getDate().toString());
             int count = reminderCounter1.getCounterFlag() + 1;
             reminderCounter1.setCounterFlag(count);
@@ -403,7 +403,7 @@ public class CalculatorLab {
 
     }
 
-    public void updateRemindCounter(ReminderCounter reminderCounter) {
+    public void updateRemindCounter(RemindsCounter reminderCounter) {
         String uuidString = reminderCounter.getUuid().toString();
         ContentValues values = getCounterContentValues(reminderCounter);
 

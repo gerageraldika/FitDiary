@@ -22,10 +22,10 @@ import android.widget.TextView;
 
 import com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.database.DbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
 
@@ -37,13 +37,13 @@ import java.util.List;
  * Created by Юлия on 11.02.2017.
  */
 
-public class CalculatorListFragment extends Fragment implements OnBackListener {
+public class WeightsListFragment extends Fragment implements OnBackListener {
 
     private RecyclerView mCrimeRecyclerView;
     private CalcAdapter mAdapter;
     private List<Weight> weights;
     private Weight weight;
-    private static final String LOG_TAG = "CalculatorListFragment";
+    private static final String LOG_TAG = "WeightsListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.calculator_list, container, false);
 
-        CalculatorLab sCalcLab = CalculatorLab.get();
+        FitLab sCalcLab = FitLab.get();
         weights = sCalcLab.getWeights();
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.weight_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -96,7 +96,7 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
                         mAdapter.notifyItemRemoved(position);//item removed from recylcerview
                         weight = weights.get(position);
                         String uuidString = weight.getId().toString();
-                        CalculatorLab.get().mDatabase.delete(CalculatorTable.NAME,
+                        FitLab.get().mDatabase.delete(CalculatorTable.NAME,
                                 CalculatorTable.Cols.UUID + " = '" + uuidString + "'", null);
                         weights.remove(position);  //then remove item
                     }
@@ -120,7 +120,7 @@ public class CalculatorListFragment extends Fragment implements OnBackListener {
         private static final int EMPTY_VIEW = 10;
         private Weight mWeight;
 
-        private CalculatorLab sCalcLab = CalculatorLab.get();
+        private FitLab sCalcLab = FitLab.get();
         private List<Weight> mWeights;
         private TextView mTitleTextView;
         private TextView mDateTextView;

@@ -21,8 +21,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Person;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
 
 /**
@@ -35,7 +35,7 @@ public class StartAppDialog extends DialogFragment {
     private EditText getPersonWeight;
     private Person person=Person.get();
     private static final String MY_LOG  = "StartDialogLog";
-    private CalculatorLab sCalcLab;
+    private FitLab sCalcLab;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -43,7 +43,7 @@ public class StartAppDialog extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
          .inflate(R.layout.start_app_dialog, null);
 
-        sCalcLab = CalculatorLab.get();
+        sCalcLab = FitLab.get();
 
         Log.d(MY_LOG, "----Person" + v);
 

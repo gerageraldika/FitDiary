@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.fragment.CalculatorFragment;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.fragment.WeightInfoFragment;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public class CalculatorPagerActivity extends AppCompatActivity implements OnBack
 
         UUID weightId = (UUID) getIntent().getSerializableExtra(EXTRA_WEIGHT_ID);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.activity_calc_pager_view_pager);
-        mWeights = CalculatorLab.get().getWeights();
+        mWeights = FitLab.get().getWeights();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
@@ -48,7 +48,7 @@ public class CalculatorPagerActivity extends AppCompatActivity implements OnBack
             @Override
             public Fragment getItem(int position) {
                 Weight mWeight = mWeights.get(position);
-                return CalculatorFragment.newInstance(mWeight.getId());
+                return WeightInfoFragment.newInstance(mWeight.getId());
             }
 
             @Override

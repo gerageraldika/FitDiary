@@ -27,8 +27,8 @@ import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.ui_utils.StartAppDialog;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.database.DbSchema;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
@@ -94,9 +94,9 @@ public class PagerMainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_new_weight) {
-            if (CalculatorDbSchema.CalculatorTable.NAME_PERSON == null ||
-                    CalculatorLab.get().returnPerson() == false ||
-                    CalculatorDbSchema.CalculatorTable.NAME_PERSON.isEmpty()) {
+            if (DbSchema.CalculatorTable.NAME_PERSON == null ||
+                    FitLab.get().returnPerson() == false ||
+                    DbSchema.CalculatorTable.NAME_PERSON.isEmpty()) {
                 FragmentManager fm = getSupportFragmentManager();
                 StartAppDialog dialogFragment = new StartAppDialog();
                 dialogFragment.show(fm, START_APP_DIALOG);

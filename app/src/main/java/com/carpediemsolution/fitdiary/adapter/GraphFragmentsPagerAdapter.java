@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.carpediemsolution.fitdiary.fragment.CaloriesGraphFragment;
-import com.carpediemsolution.fitdiary.fragment.ReminderGraphFragment;
-import com.carpediemsolution.fitdiary.fragment.WeightGraphicFragment;
+import com.carpediemsolution.fitdiary.charts.CaloriesChartFragment;
+import com.carpediemsolution.fitdiary.charts.RemindsChartFragment;
+import com.carpediemsolution.fitdiary.charts.WeightChartFragment;
 
 /**
  * Created by Юлия on 08.03.2017.
@@ -35,11 +35,11 @@ public class GraphFragmentsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new WeightGraphicFragment();
+                return new WeightChartFragment();
             case 1:
-                return new CaloriesGraphFragment();
+                return new CaloriesChartFragment();
             case 2:
-                return new ReminderGraphFragment();
+                return new RemindsChartFragment();
             default:
                 return null;
         }

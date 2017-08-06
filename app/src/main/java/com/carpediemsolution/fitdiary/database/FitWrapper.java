@@ -1,22 +1,21 @@
 package com.carpediemsolution.fitdiary.database;
 
 import android.database.Cursor;
-import android.database.CursorWrapper;
 import android.util.Log;
 
 import com.carpediemsolution.fitdiary.model.Reminder;
-import com.carpediemsolution.fitdiary.model.ReminderCounter;
+import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema.CalculatorTable;
+import com.carpediemsolution.fitdiary.database.DbSchema.CalculatorTable;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class CalculatorCursorWrapper extends CursorWrapper {
+public class FitWrapper extends android.database.CursorWrapper {
     //обертка для Cursor
-    private static String LOG_TAG = "CalculatorCursorWrapper";
+    private static String LOG_TAG = "FitWrapper";
 
-    public CalculatorCursorWrapper(Cursor cursor) {
+    public FitWrapper(Cursor cursor) {
         super(cursor);
     }
 
@@ -57,13 +56,13 @@ public class CalculatorCursorWrapper extends CursorWrapper {
         return reminderDB;
     }
 
-    public ReminderCounter getReminderCounter() {
+    public RemindsCounter getReminderCounter() {
 
         String uuid = getString(getColumnIndex(CalculatorTable.Cols.COUNTER_UUID));
         long counterDate = getLong(getColumnIndex(CalculatorTable.Cols.COUNTER_DATE));
         int counterFlag = getInt(getColumnIndex(CalculatorTable.Cols.COUNTER_FLAG));
 
-        ReminderCounter reminderCounterDB = new ReminderCounter(UUID.fromString(uuid));
+        RemindsCounter reminderCounterDB = new RemindsCounter(UUID.fromString(uuid));
         reminderCounterDB.setDate(new Date(counterDate));
         reminderCounterDB.setCounterFlag(counterFlag);
 

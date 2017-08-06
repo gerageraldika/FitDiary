@@ -1,6 +1,6 @@
 package com.carpediemsolution.fitdiary.database;
 
-public class CalculatorDbSchema {
+public class DbSchema {
 
     public static final class CalculatorTable {
         public static final String NAME = "weight";

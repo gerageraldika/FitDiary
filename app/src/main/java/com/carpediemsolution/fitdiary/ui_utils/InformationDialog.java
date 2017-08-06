@@ -13,23 +13,23 @@ import android.support.v7.app.AlertDialog;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.model.Person;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.utils.MathUtils;
 
 /**
  * Created by Юлия on 22.02.2017.
  */
-public class WeightMessageDialog extends DialogFragment {
+public class InformationDialog extends DialogFragment {
     private static final String LOG_TAG = "Log";
 
     Person mPerson;
 
     private static final String ARG_WEIGHT_TODAY = "weight_today";
 
-    public static WeightMessageDialog newInstance(String weightToday) {
+    public static InformationDialog newInstance(String weightToday) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_WEIGHT_TODAY, weightToday);
-        WeightMessageDialog dialogFragment = new WeightMessageDialog();
+        InformationDialog dialogFragment = new InformationDialog();
         dialogFragment.setArguments(args);
         return dialogFragment;
     }
@@ -37,7 +37,7 @@ public class WeightMessageDialog extends DialogFragment {
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         String weightToday = (String)getArguments().getSerializable(ARG_WEIGHT_TODAY);
-        CalculatorLab sCalcLab = CalculatorLab.get();
+        FitLab sCalcLab = FitLab.get();
         mPerson = sCalcLab.getPerson();
 
 

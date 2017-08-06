@@ -16,10 +16,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
+import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Reminder;
-import com.carpediemsolution.fitdiary.model.ReminderCounter;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.model.RemindsCounter;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 
 import java.util.Calendar;
@@ -30,16 +30,16 @@ import java.util.List;
  * Created by Юлия on 04.03.2017.
  */
 
-public class ReminderListFragment extends Fragment implements OnBackListener {
+public class RemindsListFragment extends Fragment implements OnBackListener {
 
     private RecyclerView reminderRecyclerView;
     private ReminderAdapter reminderAdapter;
     private List<Reminder> reminders;
     private Reminder reminder;
-    private ReminderCounter reminderCounter;
-    private CalculatorLab sCalcLab;
+    private RemindsCounter reminderCounter;
+    private FitLab sCalcLab;
 
-    private final String LOG_REMINDER = "ReminderListFragment";
+    private final String LOG_REMINDER = "RemindsListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.reminder_list_fragment, container, false);
 
-        sCalcLab = CalculatorLab.get();
+        sCalcLab = FitLab.get();
         reminders = sCalcLab.getReminds();
 
         reminderRecyclerView = (RecyclerView) v.findViewById(R.id.reminder_recycler_view);
@@ -87,8 +87,8 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
                         reminder = reminders.get(position);
                         Log.d(LOG_REMINDER, "----" + "position " + reminders.get(position));
                         String uuidString = reminder.getUuid().toString();
-                        sCalcLab.mDatabase.delete(CalculatorDbSchema.CalculatorTable.NAME_REMEMBERING,
-                                CalculatorDbSchema.CalculatorTable.Cols.REM_UUID + " = '" + uuidString + "'", null);
+                        sCalcLab.mDatabase.delete(DbSchema.CalculatorTable.NAME_REMEMBERING,
+                                DbSchema.CalculatorTable.Cols.REM_UUID + " = '" + uuidString + "'", null);
                         reminders.remove(position);  //then remove item
                     }
                 }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
@@ -103,7 +103,7 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
     };
 
     private void updateUI() {
-        reminderAdapter = new ReminderListFragment.ReminderAdapter();
+        reminderAdapter = new RemindsListFragment.ReminderAdapter();
         reminderRecyclerView.setAdapter(reminderAdapter);
         reminderAdapter.setReminds(reminders);
         reminderAdapter.notifyDataSetChanged();
@@ -148,7 +148,7 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
 
                             Log.d(LOG_REMINDER, "----" + "reminder " + reminder.isCounter());
                             reminder.setCounter(true);
-                            reminderCounter = new ReminderCounter(reminder.getUuid());
+                            reminderCounter = new RemindsCounter(reminder.getUuid());
                             reminderCounter.setCounterFlag(1);
 
                             Date date = reminder.getDate();
@@ -171,14 +171,14 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
                             reminder.setCounter(false);
                             Log.d(LOG_REMINDER, "----" + "хз reminder " + reminder.isCounter());
 
-                            List<ReminderCounter> reminderCounters = sCalcLab.getRemindCounts();
+                            List<RemindsCounter> reminderCounters = sCalcLab.getRemindCounts();
                             for (int i = 0; i < reminderCounters.size(); i++) {
 
 
                                 if (reminderCounters.get(i).getUuid().toString().equals(reminder.getUuid().toString())) {
                                     String uuidCounterString = reminderCounters.get(i).getUuid().toString();
-                                    sCalcLab.mDatabase.delete(CalculatorDbSchema.CalculatorTable.NAME_COUNTER,
-                                            CalculatorDbSchema.CalculatorTable.Cols.COUNTER_UUID + " = '" + uuidCounterString + "'", null);
+                                    sCalcLab.mDatabase.delete(DbSchema.CalculatorTable.NAME_COUNTER,
+                                            DbSchema.CalculatorTable.Cols.COUNTER_UUID + " = '" + uuidCounterString + "'", null);
                                     Log.d(LOG_REMINDER, "----" + "string " + reminderCounters.get(i).getUuid());
                                 }
                             }
@@ -215,21 +215,21 @@ public class ReminderListFragment extends Fragment implements OnBackListener {
 
             if (viewType == EMPTY_VIEW) {
                 v = LayoutInflater.from(parent.getContext()).inflate(R.layout.empty_view, parent, false);
-                ReminderListFragment.ReminderAdapter.EmptyViewHolder evh = new ReminderListFragment.ReminderAdapter.EmptyViewHolder(v);
+                RemindsListFragment.ReminderAdapter.EmptyViewHolder evh = new RemindsListFragment.ReminderAdapter.EmptyViewHolder(v);
                 // Log.d(LOG_TAG, "----" + "onCreateViewHolder" + mWeights.size());
                 return evh;
             } else {
                 v = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_recyclerview_item, parent, false);
-                ReminderListFragment.ReminderAdapter.ReminderHolder vh = new ReminderListFragment.ReminderAdapter.ReminderHolder(v);
+                RemindsListFragment.ReminderAdapter.ReminderHolder vh = new RemindsListFragment.ReminderAdapter.ReminderHolder(v);
                 return vh;
             }
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder vho, int position) {
-            if (vho instanceof ReminderListFragment.ReminderAdapter.ReminderHolder) {
-                ReminderListFragment.ReminderAdapter.ReminderHolder vh =
-                        (ReminderListFragment.ReminderAdapter.ReminderHolder) vho;
+            if (vho instanceof RemindsListFragment.ReminderAdapter.ReminderHolder) {
+                RemindsListFragment.ReminderAdapter.ReminderHolder vh =
+                        (RemindsListFragment.ReminderAdapter.ReminderHolder) vho;
                 reminder = reminds.get(position);
                 dateRemindTextView.setText(DateFormat.format("dd MM yyyy hh:mm", reminder.getDate()));
                 notesRemindTextView.setText(reminder.getReminding());

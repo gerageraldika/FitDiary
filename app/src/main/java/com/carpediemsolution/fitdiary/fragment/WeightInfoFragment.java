@@ -28,7 +28,8 @@ import com.carpediemsolution.fitdiary.activity.OpenPhotoForViewActivity;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.ui_utils.DatePickerFragment;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.utils.PictureUtils;
 
@@ -42,7 +43,7 @@ import java.util.UUID;
  * Created by Юлия on 07.02.2017.
  */
 
-public class CalculatorFragment extends Fragment implements OnBackListener {
+public class WeightInfoFragment extends Fragment implements OnBackListener {
 
     private Button viewDate;
     private EditText viewWeight;
@@ -51,19 +52,19 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
     private ImageView viewPhoto;
     private Weight mWeight;
     private UUID weightId;
-    private CalculatorLab sCalcLab;
+    private FitLab sCalcLab;
 
-    private static String LOG_TAG = "CalculatorFragment";
+    private static String LOG_TAG = "WeightInfoFragment";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0; //константа для кода запроса
     private static final String ARG_WEIGHT_ID = "weight_id";
     private boolean isEnabledPhoto = true;
 
 
-    public static CalculatorFragment newInstance(UUID weightId) {
+    public static WeightInfoFragment newInstance(UUID weightId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_WEIGHT_ID, weightId);
-        CalculatorFragment fragment = new CalculatorFragment();
+        WeightInfoFragment fragment = new WeightInfoFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,7 +73,7 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weightId = (UUID) getArguments().getSerializable(ARG_WEIGHT_ID);
-        sCalcLab = CalculatorLab.get();
+        sCalcLab = FitLab.get();
         mWeight = sCalcLab.getWeight(weightId);
     }
 
@@ -98,7 +99,7 @@ public class CalculatorFragment extends Fragment implements OnBackListener {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment
                         .newInstance(mWeight.getDate());
-                dialog.setTargetFragment(CalculatorFragment.this, REQUEST_DATE);
+                dialog.setTargetFragment(WeightInfoFragment.this, REQUEST_DATE);
                 dialog.show(fm, DIALOG_DATE);//зачем константа?
             }
         });

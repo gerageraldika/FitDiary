@@ -2,7 +2,7 @@ package com.carpediemsolution.fitdiary.utils;
 
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
 
@@ -18,7 +18,7 @@ import java.util.Locale;
 public class MathUtils {
 
 
-    public String personIMT(CalculatorLab sCalcLab, double personWeight) {
+    public String personIMT(FitLab sCalcLab, double personWeight) {
 
         String greatIMT = App.getAppContext().getResources().getString(R.string.very_high_imt);
         String bigIMT = App.getAppContext().getResources().getString(R.string.high_imt);
@@ -40,7 +40,7 @@ public class MathUtils {
     }
 
 
-    public String changingWeight(CalculatorLab sCalcLab, double changedWeihgt) {
+    public String changingWeight(FitLab sCalcLab, double changedWeihgt) {
 
         double changedWeihgtMessage = (Double.parseDouble(sCalcLab.getPerson().getPersonWeight())) - changedWeihgt;
         if (changedWeihgtMessage < 0) {

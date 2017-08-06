@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Reminder;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.ui_utils.DatePickerFragment;
+import com.carpediemsolution.fitdiary.ui_utils.TimePickerFragment;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -39,7 +41,7 @@ import java.util.UUID;
  * Created by Юлия on 03.03.2017.
  */
 
-public class ReminderFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener {
+public class RemindInfoFragment extends DialogFragment implements CompoundButton.OnCheckedChangeListener {
     private Reminder reminder;
     private Date date;
     private EditText notesInput;
@@ -50,7 +52,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
     private Date timeData;
     private TextView dateInput;
     private TextView timeInput;
-    private CalculatorLab sCalcLab;
+    private FitLab sCalcLab;
     private static final String CALENDAR_DIALOG_DATE = "CalendarDialogDate";
     private static final String CALENDAR_DIALOG_TIME = "CalendarDialogTime";
     private static final int REQUEST_DATE = 0;
@@ -63,7 +65,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
         super.onCreate(savedInstanceState);
         UUID id = UUID.randomUUID();
         reminder = new Reminder(id);
-        sCalcLab = CalculatorLab.get();
+        sCalcLab = FitLab.get();
     }
 
     @Override
@@ -98,7 +100,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = new DatePickerFragment()
                         .newInstance(date);
-                dialog.setTargetFragment(ReminderFragment.this, REQUEST_DATE);
+                dialog.setTargetFragment(RemindInfoFragment.this, REQUEST_DATE);
                 dialog.show(fm, CALENDAR_DIALOG_DATE);
             }
         });
@@ -109,7 +111,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 TimePickerFragment dialog = new TimePickerFragment()
                         .newInstance(date);
-                dialog.setTargetFragment(ReminderFragment.this, REQUEST_TIME);
+                dialog.setTargetFragment(RemindInfoFragment.this, REQUEST_TIME);
                 dialog.show(fm, CALENDAR_DIALOG_TIME);
             }
         });
@@ -157,7 +159,7 @@ public class ReminderFragment extends DialogFragment implements CompoundButton.O
 
             sCalcLab.createRepeatedRemind();
             Log.d(REMIND_LOG, "---reminder" + reminder.getFlag());
-            // CalculatorLab.get(getActivity());
+            // FitLab.get(getActivity());
             Intent intent = new Intent(getActivity(), PagerMainActivity.class);
             startActivity(intent);
 

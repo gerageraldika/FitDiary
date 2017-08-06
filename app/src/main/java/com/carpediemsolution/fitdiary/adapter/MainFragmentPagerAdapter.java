@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.carpediemsolution.fitdiary.fragment.CalculatorListFragment;
-import com.carpediemsolution.fitdiary.fragment.ReminderListFragment;
+import com.carpediemsolution.fitdiary.fragment.WeightsListFragment;
+import com.carpediemsolution.fitdiary.fragment.RemindsListFragment;
 
 /**
  * Created by Юлия on 04.03.2017.
@@ -33,9 +33,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         public Fragment getItem(int position) {
             switch (position){
             case 0:
-                return new CalculatorListFragment();
+                return new WeightsListFragment();
             case 1:
-                return new ReminderListFragment();
+                return new RemindsListFragment();
             default:
             return null;
         }

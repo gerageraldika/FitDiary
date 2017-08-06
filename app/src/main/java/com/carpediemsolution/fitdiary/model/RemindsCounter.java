@@ -7,13 +7,13 @@ import java.util.UUID;
  * Created by Юлия on 05.03.2017.
  */
 
-public class ReminderCounter {
+public class RemindsCounter {
 
     private Date date;
     private UUID uuid;
     private int counterFlag = 0;
 
-    public ReminderCounter(UUID id) {
+    public RemindsCounter(UUID id) {
         uuid = id;
     }
 

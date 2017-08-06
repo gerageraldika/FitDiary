@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.fragment;
+package com.carpediemsolution.fitdiary.ui_utils;
 
 import android.app.Activity;
 import android.app.Dialog;

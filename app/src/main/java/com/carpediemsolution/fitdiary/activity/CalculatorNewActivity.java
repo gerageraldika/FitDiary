@@ -4,7 +4,7 @@ package com.carpediemsolution.fitdiary.activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.carpediemsolution.fitdiary.fragment.CalculatorNewFragment;
+import com.carpediemsolution.fitdiary.fragment.NewWeightFragment;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
 import com.carpediemsolution.fitdiary.adapter.SingleFragmentActivity;
 
@@ -16,7 +16,7 @@ public class CalculatorNewActivity extends SingleFragmentActivity implements OnB
 
     @Override
     protected Fragment createFragment() {
-        return new CalculatorNewFragment();
+        return new NewWeightFragment();
     }
 
     @Override

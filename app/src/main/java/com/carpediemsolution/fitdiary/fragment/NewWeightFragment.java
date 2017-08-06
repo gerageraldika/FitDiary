@@ -30,9 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.ui_utils.WeightMessageDialog;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.ui_utils.DatePickerFragment;
+import com.carpediemsolution.fitdiary.ui_utils.InformationDialog;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -51,7 +52,7 @@ import butterknife.OnTextChanged;
  * Created by Юлия on 18.02.2017.
  */
 
-public class CalculatorNewFragment extends Fragment {
+public class NewWeightFragment extends Fragment {
 
     @BindView(R.id.weight_date)
     TextView weightDateView;
@@ -66,7 +67,7 @@ public class CalculatorNewFragment extends Fragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         DatePickerFragment dialog = DatePickerFragment
                 .newInstance(mWeight.getDate());
-        dialog.setTargetFragment(CalculatorNewFragment.this, REQUEST_DATE);
+        dialog.setTargetFragment(NewWeightFragment.this, REQUEST_DATE);
         dialog.show(fm, DIALOG_DATE);
     }
 
@@ -88,8 +89,8 @@ public class CalculatorNewFragment extends Fragment {
     private ImageView mPhotoView;
     private InterstitialAd interstitial;
     private Weight mWeight;
-    private CalculatorLab sCalcLab;
-    private static String LOG_TAG = "CalculatorNewFragment";
+    private FitLab sCalcLab;
+    private static String LOG_TAG = "NewWeightFragment";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0; //константа для кода запроса
     private static final String DIALOG_WEIGHT_MESSAGE = "DialogMessage";
@@ -113,7 +114,7 @@ public class CalculatorNewFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_new_calculator, parent, false);
         ButterKnife.bind(this, getActivity());
 
-        sCalcLab = CalculatorLab.get();
+        sCalcLab = FitLab.get();
 
         int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
         int maxLength = 6;
@@ -144,7 +145,7 @@ public class CalculatorNewFragment extends Fragment {
                     sCalcLab.updateWeight(mWeight);
 
                     FragmentManager fm = getActivity().getSupportFragmentManager();
-                    WeightMessageDialog dialogFragment = WeightMessageDialog
+                    InformationDialog dialogFragment = InformationDialog
                             .newInstance(mWeight.getsWeight());
                     dialogFragment.show(fm, DIALOG_WEIGHT_MESSAGE);
 

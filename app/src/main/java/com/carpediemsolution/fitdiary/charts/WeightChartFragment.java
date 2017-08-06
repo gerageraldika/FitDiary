@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.fragment;
+package com.carpediemsolution.fitdiary.charts;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.database.CalculatorDbSchema;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.CalculatorLab;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -33,7 +33,7 @@ import java.util.List;
  * Created by Юлия on 15.02.2017.
  */
 
-public class WeightGraphicFragment extends Fragment {
+public class WeightChartFragment extends Fragment {
 
     private LineChart chart;
     private List<Weight> weights = new ArrayList<>();
@@ -111,9 +111,9 @@ public class WeightGraphicFragment extends Fragment {
         View view = inflater.inflate(R.layout.graph_layout_weight, container, false);
         Log.d(GRAPHIC_LOG, "----Start GraphView---");
 
-        CalculatorLab calculatorLab = CalculatorLab.get();
+        FitLab calculatorLab = FitLab.get();
 
-        if (!CalculatorDbSchema.CalculatorTable.NAME.isEmpty() && calculatorLab.getWeights().size() > 0) {
+        if (!DbSchema.CalculatorTable.NAME.isEmpty() && calculatorLab.getWeights().size() > 0) {
 
             weights = calculatorLab.getWeights();
 
