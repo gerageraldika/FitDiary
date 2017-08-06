@@ -62,7 +62,6 @@ public class WeightAverageTask extends AsyncTask<Void, Void, String> {
         TextView c22 = new TextView(context);
         c22.setTextColor(context.getResources().getColor(R.color.colorWhite));
         c22.setText(string);
-        // c22.setTextSize(15);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
         tabLayout.addView(tableRowSecond);
