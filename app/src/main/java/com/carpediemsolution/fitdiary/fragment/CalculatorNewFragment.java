@@ -9,15 +9,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
@@ -43,18 +42,50 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+
 /**
  * Created by Юлия on 18.02.2017.
  */
 
 public class CalculatorNewFragment extends Fragment {
 
-    private TextView weightDate;
-    private AutoCompleteTextView weighNow;
-    private EditText notesNow;
-    private EditText caloriesNow;
+    @BindView(R.id.weight_date)
+    TextView weightDateView;
+    @BindView(R.id.weight_now)
+    AutoCompleteTextView currentWeightView;
+    @BindView(R.id.calories_now)
+    EditText caloriesEditText;
+
+
+    @OnClick(R.id.weight_date)
+    public void setWeightDate(CharSequence s) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        DatePickerFragment dialog = DatePickerFragment
+                .newInstance(mWeight.getDate());
+        dialog.setTargetFragment(CalculatorNewFragment.this, REQUEST_DATE);
+        dialog.show(fm, DIALOG_DATE);
+    }
+
+    @OnTextChanged(R.id.weight_now)
+    public void setUserWeight(CharSequence s) {
+        mWeight.setWeight(s.toString());
+    }
+
+    @OnTextChanged(R.id.notes_now)
+    public void setUserNotes(CharSequence s) {
+        mWeight.setNotes(s.toString());
+    }
+
+    @OnTextChanged(R.id.notes_now)
+    public void setUserCalories(CharSequence s) {
+        mWeight.setCalories(s.toString());
+    }
+
     private ImageView mPhotoView;
-    private FloatingActionButton weightPhoto;
     private InterstitialAd interstitial;
     private Weight mWeight;
     private CalculatorLab sCalcLab;
@@ -68,16 +99,19 @@ public class CalculatorNewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID id = UUID.randomUUID();
-        mWeight = new Weight(id);}
+        mWeight = new Weight(id);
+    }
 
     @Override
     public void onPause() {
         super.onPause();
-        sCalcLab.updateWeight(mWeight);}
+        sCalcLab.updateWeight(mWeight);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_new_calculator, parent, false);
+        ButterKnife.bind(this, getActivity());
 
         sCalcLab = CalculatorLab.get();
 
@@ -86,58 +120,13 @@ public class CalculatorNewFragment extends Fragment {
         InputFilter[] FilterArray = new InputFilter[1];
         FilterArray[0] = new InputFilter.LengthFilter(maxLength);
 
-        weighNow = (AutoCompleteTextView) v.findViewById(R.id.weight_now);
-        notesNow = (EditText) v.findViewById(R.id.notes_now);
-        caloriesNow = (EditText) v.findViewById(R.id.calories_now);
-        weightDate = (TextView) v.findViewById(R.id.weight_date);
+        currentWeightView.setInputType(type);
+        currentWeightView.setFilters(FilterArray);
 
-        weighNow.setInputType(type);
-        weighNow.setFilters(FilterArray);
-        weighNow.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mWeight.setWeight(s.toString());}
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-
-        notesNow.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mWeight.setNotes(s.toString());}
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
-
-        caloriesNow.setInputType(type);
-        caloriesNow.setFilters(FilterArray);
-        caloriesNow.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mWeight.setCalories(s.toString());}
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+        caloriesEditText.setInputType(type);
+        caloriesEditText.setFilters(FilterArray);
 
         updateDate();
-
-        weightDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment
-                        .newInstance(mWeight.getDate());
-                dialog.setTargetFragment(CalculatorNewFragment.this, REQUEST_DATE);
-                dialog.show(fm, DIALOG_DATE);
-            }
-        });
 
         FloatingActionButton fabWriteData = (FloatingActionButton) v.findViewById(R.id.fab_weight_write);
         fabWriteData.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_check_white_24dp));
@@ -162,7 +151,8 @@ public class CalculatorNewFragment extends Fragment {
                 } else if (Double.parseDouble(String.valueOf(mWeight.getsWeight())) > 300) {
                     Toast toast = Toast.makeText(getActivity(), getString(R.string.insert_correct_weight), Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();}
+                    toast.show();
+                }
             }
         });
 
@@ -172,16 +162,16 @@ public class CalculatorNewFragment extends Fragment {
         mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_perm_identity_white_24dp));
         mPhotoView.setScaleType(ImageView.ScaleType.CENTER);
 
-        weightPhoto = (FloatingActionButton) v.findViewById(R.id.fab_new_photo);
+        FloatingActionButton weightPhoto = (FloatingActionButton) v.findViewById(R.id.fab_new_photo);
         weightPhoto.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_a_photo_white_24dp));
         weightPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= 23) {
-                        checkPermissions();
-                    }
-                    Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, REQUEST_TAKE_PHOTO);
+                if (Build.VERSION.SDK_INT >= 23) {
+                    checkPermissions();
+                }
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, REQUEST_TAKE_PHOTO);
             }
         });
 
@@ -201,7 +191,6 @@ public class CalculatorNewFragment extends Fragment {
     private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("3EED2099D69A864B")
                 .build();
         interstitial.loadAd(adRequest);
     }
@@ -211,7 +200,8 @@ public class CalculatorNewFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mWeight.setDate(date);
-            updateDate();}
+            updateDate();
+        }
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == getActivity().RESULT_OK && null != data) {
             try {
@@ -230,7 +220,8 @@ public class CalculatorNewFragment extends Fragment {
                 mWeight.setPhotoUri(imgDecodableString);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
-                        .show();}
+                        .show();
+            }
             if (interstitial.isLoaded()) {
                 interstitial.show();
             }
@@ -248,27 +239,32 @@ public class CalculatorNewFragment extends Fragment {
             for (String p : permissions) {
                 result = ContextCompat.checkSelfPermission(getActivity(), p);
                 if (result != PackageManager.PERMISSION_GRANTED) {
-                    listPermissionsNeeded.add(p);}
+                    listPermissionsNeeded.add(p);
+                }
             }
             if (!listPermissionsNeeded.isEmpty()) {
                 ActivityCompat.requestPermissions(getActivity(),
                         listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), 100);
-                return false;}
+                return false;
+            }
         }
-            return true;}
+        return true;
+    }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             }
-            return;}
+            return;
+        }
     }
 
     public void updateDate() {
-        weightDate.setText(DateFormat.format("dd MM yyyy", mWeight.getDate()));}
+        weightDateView.setText(DateFormat.format("dd MM yyyy", mWeight.getDate()));
     }
+}
 
 
 
