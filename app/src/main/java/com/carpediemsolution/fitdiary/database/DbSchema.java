@@ -25,7 +25,7 @@ public class DbSchema {
             public static final String PERSON_WEIGHT = "person_weight";
 
 
-            public static final String REM_ID = "_rem_id";
+          //  public static final String REM_ID = "_rem_id";
             public static final String REM_UUID = "rem_uuid";
             public static final String REM_DATE = "rem_date";
             public static final String REM_NOTES= "rem_note";

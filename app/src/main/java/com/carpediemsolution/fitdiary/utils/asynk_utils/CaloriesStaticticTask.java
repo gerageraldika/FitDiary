@@ -45,7 +45,6 @@ public class CaloriesStaticticTask extends AsyncTask<Void, Void, String> {
         TextView c11 = new TextView(mContext);
         c11.setTextColor(mContext.getResources().getColor(R.color.colorWhite));
         c11.setText(mContext.getString(R.string.average_calories));
-        // c11.setTextSize(15);
         c11.setPadding(15, 30, 15, 30);
         tableRowFirst.addView(c11);
 

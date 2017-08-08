@@ -254,7 +254,7 @@ public class WeightInfoFragment extends Fragment implements OnBackListener {
         Uri imageUri = Uri.parse(mWeight.getPhotoUri());
         File photoFile = new File(imageUri.getPath());
 
-        Bitmap bitmap = null;
+        Bitmap bitmap;
         if (photoFile.exists()) {
             bitmap = PictureUtils.getScaledBitmap(
                     photoFile.getPath(), getActivity());

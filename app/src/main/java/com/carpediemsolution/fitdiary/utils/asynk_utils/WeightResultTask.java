@@ -49,7 +49,6 @@ public class WeightResultTask extends AsyncTask<Void, Void, String> {
         TextView c11 = new TextView(context);
         c11.setTextColor(context.getResources().getColor(R.color.colorWhite));
         c11.setText(context.getString(R.string.from_start_changing_weight));
-        // c11.setTextSize(15);
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
 
