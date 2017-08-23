@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 
-public class PictureUtils {
+public final class PictureUtils {
+
     public static Bitmap getScaledBitmap(String path, Activity activity) {// метод проверяет размерэкрана и уменьшает изображение до этого размера
         Point size = new Point();
         activity.getWindowManager().getDefaultDisplay()

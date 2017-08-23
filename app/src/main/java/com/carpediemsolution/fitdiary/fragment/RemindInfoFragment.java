@@ -63,6 +63,7 @@ public class RemindInfoFragment extends DialogFragment implements CompoundButton
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         UUID id = UUID.randomUUID();
         reminder = new Reminder(id);
         sCalcLab = FitLab.get();

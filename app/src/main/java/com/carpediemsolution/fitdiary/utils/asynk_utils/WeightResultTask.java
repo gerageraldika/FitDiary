@@ -1,5 +1,6 @@
 package com.carpediemsolution.fitdiary.utils.asynk_utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.ViewGroup;
@@ -22,13 +23,21 @@ public class WeightResultTask extends AsyncTask<Void, Void, String> {
     private TableLayout tabLayout;
     private List<Weight> weights;
     private Person person;
-    private Context context;
+    private Activity activity;
 
-    public WeightResultTask(TableLayout tabLayout, List<Weight> weights, Person person, Context context) {
+    public WeightResultTask(TableLayout tabLayout, List<Weight> weights, Person person) {
         this.tabLayout = tabLayout;
         this.weights = weights;
         this.person = person;
-        this.context = context;
+    }
+
+    public void link(Activity act) {
+        activity = act;
+    }
+
+    // обнуляем ссылку
+    public void unLink() {
+        activity = null;
     }
 
     @Override
@@ -41,23 +50,23 @@ public class WeightResultTask extends AsyncTask<Void, Void, String> {
         tabLayout.setStretchAllColumns(true);
         tabLayout.bringToFront();
 
-        TableRow tableRowFirst = new TableRow(context);
+        TableRow tableRowFirst = new TableRow(activity);
         tableRowFirst.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
-        TextView c11 = new TextView(context);
-        c11.setTextColor(context.getResources().getColor(R.color.colorWhite));
-        c11.setText(context.getString(R.string.from_start_changing_weight));
+        TextView c11 = new TextView(activity);
+        c11.setTextColor(activity.getResources().getColor(R.color.colorWhite));
+        c11.setText(activity.getString(R.string.from_start_changing_weight));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
 
-        TableRow tableRowSecond = new TableRow(context);
+        TableRow tableRowSecond = new TableRow(activity);
         tableRowSecond.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
-        TextView c22 = new TextView(context);
-        c22.setTextColor(context.getResources().getColor(R.color.colorWhite));
+        TextView c22 = new TextView(activity);
+        c22.setTextColor(activity.getResources().getColor(R.color.colorWhite));
         c22.setText(string);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);

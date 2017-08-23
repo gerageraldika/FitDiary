@@ -44,6 +44,7 @@ public class RemindsListFragment extends Fragment implements OnBackListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override

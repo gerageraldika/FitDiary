@@ -72,6 +72,7 @@ public class WeightInfoFragment extends Fragment implements OnBackListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         weightId = (UUID) getArguments().getSerializable(ARG_WEIGHT_ID);
         sCalcLab = FitLab.get();
         mWeight = sCalcLab.getWeight(weightId);

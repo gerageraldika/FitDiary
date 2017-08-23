@@ -37,11 +37,13 @@ public class WeightsListFragment extends Fragment implements OnBackListener {
     private CalcAdapter mAdapter;
     private List<Weight> weights;
     private Weight weight;
+    private PhotoItemsTask photoItemsTask;
     // private static final String LOG_TAG = "WeightsListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         setHasOptionsMenu(true);
     }
 
@@ -205,9 +207,18 @@ public class WeightsListFragment extends Fragment implements OnBackListener {
                 String personIMTtoday = String.valueOf(personIMT);
                 mIMTView.setText("  /  " + (getString(R.string.imt)) + " " + personIMTtoday);
 
-                new PhotoItemsTask(mPhotoView, mWeight, getActivity()).execute();
+                photoItemsTask = new PhotoItemsTask(mPhotoView, mWeight);
+                photoItemsTask.link(getActivity());
+                photoItemsTask.execute();
             }
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(photoItemsTask!=null)
+        photoItemsTask.unLink();
     }
 }
 

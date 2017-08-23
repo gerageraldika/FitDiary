@@ -21,7 +21,7 @@ import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.utils.OnBackListener;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesStaticticTask;
+import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightAverageTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightResultTask;
 import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightStatisticTask;
@@ -35,10 +35,15 @@ import java.util.List;
 public class RemindsChartFragment extends Fragment implements OnBackListener {
 
     private static final String GRAPHIC_LOG = "RemindsChartFragment";
+    private CaloriesTask caloriesTask;
+    private WeightAverageTask weightAverageTask;
+    private  WeightStatisticTask weightStatisticTask;
+    private WeightResultTask weightResultTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -62,10 +67,23 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
             List<Weight> weights = sCalcLab.getWeights();
             Person person = sCalcLab.getPerson();
 
-            new WeightAverageTask(tabLayoutForWeights, weights, getActivity()).execute();
-            new WeightStatisticTask(tableLayoutForWeightStatistics, weights, person, getActivity()).execute();
-            new WeightResultTask(tableLayoutForWeightResults, weights, person, getActivity()).execute();
-            new CaloriesStaticticTask(tableLayoutAverageCalories, weights, getActivity()).execute();
+            weightAverageTask = new WeightAverageTask(tabLayoutForWeights, weights);
+            weightAverageTask.execute();
+            // передаем в Task ссылку на текущее Activity
+            weightAverageTask.link(getActivity());
+
+            weightStatisticTask = new WeightStatisticTask(tableLayoutForWeightStatistics, weights, person);
+            weightStatisticTask.execute();
+            weightStatisticTask.link(getActivity());
+
+            weightResultTask = new WeightResultTask(tableLayoutForWeightResults,weights,person);
+            weightResultTask.execute();
+            weightResultTask.link(getActivity());
+
+            caloriesTask = new CaloriesTask(tableLayoutAverageCalories, weights);
+            caloriesTask.execute();
+            caloriesTask.link(getActivity());
+
         } else {
             Toast toast = Toast.makeText(getActivity(),
                     R.string.string_weight_graph, Toast.LENGTH_SHORT);
@@ -121,6 +139,19 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
                     TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
             tabLayout.addView(tableRow);
         }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(caloriesTask!=null)
+            caloriesTask.unLink();
+        if(weightAverageTask!=null)
+            weightAverageTask.unLink();
+        if(weightStatisticTask!=null)
+            weightStatisticTask.unLink();
+        if(weightResultTask!=null)
+            weightResultTask.unLink();
     }
 
     @Override

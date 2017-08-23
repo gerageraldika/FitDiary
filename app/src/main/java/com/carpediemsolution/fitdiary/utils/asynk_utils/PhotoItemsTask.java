@@ -1,5 +1,6 @@
 package com.carpediemsolution.fitdiary.utils.asynk_utils;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -23,10 +24,18 @@ public class PhotoItemsTask extends AsyncTask<Void, Void, Bitmap> {
     private Weight mWeight;
     private FragmentActivity activity;
 
-    public PhotoItemsTask(ImageView mPhotoView, Weight mWeight, FragmentActivity activity) {
+    public PhotoItemsTask(ImageView mPhotoView, Weight mWeight) {
         this.mPhotoView = mPhotoView;
         this.mWeight = mWeight;
-        this.activity = activity;
+    }
+
+    public void link(FragmentActivity act) {
+        activity = act;
+    }
+
+    // обнуляем ссылку
+    public void unLink() {
+        activity = null;
     }
 
     @Override

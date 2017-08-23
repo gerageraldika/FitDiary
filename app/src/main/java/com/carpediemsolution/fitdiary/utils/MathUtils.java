@@ -15,10 +15,10 @@ import java.util.Locale;
  * Created by Юлия on 25.05.2017.
  */
 
-public class MathUtils {
+public final class MathUtils {
 
 
-    public String personIMT(FitLab sCalcLab, double personWeight) {
+    public static String personIMT(FitLab sCalcLab, double personWeight) {
 
         String greatIMT = App.getAppContext().getResources().getString(R.string.very_high_imt);
         String bigIMT = App.getAppContext().getResources().getString(R.string.high_imt);
@@ -40,7 +40,7 @@ public class MathUtils {
     }
 
 
-    public String changingWeight(FitLab sCalcLab, double changedWeihgt) {
+    public static String changingWeight(FitLab sCalcLab, double changedWeihgt) {
 
         double changedWeihgtMessage = (Double.parseDouble(sCalcLab.getPerson().getPersonWeight())) - changedWeihgt;
         if (changedWeihgtMessage < 0) {
@@ -55,7 +55,7 @@ public class MathUtils {
         return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
     }
 
-    public String getHoursOfDate() {
+    public static String getHoursOfDate() {
         Date date = new Date();
 
         Calendar calendarDate = Calendar.getInstance();
@@ -72,7 +72,7 @@ public class MathUtils {
         } else return App.getAppContext().getResources().getString(R.string.good_night);
     }
 
-    public String getWeightProgress(List<Weight> weights) {
+    public static String getWeightProgress(List<Weight> weights) {
         int days = daysBetween(weights.get(weights.size() - 1).getDate(), weights.get(0).getDate());
 
         if (weights.size() > 0 && days != 0) {
@@ -84,7 +84,7 @@ public class MathUtils {
         } else return "0";
     }
 
-    public String getWeightStatistics(List<Weight> weights, Person person) {
+    public static String getWeightStatistics(List<Weight> weights, Person person) {
         double weightStatistics = Double.parseDouble(person.getPersonWeight());
        if(weights.size()> 0) {for (Weight weight : weights) {
             weightStatistics = weightStatistics + Double.parseDouble(weight.getsWeight());}
@@ -93,7 +93,7 @@ public class MathUtils {
         else return "0";
     }
 
-    public String getWeightResults(List<Weight> weights, Person person) {
+    public static String getWeightResults(List<Weight> weights, Person person) {
        if(weights.size()> 0){
         Weight weight = weights.get(weights.size() - 1);
         double weightResult = Double.parseDouble(person.getPersonWeight()) - Double.parseDouble(weight.getsWeight());
@@ -102,7 +102,7 @@ public class MathUtils {
        else return "0";
     }
 
-    public String getAverageCalories(List<Weight> weights){
+    public static String getAverageCalories(List<Weight> weights){
         double sumCalories = 0;
         int counter = 0;
         for (Weight weight : weights) {
