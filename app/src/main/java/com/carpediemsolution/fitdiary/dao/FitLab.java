@@ -66,6 +66,7 @@ public class FitLab {
         });
         Collections.reverse(weights);
         //
+        cursor.close();
         return weights;
     }
 
