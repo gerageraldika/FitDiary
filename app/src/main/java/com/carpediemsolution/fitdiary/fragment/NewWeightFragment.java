@@ -54,7 +54,7 @@ import butterknife.OnTextChanged;
 
 public class NewWeightFragment extends Fragment {
 
-    @BindView(R.id.weight_date)
+    @BindView(R.id.weight_date_new_fragment)
     TextView weightDateView;
     @BindView(R.id.weight_now)
     AutoCompleteTextView currentWeightView;
@@ -62,7 +62,7 @@ public class NewWeightFragment extends Fragment {
     EditText caloriesEditText;
 
 
-    @OnClick(R.id.weight_date)
+    @OnClick(R.id.weight_date_new_fragment)
     public void setWeightDate(CharSequence s) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         DatePickerFragment dialog = DatePickerFragment
@@ -99,7 +99,7 @@ public class NewWeightFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+      //  setRetainInstance(true);
         UUID id = UUID.randomUUID();
         mWeight = new Weight(id);
     }
@@ -113,8 +113,7 @@ public class NewWeightFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_new_calculator, parent, false);
-        ButterKnife.bind(this, getActivity());
-
+        ButterKnife.bind(this, v);
         sCalcLab = FitLab.get();
 
         int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
@@ -129,6 +128,7 @@ public class NewWeightFragment extends Fragment {
         caloriesEditText.setFilters(FilterArray);
 
         updateDate();
+
 
         FloatingActionButton fabWriteData = (FloatingActionButton) v.findViewById(R.id.fab_weight_write);
         fabWriteData.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_check_white_24dp));

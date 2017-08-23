@@ -80,7 +80,7 @@
                     android:textColorHint="#FFFFFF"
                     tools:ignore="LabelFor" />
                 <TextView
-                    android:id="@+id/weight_date"
+                    android:id="@+id/weight_date_new_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_below="@+id/calories_now"
