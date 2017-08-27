@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
@@ -28,6 +29,7 @@ import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.view.ColumnChartView;
+
 /**
  * Created by Юлия on 08.03.2017.
  */
@@ -37,11 +39,6 @@ public class CaloriesChartFragment extends Fragment {
     private List<Weight> weights;
     private List<Weight> weightsForGraph;
     private ColumnChartView chart;
-    private ColumnChartData data;
-    private boolean hasAxes = true;
-    private boolean hasAxesNames = true;
-    private boolean hasLabels = false;
-    private boolean hasLabelForSelected = false;
 
     public CaloriesChartFragment() {
     }
@@ -73,7 +70,7 @@ public class CaloriesChartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.graph_layout_calories, container, false);
+        View view = inflater.inflate(R.layout.chart_layout_calories, container, false);
 
         FitLab sCalcLab = FitLab.get();
 
@@ -97,6 +94,12 @@ public class CaloriesChartFragment extends Fragment {
     }
 
     private void generateDefaultData() {
+
+        boolean hasAxes = true;
+        boolean hasAxesNames = true;
+        boolean hasLabels = false;
+        boolean hasLabelForSelected = false;
+
         int numSubcolumns = 1;
 
         List<Column> columns = new ArrayList<Column>();
@@ -125,7 +128,7 @@ public class CaloriesChartFragment extends Fragment {
             axisValues.add(new AxisValue(i).setLabel(label));
         }
 
-        data = new ColumnChartData(columns);
+        ColumnChartData data = new ColumnChartData(columns);
         data.setStacked(true);
 
         if (hasAxes) {

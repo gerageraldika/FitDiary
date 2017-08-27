@@ -45,23 +45,23 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.activity.CalculatorPagerActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.FitPagerActivity"
             android:label=" "
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.activity.GraphicActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.ChartActivity"
             android:label="График изменения веса"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.activity.CalculatorNewActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.NewFitActivity"
             android:label=" "
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
 
         <activity
-            android:name="com.carpediemsolution.fitdiary.activity.OpenPhotoForViewActivity"
+            android:name="com.carpediemsolution.fitdiary.activity.PhotoViewActivity"
             android:label=" "
             android:theme="@android:style/Theme.Holo.DialogWhenLarge"></activity>
 

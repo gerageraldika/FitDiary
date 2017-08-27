@@ -35,18 +35,22 @@ public class FitLab {
 
     public static FitLab get() {
         if (calcLab == null) {
-            calcLab = new FitLab();}
-        return calcLab;}
+            calcLab = new FitLab();
+        }
+        return calcLab;
+    }
 
     private FitLab() {
         mDatabase = new DBBaseHelper(App.getAppContext())
-                .getWritableDatabase();}
+                .getWritableDatabase();
+    }
 
     public void addWeight(Weight c) {
         ContentValues values = getContentValues(c);
-        mDatabase.insert(CalculatorTable.NAME, null, values);}
-        //Log.d(LAB_LOG, "---- addWeight----" + values + mDatabase.toString());}
+        mDatabase.insert(CalculatorTable.NAME, null, values);
+    }
 
+    //!!!
     public List<Weight> getWeights() {
         List<Weight> weights = new ArrayList<>();
         FitWrapper cursor = queryCalculator(null, null);
@@ -58,7 +62,9 @@ public class FitLab {
         Collections.sort(weights, new Comparator<Weight>() {
             @Override
             public int compare(Weight o1, Weight o2) {
-                return o1.getDate().compareTo(o2.getDate());}
+                return o1.getDate().compareTo(o2.getDate());
+            }
+
             @Override
             public boolean equals(Object obj) {
                 return false;
@@ -82,7 +88,8 @@ public class FitLab {
             cursor.moveToFirst();
             return cursor.getWeight();
         } finally {
-            cursor.close();}
+            cursor.close();
+        }
     }
 
     private static ContentValues getContentValues(Weight weight) {
@@ -93,7 +100,8 @@ public class FitLab {
         values.put(CalculatorTable.Cols.NOTES, weight.getNotes());
         values.put(CalculatorTable.Cols.CALORIES, weight.getCalories());
         values.put(CalculatorTable.Cols.PHOTOFILE, weight.getPhotoUri());
-        return values;}
+        return values;
+    }
 
     private FitWrapper queryCalculator(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
@@ -105,7 +113,8 @@ public class FitLab {
                 null, // having
                 null  // orderBy
         );
-        return new FitWrapper(cursor);}
+        return new FitWrapper(cursor);
+    }
 
     public void updateWeight(Weight weight) {
         String uuidString = weight.getId().toString();
@@ -122,7 +131,8 @@ public class FitLab {
         values.put(CalculatorTable.Cols.NAME, person.getPersonName());
         values.put(CalculatorTable.Cols.HEIGHT, person.getPersonHeight());
         values.put(CalculatorTable.Cols.PERSON_WEIGHT, person.getPersonWeight());
-        return values;}
+        return values;
+    }
 
     public void updatePerson(Person person) {
         ContentValues values = getPersonContentValues(person);
@@ -135,7 +145,8 @@ public class FitLab {
     public void addPerson(Person person) {
         ContentValues values = getPersonContentValues(person);
         mDatabase.insert(CalculatorTable.NAME_PERSON, null, values);
-        Log.d(LAB_LOG, "----" + "addPerson" + "----" + CalculatorTable.NAME_PERSON);}
+        Log.d(LAB_LOG, "----" + "addPerson" + "----" + CalculatorTable.NAME_PERSON);
+    }
 
     public Person getPerson() {
         String[] projection = {
@@ -158,7 +169,7 @@ public class FitLab {
                 return null;
             }
             cursor.moveToFirst();
-           // String id = "1";
+            // String id = "1";
             String name = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.NAME));
             String height = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.HEIGHT));
             String weight = cursor.getString(cursor.getColumnIndex(CalculatorTable.Cols.PERSON_WEIGHT));
@@ -169,7 +180,8 @@ public class FitLab {
             personDB.setPersonWeight(weight);
             return personDB;
         } finally {
-            cursor.close();}
+            cursor.close();
+        }
     }
 
     public boolean returnPerson() {
@@ -196,7 +208,8 @@ public class FitLab {
             empty = false;
         }
 
-        return empty;}
+        return empty;
+    }
 
     private static ContentValues getReminderContentValues(Reminder reminder) {
         ContentValues values = new ContentValues();
@@ -205,12 +218,14 @@ public class FitLab {
         values.put(CalculatorTable.Cols.REM_NOTES, reminder.getReminding());
         values.put(CalculatorTable.Cols.REM_COUNTER, reminder.isCounter() ? 1 : 0);
         values.put(CalculatorTable.Cols.REM_FLAG, reminder.getFlag());
-        return values;}
+        return values;
+    }
 
     public void addReminder(Reminder reminder) {
         ContentValues values = getReminderContentValues(reminder);
         mDatabase.insert(CalculatorTable.NAME_REMEMBERING, null, values);
-        Log.d(LAB_LOG, "----" + "addReminder" + "----" + CalculatorTable.NAME_REMEMBERING);}
+        Log.d(LAB_LOG, "----" + "addReminder" + "----" + CalculatorTable.NAME_REMEMBERING);
+    }
 
     public void updateReminder(Reminder reminder) {
         String uuidString = reminder.getUuid().toString();
@@ -219,7 +234,8 @@ public class FitLab {
         mDatabase.update(CalculatorTable.NAME_REMEMBERING, values,
                 CalculatorTable.Cols.REM_UUID + " = ?",
                 new String[]{uuidString});
-        Log.d(LAB_LOG, "----" + "updateReminder" + reminder.getFlag() + "----");}
+        Log.d(LAB_LOG, "----" + "updateReminder" + reminder.getFlag() + "----");
+    }
 
     public void createRepeatedRemind() {
         List<Reminder> reminders = getReminds();
@@ -304,7 +320,8 @@ public class FitLab {
                 null, // having
                 CalculatorTable.Cols.REM_DATE + " DESC"  // orderBy
         );
-        return new FitWrapper(cursor);}
+        return new FitWrapper(cursor);
+    }
 
     public List<Reminder> getReminds() {
         List<Reminder> reminds = new ArrayList<>();
@@ -316,7 +333,8 @@ public class FitLab {
             cursor.moveToNext();
         }
         cursor.close();
-        return reminds;}
+        return reminds;
+    }
 
     private FitWrapper queryReminderCount(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
@@ -343,7 +361,7 @@ public class FitLab {
         }
         cursor.close();
 
-       Collections.sort(reminderCounters, new Comparator<RemindsCounter>() {
+        Collections.sort(reminderCounters, new Comparator<RemindsCounter>() {
             @Override
             public int compare(RemindsCounter o1, RemindsCounter o2) {
                 return -o1.getDate().compareTo(o2.getDate());
@@ -404,13 +422,14 @@ public class FitLab {
 
     }
 
-    public void updateRemindCounter(RemindsCounter reminderCounter) {
+  /*  public void updateRemindCounter(RemindsCounter reminderCounter) {
         String uuidString = reminderCounter.getUuid().toString();
         ContentValues values = getCounterContentValues(reminderCounter);
 
         mDatabase.update(CalculatorTable.NAME_COUNTER, values,
                 CalculatorTable.Cols.COUNTER_UUID + " = ?",
-                new String[]{uuidString});}
+                new String[]{uuidString});
+    }*/
 
     public String getData() {
         String[] columns = {CalculatorTable.Cols.COUNTER_ID, CalculatorTable.Cols.COUNTER_UUID,
@@ -427,7 +446,8 @@ public class FitLab {
         }
         cursor.close();
         Log.d(LAB_LOG, "----" + "ListCounter" + "----" + buffer.toString());
-        return buffer.toString();}
+        return buffer.toString();
+    }
 }
 
 

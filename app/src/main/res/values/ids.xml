@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="string_weight_graph" type="id">Нет данных для формирования графика</item>
-    <item name="from_start_weight_changed" type="id">С начала ведения дневника</item>
-</resources>

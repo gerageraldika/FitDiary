@@ -12,7 +12,7 @@ public class Reminder {
     private Date date;
     private String reminding;
     private UUID uuid;
-    private int repeatedRemindflag = 0;
+    private int repeatedReminderFlag = 0;
     private boolean counter;
 
     public  Reminder(){
@@ -47,9 +47,9 @@ public class Reminder {
         this.uuid = uuid;
     }
 
-    public int getFlag() {return repeatedRemindflag;}
+    public int getFlag() {return repeatedReminderFlag;}
 
-    public void setFlag(int flag) {this.repeatedRemindflag = flag;}
+    public void setFlag(int flag) {this.repeatedReminderFlag = flag;}
 
     public boolean isCounter() {
         return counter;

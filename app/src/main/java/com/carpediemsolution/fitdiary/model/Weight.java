@@ -8,35 +8,41 @@ import java.util.UUID;
  */
 
 public class Weight {
-    private String sweight;
-    private Date mDate;
-    private UUID mId;
-    private String mNotes;
+    private String weight;
+    private Date date;
+    private UUID id;
+    private String notes;
     private String calories;
     private String photoUri;
 
-    public Weight() {this(UUID.randomUUID());}
+    public Weight() {
+        this(UUID.randomUUID());
+    }
 
-    public Weight(UUID id){
-        mId = id;
-        mDate = new Date();
+    public Weight(UUID id) {
+        this.id = id;
+        date = new Date();
     }
 
     public UUID getId() {
-    return mId;
+        return id;
     }
 
     public void setDate(Date date) {
-         mDate = date;
+        this.date = date;
     }
 
     public Date getDate() {
-       return mDate;
-   }
+        return date;
+    }
 
-    public String getsWeight() {return sweight;}
+    public String getsWeight() {
+        return weight;
+    }
 
-    public void setWeight(String mweight) {sweight = mweight;}
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
 
     public String getPhotoUri() {
         return photoUri;
@@ -47,11 +53,11 @@ public class Weight {
     }
 
     public String getNotes() {
-        return mNotes;
+        return notes;
     }
 
-    public void setNotes(String mNotes) {
-        this.mNotes = mNotes;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public String getCalories() {

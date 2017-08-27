@@ -28,7 +28,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true">
 
-
             <TextView
                 android:id="@+id/reminder_date_item_text_view"
                 android:layout_width="match_parent"

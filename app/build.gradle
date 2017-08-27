@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'android-apt'
 
 allprojects {
@@ -9,16 +10,18 @@ allprojects {
 }
 
 android {
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.carpediemsolution.fitdiary"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 6
         versionName "2.4"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -52,6 +55,10 @@ android {
         //butterknife
         compile 'com.jakewharton:butterknife:8.2.1'
         apt 'com.jakewharton:butterknife-compiler:8.2.1'
+        //moxy
+        compile 'com.arello-mobile:moxy:1.0.2'
+        compile 'com.arello-mobile:moxy-app-compat:1.0.2'
+        apt 'com.arello-mobile:moxy-compiler:1.0.2'
     }
 
 dependencies {

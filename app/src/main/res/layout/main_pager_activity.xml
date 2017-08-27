@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,25 +38,21 @@
                     android:id="@+id/tool_bar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/MyApp.ActionBar1"
                     android:layout_alignParentTop="true"
-                    app:layout_collapseMode="pin" />
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/MyApp.ActionBar1" />
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabIndicatorColor="@color/colorDeepOrange"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_alignParentBottom="true"
+                    app:tabIndicatorColor="@color/colorDeepOrange" />
 
             </RelativeLayout>
-
         </android.support.design.widget.CollapsingToolbarLayout>
-
-
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/viewpager_for_main_fragments" />
-
 </android.support.design.widget.CoordinatorLayout>
 

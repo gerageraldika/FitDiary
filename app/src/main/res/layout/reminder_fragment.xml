@@ -41,8 +41,6 @@
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="18dp">
 
-
-
                         <TextView
                             android:id="@+id/date_for_reminder"
                             android:layout_width="wrap_content"
@@ -94,7 +92,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="4dp"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:text="@string/remind_check_textview"
                         android:textColor="#EEEEEE" />
                 </LinearLayout>
@@ -104,18 +102,15 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorGrey"
                     android:orientation="vertical">
-
-
                     <EditText
                         android:id="@+id/notes_reminder"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
-                        android:layout_alignParentTop="true"
                         android:layout_marginTop="1dp"
                         android:gravity="top"
                         android:textColor="@color/colorWhite"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:theme="@style/EditStyle" />
 
                     <RelativeLayout
@@ -139,6 +134,4 @@
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
-
 </android.support.design.widget.CoordinatorLayout>

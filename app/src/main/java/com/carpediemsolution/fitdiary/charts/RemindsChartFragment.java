@@ -20,11 +20,11 @@ import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.utils.OnBackListener;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.CaloriesTask;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightAverageTask;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightResultTask;
-import com.carpediemsolution.fitdiary.utils.asynk_utils.WeightStatisticTask;
+import com.carpediemsolution.fitdiary.util.OnBackListener;
+import com.carpediemsolution.fitdiary.util.async.CaloriesTask;
+import com.carpediemsolution.fitdiary.util.async.WeightAverageTask;
+import com.carpediemsolution.fitdiary.util.async.WeightResultTask;
+import com.carpediemsolution.fitdiary.util.async.WeightStatisticTask;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ import java.util.List;
 
 public class RemindsChartFragment extends Fragment implements OnBackListener {
 
-    private static final String GRAPHIC_LOG = "RemindsChartFragment";
+   // private static final String GRAPHIC_LOG = "RemindsChartFragment";
     private CaloriesTask caloriesTask;
     private WeightAverageTask weightAverageTask;
     private  WeightStatisticTask weightStatisticTask;
@@ -48,7 +48,7 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.graph_layout_reminds, container, false);
+        View view = inflater.inflate(R.layout.chart_layout_reminds, container, false);
 
         TableLayout tableLayoutForReminds = (TableLayout) view.findViewById(R.id.tab_remind_layout);
         TableLayout tabLayoutForWeights = (TableLayout) view.findViewById(R.id.tab_weight_layout_1);
@@ -68,22 +68,21 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
             Person person = sCalcLab.getPerson();
 
             weightAverageTask = new WeightAverageTask(tabLayoutForWeights, weights);
+            weightAverageTask.link(getActivity());
             weightAverageTask.execute();
             // передаем в Task ссылку на текущее Activity
-            weightAverageTask.link(getActivity());
 
             weightStatisticTask = new WeightStatisticTask(tableLayoutForWeightStatistics, weights, person);
-            weightStatisticTask.execute();
             weightStatisticTask.link(getActivity());
+            weightStatisticTask.execute();
 
             weightResultTask = new WeightResultTask(tableLayoutForWeightResults,weights,person);
-            weightResultTask.execute();
             weightResultTask.link(getActivity());
+            weightResultTask.execute();
 
             caloriesTask = new CaloriesTask(tableLayoutAverageCalories, weights);
-            caloriesTask.execute();
             caloriesTask.link(getActivity());
-
+            caloriesTask.execute();
         } else {
             Toast toast = Toast.makeText(getActivity(),
                     R.string.string_weight_graph, Toast.LENGTH_SHORT);

@@ -109,7 +109,7 @@ public class WeightChartFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.graph_layout_weight, container, false);
+        View view = inflater.inflate(R.layout.chart_layout_weight, container, false);
         Log.d(GRAPHIC_LOG, "----Start GraphView---");
 
         FitLab calculatorLab = FitLab.get();
