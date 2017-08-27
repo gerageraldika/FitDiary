@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by Юлия on 04.03.2017.
  */
 
-public class RemindsListFragment extends MvpAppCompatFragment implements ReminderView,
+public class ReminderListFragment extends MvpAppCompatFragment implements ReminderView,
         BaseAdapter.OnItemClickListener<Reminder>, OnBackListener {
 
     @InjectPresenter
@@ -42,7 +42,7 @@ public class RemindsListFragment extends MvpAppCompatFragment implements Reminde
     @BindView(R.id.empty)
     View mEmptyView;
     private ReminderAdapter adapter;
-    // private final String LOG_REMINDER = "RemindsListFragment";
+    // private final String LOG_REMINDER = "ReminderListFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,8 @@ public class RemindsListFragment extends MvpAppCompatFragment implements Reminde
                                 public void onClick(DialogInterface dialog, int which) {
                                     adapter.notifyItemRemoved(position);//item removed from recylcerview
                                     presenter.deleteReminder(reminderList.get(position));
-                                    reminderList.remove(position);  //then remove item*/
+                                    adapter.remove(reminderList.get(position));
+                                    adapter.refreshRecycler();
                                 }
                             }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
                                 @Override

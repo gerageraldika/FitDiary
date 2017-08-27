@@ -21,10 +21,10 @@ import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
-import com.carpediemsolution.fitdiary.util.async.CaloriesTask;
-import com.carpediemsolution.fitdiary.util.async.WeightAverageTask;
-import com.carpediemsolution.fitdiary.util.async.WeightResultTask;
-import com.carpediemsolution.fitdiary.util.async.WeightStatisticTask;
+import com.carpediemsolution.fitdiary.util.async.CaloriesAsync;
+import com.carpediemsolution.fitdiary.util.async.WeightAverageAsync;
+import com.carpediemsolution.fitdiary.util.async.WeightResultAsync;
+import com.carpediemsolution.fitdiary.util.async.WeightStatisticAsync;
 
 import java.util.List;
 
@@ -35,10 +35,10 @@ import java.util.List;
 public class RemindsChartFragment extends Fragment implements OnBackListener {
 
    // private static final String GRAPHIC_LOG = "RemindsChartFragment";
-    private CaloriesTask caloriesTask;
-    private WeightAverageTask weightAverageTask;
-    private  WeightStatisticTask weightStatisticTask;
-    private WeightResultTask weightResultTask;
+    private CaloriesAsync caloriesTask;
+    private WeightAverageAsync weightAverageTask;
+    private WeightStatisticAsync weightStatisticTask;
+    private WeightResultAsync weightResultTask;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,20 +67,20 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
             List<Weight> weights = sCalcLab.getWeights();
             Person person = sCalcLab.getPerson();
 
-            weightAverageTask = new WeightAverageTask(tabLayoutForWeights, weights);
+            weightAverageTask = new WeightAverageAsync(tabLayoutForWeights, weights);
             weightAverageTask.link(getActivity());
             weightAverageTask.execute();
             // передаем в Task ссылку на текущее Activity
 
-            weightStatisticTask = new WeightStatisticTask(tableLayoutForWeightStatistics, weights, person);
+            weightStatisticTask = new WeightStatisticAsync(tableLayoutForWeightStatistics, weights, person);
             weightStatisticTask.link(getActivity());
             weightStatisticTask.execute();
 
-            weightResultTask = new WeightResultTask(tableLayoutForWeightResults,weights,person);
+            weightResultTask = new WeightResultAsync(tableLayoutForWeightResults,weights,person);
             weightResultTask.link(getActivity());
             weightResultTask.execute();
 
-            caloriesTask = new CaloriesTask(tableLayoutAverageCalories, weights);
+            caloriesTask = new CaloriesAsync(tableLayoutAverageCalories, weights);
             caloriesTask.link(getActivity());
             caloriesTask.execute();
         } else {

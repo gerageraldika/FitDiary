@@ -18,12 +18,12 @@ import java.util.List;
  * Created by Юлия on 06.08.2017.
  */
 
-public class WeightAverageTask extends AsyncTask<Void, Void, String> {
+public class WeightAverageAsync extends AsyncTask<Void, Void, String> {
     private TableLayout tabLayout;
     private List<Weight> weights;
     private Activity activity;
 
-    public WeightAverageTask(TableLayout tabLayout, List<Weight> weights) {
+    public WeightAverageAsync(TableLayout tabLayout, List<Weight> weights) {
         this.tabLayout = tabLayout;
         this.weights = weights;
     }

@@ -20,11 +20,11 @@ import java.io.File;
  * Created by Юлия on 08.08.2017.
  */
 
-public class PhotoItemTask extends AsyncTask<Void, Void, Bitmap> {
+public class PhotoItemAsync extends AsyncTask<Void, Void, Bitmap> {
     private ImageView photoView;
     private Weight weight;
 
-    public PhotoItemTask(ImageView mPhotoView, Weight mWeight) {
+    public PhotoItemAsync(ImageView mPhotoView, Weight mWeight) {
         this.photoView = mPhotoView;
         this.weight = mWeight;
     }

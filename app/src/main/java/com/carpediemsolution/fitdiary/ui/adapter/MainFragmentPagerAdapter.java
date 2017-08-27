@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.carpediemsolution.fitdiary.fragment.FitListFragment;
-import com.carpediemsolution.fitdiary.fragment.RemindsListFragment;
+import com.carpediemsolution.fitdiary.fragment.ReminderListFragment;
 
 /**
  * Created by Юлия on 04.03.2017.
@@ -35,7 +35,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FitListFragment();
             case 1:
-                return new RemindsListFragment();
+                return new ReminderListFragment();
             default:
             return null;
         }

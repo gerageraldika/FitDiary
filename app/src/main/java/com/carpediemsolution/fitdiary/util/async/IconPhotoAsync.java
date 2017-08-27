@@ -16,11 +16,11 @@ import com.carpediemsolution.fitdiary.App;
  */
 
 
-public class IconPhotoTask extends AsyncTask<Void, Void, Bitmap> {
+public class IconPhotoAsync extends AsyncTask<Void, Void, Bitmap> {
     private ImageView photoView;
     private Activity activity;
 
-    public IconPhotoTask(ImageView mPhotoView) {
+    public IconPhotoAsync(ImageView mPhotoView) {
         this.photoView = mPhotoView;
     }
 

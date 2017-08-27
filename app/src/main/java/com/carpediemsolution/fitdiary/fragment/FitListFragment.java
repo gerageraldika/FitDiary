@@ -84,7 +84,7 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
 
     @Override
     public void showSuccess() {
-    //
+        //
     }
 
     @Override
@@ -123,7 +123,9 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
                                 public void onClick(DialogInterface dialog, int which) {
                                     adapter.notifyItemRemoved(position);//item removed from recylcerview
                                     presenter.deleteWeight(weightList.get(position));
-                                    weightList.remove(position);  //then remove item*/
+                                    //then remove item*/
+                                    adapter.remove(weightList.get(position));
+                                    adapter.refreshRecycler();
                                 }
                             }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
                                 @Override

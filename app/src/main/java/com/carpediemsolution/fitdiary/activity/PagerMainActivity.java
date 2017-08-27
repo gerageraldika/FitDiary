@@ -31,7 +31,7 @@ import com.carpediemsolution.fitdiary.ui.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.ui.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.util.Constants;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
-import com.carpediemsolution.fitdiary.util.async.IconPhotoTask;
+import com.carpediemsolution.fitdiary.util.async.IconPhotoAsync;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class PagerMainActivity extends AppCompatActivity {
     ImageView imageView;
     @BindView(R.id.tool_bar)
     Toolbar toolbar;
-    private IconPhotoTask iconPhotoTask;
+    private IconPhotoAsync iconPhotoTask;
     private static final int REQUEST_PHOTO = 5;
     private static final String START_APP_DIALOG = "StartUpDialog";
     private String[] permissions = new String[]{
@@ -75,7 +75,7 @@ public class PagerMainActivity extends AppCompatActivity {
 
         mTableLayout.setupWithViewPager(mViewPager);
 
-        iconPhotoTask = new IconPhotoTask(imageView);
+        iconPhotoTask = new IconPhotoAsync(imageView);
         iconPhotoTask.execute();
         iconPhotoTask.link(this);
     }

@@ -17,12 +17,12 @@ import java.util.List;
  * Created by Юлия on 06.08.2017.
  */
 
-public class CaloriesTask extends AsyncTask<Void, Void, String> {
+public class CaloriesAsync extends AsyncTask<Void, Void, String> {
     private TableLayout tabLayout;
     private List<Weight> weights;
     private Activity activity;
 
-    public CaloriesTask(TableLayout tabLayout, List<Weight> weights) {
+    public CaloriesAsync(TableLayout tabLayout, List<Weight> weights) {
         this.tabLayout = tabLayout;
         this.weights = weights;
     }

@@ -13,7 +13,7 @@ import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.util.async.PhotoItemTask;
+import com.carpediemsolution.fitdiary.util.async.PhotoItemAsync;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +56,7 @@ public class FitHolder extends RecyclerView.ViewHolder {
         String personIMTtoday = String.valueOf(personIMT);
         mIMTView.setText("  /  " + ((App.getAppContext().getString(R.string.imt)) + " " + personIMTtoday));
 
-        PhotoItemTask photoItemsTask = new PhotoItemTask(mPhotoView, weight);
+        PhotoItemAsync photoItemsTask = new PhotoItemAsync(mPhotoView, weight);
         photoItemsTask.execute();
     }
 }

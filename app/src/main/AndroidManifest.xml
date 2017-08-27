@@ -30,7 +30,6 @@
             android:name=".activity.PagerMainActivity"
             android:label="Fit Diary"
             android:theme="@style/WeightStyle">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -48,26 +47,26 @@
             android:name="com.carpediemsolution.fitdiary.activity.FitPagerActivity"
             android:label=" "
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
         <activity
             android:name="com.carpediemsolution.fitdiary.activity.ChartActivity"
-            android:label="График изменения веса"></activity>
+            android:label="График изменения веса" />
 
         <activity
             android:name="com.carpediemsolution.fitdiary.activity.NewFitActivity"
             android:label=" "
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
 
         <activity
             android:name="com.carpediemsolution.fitdiary.activity.PhotoViewActivity"
             android:label=" "
-            android:theme="@android:style/Theme.Holo.DialogWhenLarge"></activity>
+            android:theme="@android:style/Theme.Holo.DialogWhenLarge" />
 
         <activity
             android:name="com.carpediemsolution.fitdiary.activity.ReminderActivity"
-            android:label=" "></activity>
+            android:label=" " />
 
         <meta-data
             android:name="com.google.android.gms.version"
