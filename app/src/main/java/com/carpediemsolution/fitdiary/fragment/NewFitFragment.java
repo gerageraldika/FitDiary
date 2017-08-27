@@ -85,8 +85,8 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         DatePickerFragment dialog = DatePickerFragment
                 .newInstance(date);
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
+       // FragmentTransaction fragmentTransaction = fm.beginTransaction();
+       // fragmentTransaction.addToBackStack(null);
         dialog.setTargetFragment(NewFitFragment.this, REQUEST_DATE);
         dialog.show(fm, DIALOG_DATE);
     }

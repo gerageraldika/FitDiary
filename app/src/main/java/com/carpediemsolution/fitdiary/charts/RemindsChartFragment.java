@@ -13,6 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
@@ -127,7 +128,7 @@ public class RemindsChartFragment extends Fragment implements OnBackListener {
 
 
             TextView c2 = new TextView(getActivity());
-            c2.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+            c2.setTextColor(App.getAppContext().getResources().getColor(R.color.colorWhite));
             c2.setGravity(Gravity.CENTER);
             c2.setPadding(0, 20, 0, 20);
             c2.setBackgroundResource(R.drawable.rectangle_graph_grey);
