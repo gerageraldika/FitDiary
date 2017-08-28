@@ -1,6 +1,9 @@
 package com.carpediemsolution.fitdiary.charts.views;
 
 import com.arellomobile.mvp.MvpView;
+import com.carpediemsolution.fitdiary.model.RemindsCounter;
+
+import java.util.List;
 
 
 /**
@@ -18,5 +21,9 @@ public interface ReminderChartView extends MvpView {
     void showWeightStatistic(String s);
 
     void showWeightResults(String s);
+
+    void showReminderStatistic(List<RemindsCounter> reminderCounters);
+
+    void showError();
 
 }

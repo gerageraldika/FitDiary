@@ -1,10 +1,18 @@
 package com.carpediemsolution.fitdiary.charts.presenters;
 
 import android.os.AsyncTask;
+import android.view.Gravity;
+import android.widget.Toast;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.carpediemsolution.fitdiary.App;
+import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.charts.views.ReminderChartView;
+import com.carpediemsolution.fitdiary.dao.FitLab;
+import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
+import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.model.Weight;
 
 import java.util.Date;
@@ -17,12 +25,30 @@ import java.util.Locale;
  */
 @InjectViewState
 public class ReminderChartPresenter extends MvpPresenter<ReminderChartView> {
-
-    public void init(List<Weight> weightList, Person person) {
+    //init presenter
+    public void initAsync(List<Weight> weightList, Person person) {
         new CaloriesAsync(weightList).execute();
         new WeightAverageAsync(weightList).execute();
         new WeightStatisticAsync(weightList, person).execute();
         new WeightResultAsync(weightList, person).execute();
+    }
+
+    public void init(){
+        FitLab fitLab = App.getFitLab();
+        if (!DbSchema.CalculatorTable.NAME_COUNTER.isEmpty() &&
+                fitLab.getRemindCounts().size() > 0) {
+
+            List<RemindsCounter> reminderCounters = fitLab.getRemindCounts();
+            getViewState().showReminderStatistic(reminderCounters);
+        }
+
+        if (!DbSchema.CalculatorTable.NAME.isEmpty() && fitLab.getWeights().size() > 0) {
+            List<Weight> weights = fitLab.getWeights();
+            Person person = fitLab.getPerson();
+            initAsync(weights, person);
+        } else {
+           getViewState().showError();
+        }
     }
 
     private class CaloriesAsync extends AsyncTask<Void, Void, String> {

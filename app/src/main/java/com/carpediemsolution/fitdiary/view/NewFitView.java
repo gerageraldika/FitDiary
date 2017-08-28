@@ -12,5 +12,5 @@ public interface NewFitView extends MvpView, BaseView {
 
     void showInfo(@NonNull String weight);
 
-  void showErrorMessage();
+    void showErrorMessage();
 }

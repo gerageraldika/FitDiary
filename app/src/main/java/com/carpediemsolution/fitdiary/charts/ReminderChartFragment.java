@@ -15,18 +15,15 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.charts.presenters.ReminderChartPresenter;
 import com.carpediemsolution.fitdiary.charts.views.ReminderChartView;
-import com.carpediemsolution.fitdiary.dao.FitLab;
-import com.carpediemsolution.fitdiary.database.DbSchema;
-import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;
-import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,44 +44,36 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
     TableLayout weightStatisticsTab;
     @BindView(R.id.tab_weight_layout_3)
     TableLayout weightResultsTab;
-
+    @BindView(R.id.tab_remind_layout)
+    TableLayout reminderTab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setRetainInstance(true); ??
+        //  setRetainInstance(true); ??
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chart_layout_reminds, container, false);
         ButterKnife.bind(this, view);
-        TableLayout tableLayoutForReminds = (TableLayout) view.findViewById(R.id.tab_remind_layout);
 
-        FitLab sCalcLab = App.getFitLab();
-        if (!DbSchema.CalculatorTable.NAME_COUNTER.isEmpty() &&
-                sCalcLab.getRemindCounts().size() > 0) {
-            List<RemindsCounter> reminderCounters = sCalcLab.getRemindCounts();
-            getRemindsStatistic(reminderCounters, tableLayoutForReminds);
-        }
+        presenter.init();
 
-        if (!DbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
-            List<Weight> weights = sCalcLab.getWeights();
-            Person person = sCalcLab.getPerson();
-            presenter.init(weights, person);
-        } else {
-            Toast toast = Toast.makeText(getActivity(),
-                    R.string.string_weight_graph, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
         return view;
     }
 
     @Override
-    public void onBackPressed() {
-        Intent i = new Intent(getActivity(), PagerMainActivity.class);
-        startActivity(i);
+    public void showReminderStatistic(List<RemindsCounter> reminderCounters) {
+        getRemindsStatistic(reminderCounters, reminderTab);
+    }
+
+    @Override
+    public void showError() {
+        Toast toast = Toast.makeText(getActivity(),
+                R.string.string_weight_graph, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     @Override
@@ -97,7 +86,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.average_calories));
         c11.setPadding(15, 30, 15, 30);
         tableRowFirst.addView(c11);
@@ -107,7 +96,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
 
@@ -128,7 +117,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.changing_weight_by_day));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -141,7 +130,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -159,7 +148,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.average_weight));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -169,7 +158,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -189,7 +178,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.from_start_changing_weight));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -199,7 +188,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -207,6 +196,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
         weightResultsTab.addView(tableRowFirst);
         weightResultsTab.addView(tableRowSecond);
     }
+
 
     public void getRemindsStatistic(List<RemindsCounter> reminderCounters, TableLayout tabLayout) {
         tabLayout.setStretchAllColumns(true);
@@ -217,7 +207,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.from_start_remind_graph_date));
         // c11.setTextSize(15);
         c11.setPadding(15, 20, 15, 20);
@@ -234,7 +224,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
             tableRow.setBackgroundResource(R.drawable.rectangle_graph_title);
             TextView c1 = new TextView(getActivity());
             c1.setWidth(50);
-            c1.setTextColor(ContextCompat.getColor(getContext(),R.color.colorDeepOrange));
+            c1.setTextColor(ContextCompat.getColor(getContext(), R.color.colorDeepOrange));
             c1.setGravity(Gravity.CENTER);
             c1.setBackgroundResource(R.drawable.rectangle_graph_grey);
             c1.setPadding(0, 20, 0, 20);
@@ -242,7 +232,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
 
             TextView c2 = new TextView(getActivity());
-            c2.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
+            c2.setTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
             c2.setGravity(Gravity.CENTER);
             c2.setPadding(0, 20, 0, 20);
             c2.setBackgroundResource(R.drawable.rectangle_graph_grey);
@@ -253,6 +243,12 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                     TableRow.LayoutParams.WRAP_CONTENT, 0.5f));
             tabLayout.addView(tableRow);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(getActivity(), PagerMainActivity.class);
+        startActivity(i);
     }
 }
 

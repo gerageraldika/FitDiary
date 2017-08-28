@@ -14,6 +14,7 @@ import java.util.List;
 public interface FitView extends MvpView, BaseView{
 
      void showDetails(@NonNull Weight weight);
+
      void showFitList(List<Weight> weightList);
 
 }
