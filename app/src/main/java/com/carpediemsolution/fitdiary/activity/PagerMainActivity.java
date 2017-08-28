@@ -25,31 +25,40 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.activity.presenters.PagerMainPresenter;
+import com.carpediemsolution.fitdiary.activity.views.PagerMainView;
 import com.carpediemsolution.fitdiary.ui.dialogs.StartAppDialog;
 import com.carpediemsolution.fitdiary.ui.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.ui.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.util.Constants;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
-import com.carpediemsolution.fitdiary.util.async.IconPhotoAsync;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Юлия on 04.03.2017.
  */
-public class PagerMainActivity extends AppCompatActivity {
+public class PagerMainActivity extends MvpAppCompatActivity implements PagerMainView{
 
+    @InjectPresenter
+    PagerMainPresenter presenter;
     @BindView(R.id.background_imageview)
     ImageView imageView;
     @BindView(R.id.tool_bar)
     Toolbar toolbar;
-    private IconPhotoAsync iconPhotoTask;
+    @BindView(R.id.nest_scrollview)
+    NestedScrollView scrollView;
+    @BindView(R.id.tab_layout)
+    TabLayout tableLayout;
+    @BindView(R.id.view_pager)
+    LockableViewPager viewPager;
+
     private static final int REQUEST_PHOTO = 5;
     private static final String START_APP_DIALOG = "StartUpDialog";
     private String[] permissions = new String[]{
@@ -62,31 +71,17 @@ public class PagerMainActivity extends AppCompatActivity {
         setContentView(R.layout.main_pager_activity);
         ButterKnife.bind(this);
 
-        NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.nest_scrollview);
         scrollView.setFillViewport(true);
-
         setSupportActionBar(toolbar);
 
-        TabLayout mTableLayout = (TabLayout) findViewById(R.id.tab_layout);
-        LockableViewPager mViewPager = (LockableViewPager) findViewById(R.id.view_pager);
-        mViewPager.setSwipeable(false);
-
-        mViewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
+        viewPager.setSwipeable(false);
+        viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
                 getResources().getStringArray(R.array.titles_tab)));
+        tableLayout.setupWithViewPager(viewPager);
 
-        mTableLayout.setupWithViewPager(mViewPager);
-
-        iconPhotoTask = new IconPhotoAsync(imageView);
-        iconPhotoTask.execute();
-        iconPhotoTask.link(this);
+       presenter.init(imageView);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (iconPhotoTask != null)
-            iconPhotoTask.unLink();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,18 +157,17 @@ public class PagerMainActivity extends AppCompatActivity {
                 Cursor cursor = PagerMainActivity.this.getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
 
-
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String imgDecodableString = cursor.getString(columnIndex);
+                String path = cursor.getString(columnIndex);
                 cursor.close();
 
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PagerMainActivity.this);
-                prefs.edit().putString(Constants.IMAGE, imgDecodableString).apply();
+                prefs.edit().putString(Constants.IMAGE, path).apply();
 
                 imageView.setImageBitmap(BitmapFactory
-                        .decodeFile(imgDecodableString));
+                        .decodeFile(path));
             } catch (Exception e) {
                 Toast.makeText(PagerMainActivity.this, "Something went wrong", Toast.LENGTH_LONG)
                         .show();

@@ -1,6 +1,5 @@
 package com.carpediemsolution.fitdiary.util.async;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,20 +17,11 @@ import com.carpediemsolution.fitdiary.App;
 
 public class IconPhotoAsync extends AsyncTask<Void, Void, Bitmap> {
     private ImageView photoView;
-    private Activity activity;
 
     public IconPhotoAsync(ImageView mPhotoView) {
         this.photoView = mPhotoView;
     }
 
-    public void link(Activity act) {
-        activity = act;
-    }
-
-    // обнуляем ссылку
-    public void unLink() {
-        activity = null;
-    }
 
     @Override
     protected Bitmap doInBackground(Void... param) {
