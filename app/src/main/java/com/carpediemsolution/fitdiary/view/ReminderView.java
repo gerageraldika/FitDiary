@@ -1,5 +1,7 @@
 package com.carpediemsolution.fitdiary.view;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 import com.carpediemsolution.fitdiary.model.Reminder;
 
@@ -11,5 +13,5 @@ import java.util.List;
 
 public interface ReminderView extends MvpView, BaseView{
 
-    void showRemindsList(List<Reminder> reminderList);
+    void showRemindsList(@NonNull List<Reminder> reminderList);
 }

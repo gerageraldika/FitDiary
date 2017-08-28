@@ -1,5 +1,7 @@
 package com.carpediemsolution.fitdiary.view;
 
+import android.support.annotation.NonNull;
+
 import com.arellomobile.mvp.MvpView;
 import com.carpediemsolution.fitdiary.model.Weight;
 
@@ -9,7 +11,7 @@ import com.carpediemsolution.fitdiary.model.Weight;
 
 public interface FitDetailsView extends MvpView, BaseView {
 
-    void showFitDetails(Weight weight);
+    void showFitDetails(@NonNull Weight weight);
 
     void showErrorMessage();
 }

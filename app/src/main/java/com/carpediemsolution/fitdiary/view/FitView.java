@@ -15,6 +15,6 @@ public interface FitView extends MvpView, BaseView{
 
      void showDetails(@NonNull Weight weight);
 
-     void showFitList(List<Weight> weightList);
+     void showFitList(@NonNull List<Weight> weightList);
 
 }
