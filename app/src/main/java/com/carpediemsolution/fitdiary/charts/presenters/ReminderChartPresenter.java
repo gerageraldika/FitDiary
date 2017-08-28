@@ -162,7 +162,8 @@ public class ReminderChartPresenter extends MvpPresenter<ReminderChartView> {
         } else return "0";
     }
 
-        /*  Func1<List<Weight>, String> listToString = new Func1<List<Weight>, String>() {
+        /*  in case of rx:
+        Func1<List<Weight>, String> listToString = new Func1<List<Weight>, String>() {
         @Override
         public String call(List<Weight> weights) {
             return  getAverageCalories(weights);

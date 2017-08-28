@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.util.async.PhotoItemAsync;
