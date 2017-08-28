@@ -40,7 +40,7 @@ public class FitHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(@NonNull Weight weight) {
-        Person person = FitLab.get().getPerson();
+        Person person = App.getFitLab().getPerson();
 
         mDateTextView.setText(DateFormat.format("dd MM yyyy", weight.getDate()));
         mTitleTextView.setText((App.getAppContext().getString(R.string.weight)) + " " + weight.getsWeight() + " "

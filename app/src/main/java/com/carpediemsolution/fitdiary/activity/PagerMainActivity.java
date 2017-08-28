@@ -25,9 +25,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.ui.dialogs.StartAppDialog;
-import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.ui.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.ui.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.util.Constants;
@@ -111,7 +111,7 @@ public class PagerMainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_new_weight) {
-            if (!FitLab.get().returnPerson()) {
+            if (!App.getFitLab().returnPerson()) {
                 FragmentManager fm = getSupportFragmentManager();
                 StartAppDialog dialogFragment = new StartAppDialog();
                 dialogFragment.show(fm, START_APP_DIALOG);

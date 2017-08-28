@@ -22,7 +22,7 @@ public class ReminderAdapter extends BaseAdapter<ReminderHolder, Reminder> {
     @Override
     public ReminderHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ReminderHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view_item, parent, false));
+                .inflate(R.layout.reminder_recyclerview_item, parent, false));
     }
 
     @Override

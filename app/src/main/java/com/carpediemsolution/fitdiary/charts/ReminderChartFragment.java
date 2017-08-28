@@ -2,6 +2,7 @@ package com.carpediemsolution.fitdiary.charts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
         ButterKnife.bind(this, view);
         TableLayout tableLayoutForReminds = (TableLayout) view.findViewById(R.id.tab_remind_layout);
 
-        FitLab sCalcLab = FitLab.get();
+        FitLab sCalcLab = App.getFitLab();
         if (!DbSchema.CalculatorTable.NAME_COUNTER.isEmpty() &&
                 sCalcLab.getRemindCounts().size() > 0) {
             List<RemindsCounter> reminderCounters = sCalcLab.getRemindCounts();
@@ -96,7 +97,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.average_calories));
         c11.setPadding(15, 30, 15, 30);
         tableRowFirst.addView(c11);
@@ -106,7 +107,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
 
@@ -127,7 +128,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.changing_weight_by_day));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -140,7 +141,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -158,7 +159,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.average_weight));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -168,7 +169,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -188,7 +189,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.from_start_changing_weight));
         c11.setPadding(15, 20, 15, 20);
         tableRowFirst.addView(c11);
@@ -198,7 +199,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.MATCH_PARENT));
         tableRowSecond.setBackgroundResource(R.color.colorDeepGrey);
         TextView c22 = new TextView(getActivity());
-        c22.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c22.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c22.setText(s);
         c22.setPadding(15, 20, 15, 20);
         tableRowSecond.addView(c22);
@@ -216,7 +217,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         tableRowFirst.setBackgroundResource(R.color.colorDeepGreen);
         TextView c11 = new TextView(getActivity());
-        c11.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+        c11.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
         c11.setText(getActivity().getString(R.string.from_start_remind_graph_date));
         // c11.setTextSize(15);
         c11.setPadding(15, 20, 15, 20);
@@ -233,7 +234,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
             tableRow.setBackgroundResource(R.drawable.rectangle_graph_title);
             TextView c1 = new TextView(getActivity());
             c1.setWidth(50);
-            c1.setTextColor(getActivity().getResources().getColor(R.color.colorDeepOrange));
+            c1.setTextColor(ContextCompat.getColor(getContext(),R.color.colorDeepOrange));
             c1.setGravity(Gravity.CENTER);
             c1.setBackgroundResource(R.drawable.rectangle_graph_grey);
             c1.setPadding(0, 20, 0, 20);
@@ -241,7 +242,7 @@ public class ReminderChartFragment extends MvpAppCompatFragment implements OnBac
 
 
             TextView c2 = new TextView(getActivity());
-            c2.setTextColor(App.getAppContext().getResources().getColor(R.color.colorWhite));
+            c2.setTextColor(ContextCompat.getColor(getContext(),R.color.colorWhite));
             c2.setGravity(Gravity.CENTER);
             c2.setPadding(0, 20, 0, 20);
             c2.setBackgroundResource(R.drawable.rectangle_graph_grey);

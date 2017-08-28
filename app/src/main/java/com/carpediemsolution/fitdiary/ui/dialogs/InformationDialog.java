@@ -1,7 +1,6 @@
 package com.carpediemsolution.fitdiary.ui.dialogs;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.model.Person;
@@ -38,7 +38,7 @@ public class InformationDialog extends DialogFragment {
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         String weightToday = (String)getArguments().getSerializable(ARG_WEIGHT_TODAY);
-        FitLab sCalcLab = FitLab.get();
+        FitLab sCalcLab = App.getFitLab();
         mPerson = sCalcLab.getPerson();
 
 

@@ -4,10 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
-import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.database.FitWrapper;
-import com.carpediemsolution.fitdiary.database.DBBaseHelper;
 import com.carpediemsolution.fitdiary.database.DbSchema.CalculatorTable;
 import com.carpediemsolution.fitdiary.model.Person;
 import com.carpediemsolution.fitdiary.model.Reminder;
@@ -28,26 +25,17 @@ import java.util.UUID;
  */
 
 public class FitLab {
-    private static FitLab calcLab;
 
-    public SQLiteDatabase mDatabase;
+    public SQLiteDatabase dataBase;
     private static String LAB_LOG = "LabLog";
 
-    public static FitLab get() {
-        if (calcLab == null) {
-            calcLab = new FitLab();
-        }
-        return calcLab;
-    }
-
-    private FitLab() {
-        mDatabase = new DBBaseHelper(App.getAppContext())
-                .getWritableDatabase();
+    public FitLab(SQLiteDatabase dataBase) {
+        this.dataBase = dataBase;
     }
 
     public void addWeight(Weight c) {
         ContentValues values = getContentValues(c);
-        mDatabase.insert(CalculatorTable.NAME, null, values);
+        dataBase.insert(CalculatorTable.NAME, null, values);
     }
 
     //!!!
@@ -104,7 +92,7 @@ public class FitLab {
     }
 
     private FitWrapper queryCalculator(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME,
                 null, // Columns - null selects all columns
                 whereClause,
@@ -120,7 +108,7 @@ public class FitLab {
         String uuidString = weight.getId().toString();
         ContentValues values = getContentValues(weight);
 
-        mDatabase.update(CalculatorTable.NAME, values,
+        dataBase.update(CalculatorTable.NAME, values,
                 CalculatorTable.Cols.UUID + " = ?",
                 new String[]{uuidString});
     }
@@ -136,7 +124,7 @@ public class FitLab {
 
     public void updatePerson(Person person) {
         ContentValues values = getPersonContentValues(person);
-        mDatabase.update(CalculatorTable.NAME_PERSON, values,
+        dataBase.update(CalculatorTable.NAME_PERSON, values,
                 CalculatorTable.Cols.ID + " = ?", new String[]{"1"});
         Log.d(LAB_LOG, "----" + "updateDBPerson" + "----" + person.getPersonName() + getPerson().getPersonName()
         );
@@ -144,7 +132,7 @@ public class FitLab {
 
     public void addPerson(Person person) {
         ContentValues values = getPersonContentValues(person);
-        mDatabase.insert(CalculatorTable.NAME_PERSON, null, values);
+        dataBase.insert(CalculatorTable.NAME_PERSON, null, values);
         Log.d(LAB_LOG, "----" + "addPerson" + "----" + CalculatorTable.NAME_PERSON);
     }
 
@@ -155,7 +143,7 @@ public class FitLab {
                 CalculatorTable.Cols.HEIGHT,
                 CalculatorTable.Cols.PERSON_WEIGHT,
         };
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME_PERSON,  // The table to query
                 projection, // Columns - null selects all columns
                 null,
@@ -192,7 +180,7 @@ public class FitLab {
                 CalculatorTable.Cols.HEIGHT,
                 CalculatorTable.Cols.PERSON_WEIGHT,
         };
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME_PERSON,  // The table to query
                 projection, // Columns - null selects all columns
                 null,
@@ -223,7 +211,7 @@ public class FitLab {
 
     public void addReminder(Reminder reminder) {
         ContentValues values = getReminderContentValues(reminder);
-        mDatabase.insert(CalculatorTable.NAME_REMEMBERING, null, values);
+        dataBase.insert(CalculatorTable.NAME_REMEMBERING, null, values);
         Log.d(LAB_LOG, "----" + "addReminder" + "----" + CalculatorTable.NAME_REMEMBERING);
     }
 
@@ -231,7 +219,7 @@ public class FitLab {
         String uuidString = reminder.getUuid().toString();
         ContentValues values = getReminderContentValues(reminder);
 
-        mDatabase.update(CalculatorTable.NAME_REMEMBERING, values,
+        dataBase.update(CalculatorTable.NAME_REMEMBERING, values,
                 CalculatorTable.Cols.REM_UUID + " = ?",
                 new String[]{uuidString});
         Log.d(LAB_LOG, "----" + "updateReminder" + reminder.getFlag() + "----");
@@ -281,7 +269,7 @@ public class FitLab {
                 CalculatorTable.Cols.COUNTER_DATE,
                 CalculatorTable.Cols.COUNTER_FLAG,
         };
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME_COUNTER,  // The table to query
                 projection, // Columns - null selects all columns
                 null,
@@ -311,7 +299,7 @@ public class FitLab {
 
 
     private FitWrapper queryReminder(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME_REMEMBERING,
                 null, // Columns - null selects all columns
                 whereClause,
@@ -337,7 +325,7 @@ public class FitLab {
     }
 
     private FitWrapper queryReminderCount(String whereClause, String[] whereArgs) {
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = dataBase.query(
                 CalculatorTable.NAME_COUNTER,
                 null, // Columns - null selects all columns
                 whereClause,
@@ -406,7 +394,7 @@ public class FitLab {
             reminderCounter1.setCounterFlag(count);
 
             ContentValues values = getCounterContentValues(reminderCounter1);
-            mDatabase.update(CalculatorTable.NAME_COUNTER, values,
+            dataBase.update(CalculatorTable.NAME_COUNTER, values,
                     CalculatorTable.Cols.COUNTER_DATE + " = ?",
                     new String[]{dateString});
             Log.d(LAB_LOG, "----" + "addCounter" + "----" + reminderCounter.getCounterFlag() +
@@ -414,7 +402,7 @@ public class FitLab {
 
         } catch (NullPointerException e) {
             ContentValues values = getCounterContentValues(reminderCounter);
-            mDatabase.insert(CalculatorTable.NAME_COUNTER, null, values);
+            dataBase.insert(CalculatorTable.NAME_COUNTER, null, values);
             Log.d(LAB_LOG, "----" + "addCounter 1" + "----" + reminderCounter.getCounterFlag() +
                     "--" + reminderCounter.getDate());
         }
@@ -435,7 +423,7 @@ public class FitLab {
         String[] columns = {CalculatorTable.Cols.COUNTER_ID, CalculatorTable.Cols.COUNTER_UUID,
                 CalculatorTable.Cols.COUNTER_DATE,
                 CalculatorTable.Cols.COUNTER_FLAG};
-        Cursor cursor = mDatabase.query(CalculatorTable.NAME_COUNTER, columns, null, null, null, null, null);
+        Cursor cursor = dataBase.query(CalculatorTable.NAME_COUNTER, columns, null, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
         while (cursor.moveToNext()) {

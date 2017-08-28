@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.view.FitDetailsView;
@@ -19,7 +20,7 @@ public class FitDetailsPresenter extends MvpPresenter<FitDetailsView> {
 
 
     public void getWeight(UUID uuid) {
-        getViewState().showFitDetails(FitLab.get().getWeight(uuid));
+        getViewState().showFitDetails(App.getFitLab().getWeight(uuid));
     }
 
     public void updateWeight(UUID uuid, String weight, String calories, String notes, Date date) {
@@ -36,7 +37,7 @@ public class FitDetailsPresenter extends MvpPresenter<FitDetailsView> {
                 userWeight.setNotes(notes);
             userWeight.setDate(date);
 
-            FitLab.get().updateWeight(userWeight);
+            App.getFitLab().updateWeight(userWeight);
         }
         else getViewState().showErrorMessage();
     }

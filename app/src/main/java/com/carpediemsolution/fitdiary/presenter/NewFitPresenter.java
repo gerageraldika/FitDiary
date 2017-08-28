@@ -39,7 +39,7 @@ public class NewFitPresenter extends MvpPresenter<NewFitView> {
             if (!TextUtils.isEmpty(photoUri))
                 userWeight.setPhotoUri(photoUri);
 
-            FitLab.get().addWeight(userWeight);
+            App.getFitLab().addWeight(userWeight);
             getViewState().showInfo(userWeight.getsWeight());
 
         } else if (Double.parseDouble(weight) > 300) {

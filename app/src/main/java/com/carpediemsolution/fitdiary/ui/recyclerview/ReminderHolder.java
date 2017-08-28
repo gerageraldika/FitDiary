@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.database.DbSchema;
@@ -44,7 +45,7 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
         remindChecked.setChecked(reminder.isCounter());
 
         remindChecked.setOnClickListener((View v) -> {
-            FitLab fitLab = FitLab.get();
+            FitLab fitLab = App.getFitLab();
 
             if (!reminder.isCounter()) {
                 //  Log.d(LOG_REMINDER, "----" + "reminder " + reminder.isCounter());
@@ -75,7 +76,7 @@ public class ReminderHolder extends RecyclerView.ViewHolder {
 
                     if (reminderCounters.get(i).getUuid().toString().equals(reminder.getUuid().toString())) {
                         String uuidCounterString = reminderCounters.get(i).getUuid().toString();
-                        fitLab.mDatabase.delete(DbSchema.CalculatorTable.NAME_COUNTER,
+                        fitLab.dataBase.delete(DbSchema.CalculatorTable.NAME_COUNTER,
                                 DbSchema.CalculatorTable.Cols.COUNTER_UUID + " = '" + uuidCounterString + "'", null);
                         //   Log.d(LOG_REMINDER, "----" + "string " + reminderCounters.get(i).getUuid());
                     }

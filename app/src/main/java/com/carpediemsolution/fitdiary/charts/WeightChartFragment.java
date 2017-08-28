@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.database.DbSchema;
@@ -112,7 +113,7 @@ public class WeightChartFragment extends Fragment {
         View view = inflater.inflate(R.layout.chart_layout_weight, container, false);
         Log.d(GRAPHIC_LOG, "----Start GraphView---");
 
-        FitLab calculatorLab = FitLab.get();
+        FitLab calculatorLab = App.getFitLab();
 
         if (!DbSchema.CalculatorTable.NAME.isEmpty() && calculatorLab.getWeights().size() > 0) {
 

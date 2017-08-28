@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.fragment.FitDetailsFragment;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
@@ -40,7 +40,7 @@ public class FitPagerActivity extends AppCompatActivity implements OnBackListene
 
         UUID weightId = (UUID) getIntent().getSerializableExtra(EXTRA_WEIGHT_ID);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.activity_calc_pager_view_pager);
-        weightList = FitLab.get().getWeights();
+        weightList = App.getFitLab().getWeights();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {

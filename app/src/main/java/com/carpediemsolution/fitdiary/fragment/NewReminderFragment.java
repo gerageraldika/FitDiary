@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.model.Reminder;
@@ -66,7 +67,7 @@ public class NewReminderFragment extends DialogFragment implements CompoundButto
         setRetainInstance(true);
         UUID id = UUID.randomUUID();
         reminder = new Reminder(id);
-        sCalcLab = FitLab.get();
+        sCalcLab = App.getFitLab();
     }
 
 

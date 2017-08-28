@@ -48,8 +48,8 @@ public class TimePickerFragment extends DialogFragment {
         timePicker = (TimePicker) v.findViewById(R.id.timePicker);
         Calendar calendar = Calendar.getInstance();
 
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int min = calendar.get(Calendar.MINUTE);
+       // int hour = calendar.get(Calendar.HOUR_OF_DAY);
+      //  int min = calendar.get(Calendar.MINUTE);
 
 
         return new AlertDialog.Builder(getActivity())

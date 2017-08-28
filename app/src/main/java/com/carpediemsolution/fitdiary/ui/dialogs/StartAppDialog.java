@@ -1,6 +1,5 @@
 package com.carpediemsolution.fitdiary.ui.dialogs;
 
-
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.os.Build;
@@ -19,6 +18,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Person;
@@ -40,7 +40,7 @@ public class StartAppDialog extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
          .inflate(R.layout.start_app_dialog, null);
 
-        sCalcLab = FitLab.get();
+        sCalcLab = App.getFitLab();
 
         Log.d(MY_LOG, "----Person" + v);
 

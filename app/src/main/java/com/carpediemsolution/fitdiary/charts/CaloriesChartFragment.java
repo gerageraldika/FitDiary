@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
@@ -72,7 +73,7 @@ public class CaloriesChartFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.chart_layout_calories, container, false);
 
-        FitLab sCalcLab = FitLab.get();
+        FitLab sCalcLab = App.getFitLab();
 
         if (!DbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
             weights = sCalcLab.getWeights();

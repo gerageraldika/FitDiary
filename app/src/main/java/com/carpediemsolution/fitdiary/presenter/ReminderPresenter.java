@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Person;
@@ -22,7 +23,7 @@ public class ReminderPresenter extends MvpPresenter<ReminderView> {
     public void loadData(){
         //db
         try {
-            getViewState().showRemindsList(FitLab.get().getReminds());
+            getViewState().showRemindsList(App.getFitLab().getReminds());
         }
         catch (Exception e){
             getViewState().showError();
@@ -31,7 +32,7 @@ public class ReminderPresenter extends MvpPresenter<ReminderView> {
 
     public void deleteReminder(Reminder reminder){
         String uuidString = reminder.getUuid().toString();
-        FitLab.get().mDatabase.delete(DbSchema.CalculatorTable.NAME_REMEMBERING,
+        App.getFitLab().dataBase.delete(DbSchema.CalculatorTable.NAME_REMEMBERING,
                 DbSchema.CalculatorTable.Cols.REM_UUID + " = '" + uuidString + "'", null);
     }
 
