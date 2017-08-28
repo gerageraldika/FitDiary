@@ -1,20 +1,12 @@
 package com.carpediemsolution.fitdiary.charts.presenters;
 
-import android.view.Gravity;
-import android.widget.Toast;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.fitdiary.App;
-import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.charts.views.ReminderChartView;
 import com.carpediemsolution.fitdiary.charts.views.WeightChartView;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.database.DbSchema;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.github.mikephil.charting.charts.LineChart;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
