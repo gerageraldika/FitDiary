@@ -1,7 +1,6 @@
 package com.carpediemsolution.fitdiary.fragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -115,25 +114,19 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
                         final int position = viewHolder.getAdapterPosition(); //get position which is swipe
 
                         if (direction == ItemTouchHelper.LEFT) {    //if swipe left
-
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyTheme_Blue_Dialog); //alert for confirm to delete
-                            builder.setMessage(getString(R.string.sure_to_delete));    //set message
-                            builder.setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() { //when click on DELETE
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            builder.setMessage(getString(R.string.sure_to_delete))    //set message
+                            .setPositiveButton(getString(R.string.remove), (dialog, which)-> {
                                     adapter.notifyItemRemoved(position);//item removed from recylcerview
                                     presenter.deleteWeight(weightList.get(position));
-                                    //then remove item*/
                                     adapter.remove(weightList.get(position));
                                     adapter.refreshRecycler();
-                                }
-                            }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                })
+                            .setNegativeButton(getString(R.string.cancel),(dialog,which)-> {
                                     adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
                                     adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
-                                }
-                            }).show();
+                                })
+                             .show();
                         }
                     }
                 };

@@ -7,4 +7,5 @@ package com.carpediemsolution.fitdiary.util;
 public class Constants {
 
     public static final String IMAGE = "Image";
+    public static final String WEIGHT_URI = "weight_uri";
 }

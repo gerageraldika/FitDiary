@@ -53,15 +53,12 @@ public class InformationDialog extends DialogFragment {
                 .setMessage(new MathUtils().personIMT(sCalcLab,changedWeihgt) + "\n" +
                         getString(R.string.from_start_weight_changed) + " "
                         + new MathUtils().changingWeight(sCalcLab,changedWeihgt) +  " " + getString(R.string.kg))
-        .setPositiveButton(R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+        .setPositiveButton(R.string.ok, (dialog, id)-> {
 
                         Intent intent = new Intent(getActivity(), PagerMainActivity.class);
                         startActivity(intent);
                         dialog.cancel();
-                    }
-                });
+                    });
 
         return builder.create();
     }

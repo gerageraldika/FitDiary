@@ -102,21 +102,17 @@ public class ReminderListFragment extends MvpAppCompatFragment implements Remind
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyTheme_Blue_Dialog); //alert for confirm to delete
                             builder.setMessage(getString(R.string.sure_to_delete));    //set message
-                            builder.setPositiveButton(getString(R.string.remove), new DialogInterface.OnClickListener() { //when click on DELETE
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                            builder.setPositiveButton(getString(R.string.remove),(dialog, which)-> {
                                     adapter.notifyItemRemoved(position);//item removed from recylcerview
                                     presenter.deleteReminder(reminderList.get(position));
                                     adapter.remove(reminderList.get(position));
                                     adapter.refreshRecycler();
-                                }
-                            }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                })
+                                    .setNegativeButton(getString(R.string.cancel), ( dialog,which)-> {
                                     adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
                                     adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
-                                }
-                            }).show();
+                                })
+                                    .show();
                         }
                     }
                 };

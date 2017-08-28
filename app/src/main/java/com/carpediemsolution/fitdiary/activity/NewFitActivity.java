@@ -39,6 +39,7 @@ public class NewFitActivity extends SingleFragmentActivity implements OnBackList
         }
     }
 
+    //just for studying
     @Override
     protected void onStop() {
         super.onStop();

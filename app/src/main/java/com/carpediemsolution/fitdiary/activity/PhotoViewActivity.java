@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.carpediemsolution.fitdiary.R;
+import com.carpediemsolution.fitdiary.util.Constants;
 import com.carpediemsolution.fitdiary.util.PictureUtils;
 
 import java.io.File;
@@ -18,21 +19,17 @@ import java.io.File;
 
 public class PhotoViewActivity extends Activity {
 
-    private String photoUri;
-    private ImageView showPhoto;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature (Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.open_photo);
 
-        showPhoto = (ImageView)findViewById(R.id.weight_photo);
+        ImageView showPhoto = (ImageView) findViewById(R.id.weight_photo);
 
-        photoUri = getIntent().getStringExtra("weight_uri");
+        String photoUri = getIntent().getStringExtra(Constants.WEIGHT_URI);
 
         Uri uri = Uri.parse(photoUri);
 

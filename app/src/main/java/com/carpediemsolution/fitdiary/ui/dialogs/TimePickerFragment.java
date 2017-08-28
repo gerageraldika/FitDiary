@@ -25,7 +25,6 @@ import java.util.GregorianCalendar;
 
 public class TimePickerFragment extends DialogFragment {
     private TimePicker timePicker;
-    private Calendar calendar;
 
     private static final String ARG_TIME = "time";
     public static final String EXTRA_TIME = "com.carpediemsolution.fitdiary.time";
@@ -39,15 +38,15 @@ public class TimePickerFragment extends DialogFragment {
     }
 
     @Override
-    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
-       Date date = (Date)getArguments().getSerializable(ARG_TIME);
-
+    public
+    @NonNull
+    Dialog onCreateDialog(Bundle savedInstanceState) {
+        //  Date date = (Date)getArguments().getSerializable(ARG_TIME);
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.time_picker, null);
 
-       // Date time = (Date)getArguments().getSerializable(ARG_DATE);
         timePicker = (TimePicker) v.findViewById(R.id.timePicker);
-        calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
@@ -56,14 +55,11 @@ public class TimePickerFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int hour = timePicker.getCurrentHour();
-                                int min = timePicker.getCurrentMinute();
-                                Date time = new GregorianCalendar(0, 0, 0, hour, min).getTime();
-                                sendResult(Activity.RESULT_OK, time);
-                            }
+                        (dialog, which) -> {
+                            int hour1 = timePicker.getCurrentHour();
+                            int min1 = timePicker.getCurrentMinute();
+                            Date time = new GregorianCalendar(0, 0, 0, hour1, min1).getTime();
+                            sendResult(Activity.RESULT_OK, time);
                         })
                 .create();
     }

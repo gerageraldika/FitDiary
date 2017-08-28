@@ -3,7 +3,6 @@ package com.carpediemsolution.fitdiary.ui.dialogs;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,9 +29,7 @@ import com.carpediemsolution.fitdiary.util.MathUtils;
  */
 
 public class StartAppDialog extends DialogFragment {
-    private EditText personName;
-    private EditText getPersonHeight;
-    private EditText getPersonWeight;
+
     private Person person=Person.get();
     private static final String MY_LOG  = "StartDialogLog";
     private FitLab sCalcLab;
@@ -54,9 +51,9 @@ public class StartAppDialog extends DialogFragment {
         FilterArray[0] = new InputFilter.LengthFilter(maxLength);
 
 
-        personName = (EditText)v.findViewById(R.id.person_name);
-        getPersonHeight = (EditText)v.findViewById(R.id.person_height);
-        getPersonWeight = (EditText)v.findViewById(R.id.person_weight);
+        EditText personName = (EditText)v.findViewById(R.id.person_name);
+        EditText getPersonHeight = (EditText)v.findViewById(R.id.person_height);
+        EditText getPersonWeight = (EditText)v.findViewById(R.id.person_weight);
 
 
         personName.setText(person.getPersonName());
@@ -117,9 +114,7 @@ public class StartAppDialog extends DialogFragment {
             builder.setTitle(new MathUtils().getHoursOfDate()+"!");
             builder.setMessage("\n"+
                     getString(R.string.start_app_message)+ "\n")
-            .setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+            .setPositiveButton(R.string.ok, (dialog,id)-> {
 
                             if((person.getPersonName() != null) && (person.getPersonHeight() !=null)
                                     &&(person.getPersonWeight() != null) &&
@@ -145,14 +140,11 @@ public class StartAppDialog extends DialogFragment {
                                 toast.show();
                                 }
                             dialog.cancel();
-                        }
-                    });
+                        });
         }
          else if((sCalcLab.getPerson() != null))      {
             builder.setTitle(new MathUtils().getHoursOfDate()+ ", " + person.getPersonName() +"!")
-                    .setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                    .setPositiveButton(R.string.ok, (dialog, id)-> {
 
                             if((person.getPersonName() != null) && (person.getPersonHeight() !=null)
                                     &&(person.getPersonWeight() != null) &&
@@ -180,7 +172,6 @@ public class StartAppDialog extends DialogFragment {
                                 toast.show();
                             }
                             dialog.cancel();
-                        }
                     });
         }
         builder.setView(v);
