@@ -49,11 +49,6 @@ public final class MathUtils {
         } else return App.getAppContext().getResources().getString(R.string.no_changes);
     }
 
-
-    private static int daysBetween(Date d1, Date d2) {
-        return (int) ((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
-    }
-
     public static String getHoursOfDate() {
         Date date = new Date();
 
@@ -69,47 +64,5 @@ public final class MathUtils {
         } else if (hour >= 18 && hour < 24) {
             return App.getAppContext().getResources().getString(R.string.good_evening);
         } else return App.getAppContext().getResources().getString(R.string.good_night);
-    }
-
-    public String getWeightProgress(List<Weight> weights) {
-        int days = daysBetween(weights.get(weights.size() - 1).getDate(), weights.get(0).getDate());
-
-        if (weights.size() > 0 && days != 0) {
-            double weightProgress = Double.parseDouble(weights.get(weights.size() - 1).getsWeight())
-                    - Double.parseDouble(weights.get(0).getsWeight());
-            double average = weightProgress / days;
-          return   String.format( Locale.US, "%.2f", average);
-           // return String.valueOf(average);
-        } else return "0";
-    }
-
-    public String getWeightStatistics(List<Weight> weights, Person person) {
-        double weightStatistics = Double.parseDouble(person.getPersonWeight());
-       if(weights.size()> 0) {for (Weight weight : weights) {
-            weightStatistics = weightStatistics + Double.parseDouble(weight.getsWeight());}
-        double averageWeight = weightStatistics / (weights.size()+1);
-        return String.format( Locale.US, "%.2f", averageWeight);}
-        else return "0";
-    }
-
-    public  String getWeightResults(List<Weight> weights, Person person) {
-       if(weights.size()> 0){
-        Weight weight = weights.get(weights.size() - 1);
-        double weightResult = Double.parseDouble(person.getPersonWeight()) - Double.parseDouble(weight.getsWeight());
-
-        return String.format( Locale.US, "%.2f",weightResult);}
-       else return "0";
-    }
-
-    public static String getAverageCalories(List<Weight> weights){
-        double sumCalories = 0;
-        int counter = 0;
-        for (Weight weight : weights) {
-            if(weight.getCalories()!= null){
-            sumCalories = sumCalories + Double.parseDouble(weight.getCalories());
-            counter++;}
-        }
-        double averageCalories = sumCalories / counter;
-        return String.format( Locale.US, "%.2f",averageCalories);
     }
 }
