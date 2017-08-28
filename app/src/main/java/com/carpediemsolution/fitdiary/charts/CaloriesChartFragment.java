@@ -2,23 +2,22 @@ package com.carpediemsolution.fitdiary.charts;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.carpediemsolution.fitdiary.App;
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.database.DbSchema;
+import com.carpediemsolution.fitdiary.charts.presenters.CaloriesPresenter;
+import com.carpediemsolution.fitdiary.charts.views.CaloriesView;
+
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.dao.FitLab;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
@@ -35,32 +34,11 @@ import lecho.lib.hellocharts.view.ColumnChartView;
  * Created by Юлия on 08.03.2017.
  */
 
-public class CaloriesChartFragment extends Fragment {
+public class CaloriesChartFragment extends MvpAppCompatFragment implements CaloriesView {
 
-    private List<Weight> weights;
-    private List<Weight> weightsForGraph;
+    @InjectPresenter
+    CaloriesPresenter presenter;
     private ColumnChartView chart;
-
-    public CaloriesChartFragment() {
-    }
-
-    public List getWeightsForCaloriesGraph(List list) {
-        weightsForGraph = new ArrayList<Weight>();
-        for (int i = 0; i < weights.size(); i++) {
-            if (weights.get(i).getCalories() != null) {
-                weightsForGraph.add(weights.get(i));
-            }
-        }
-
-        Collections.sort(weightsForGraph, new Comparator<Weight>() {
-
-            @Override
-            public int compare(Weight o1, Weight o2) {
-                return o1.getDate().compareTo(o2.getDate());
-            }
-        });
-        return weightsForGraph;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,29 +50,29 @@ public class CaloriesChartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.chart_layout_calories, container, false);
+        chart = (ColumnChartView) view.findViewById(R.id.chart);
+        presenter.init();
 
-        FitLab sCalcLab = App.getFitLab();
-
-        if (!DbSchema.CalculatorTable.NAME.isEmpty() && sCalcLab.getWeights().size() > 0) {
-            weights = sCalcLab.getWeights();
-            weightsForGraph = getWeightsForCaloriesGraph(weights);
-
-            chart = (ColumnChartView) view.findViewById(R.id.chart);
-            chart.setZoomType(ZoomType.HORIZONTAL_AND_VERTICAL);
-            chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
-            chart.setOnValueTouchListener(new ValueTouchListener());
-
-            generateDefaultData();
-        } else {
-            Toast toast = Toast.makeText(getActivity(),
-                    R.string.string_weight_graph, Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
         return view;
     }
 
-    private void generateDefaultData() {
+    @Override
+    public void showSuccess(List<Weight> weights) {
+        chart.setZoomType(ZoomType.HORIZONTAL_AND_VERTICAL);
+        chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+        chart.setOnValueTouchListener(new CaloriesChartFragment.ValueTouchListener(weights));
+        generateDefaultData(weights);
+    }
+
+    @Override
+    public void showError() {
+        Toast toast = Toast.makeText(getActivity(),
+                R.string.string_weight_graph, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    private void generateDefaultData(List<Weight> weights) {
 
         boolean hasAxes = true;
         boolean hasAxesNames = true;
@@ -106,12 +84,12 @@ public class CaloriesChartFragment extends Fragment {
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
 
-        for (int i = 0; i < weightsForGraph.size(); ++i) {
+        for (int i = 0; i < weights.size(); ++i) {
 
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {
                 values.add(new SubcolumnValue(Float.parseFloat
-                        (String.valueOf(weightsForGraph.get(i).getCalories())), Color.rgb(105, 158, 58)));
+                        (String.valueOf(weights.get(i).getCalories())), Color.rgb(105, 158, 58)));
             }
 
             Column column = new Column(values);
@@ -123,9 +101,9 @@ public class CaloriesChartFragment extends Fragment {
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         SimpleDateFormat mFormat = new SimpleDateFormat("dd.MM");
 
-        for (int i = 0; i < weightsForGraph.size(); ++i) {
+        for (int i = 0; i < weights.size(); ++i) {
 
-            String label = mFormat.format(weightsForGraph.get(i).getDate());
+            String label = mFormat.format(weights.get(i).getDate());
             axisValues.add(new AxisValue(i).setLabel(label));
         }
 
@@ -149,12 +127,18 @@ public class CaloriesChartFragment extends Fragment {
     }
 
     private class ValueTouchListener implements ColumnChartOnValueSelectListener {
+        List<Weight> weights;
+
+        private ValueTouchListener(List<Weight> weights) {
+            this.weights = weights;
+        }
+
         @Override
         public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
 
             SimpleDateFormat mFormat = new SimpleDateFormat("dd.MM");
-            String date = mFormat.format(weightsForGraph.get(columnIndex).getDate());
-            String calorii = weightsForGraph.get(columnIndex).getCalories();
+            String date = mFormat.format(weights.get(columnIndex).getDate());
+            String calorii = weights.get(columnIndex).getCalories();
             Toast.makeText(getActivity(), getString(R.string.calorii) + " " + calorii + " " + getString(R.string.graph_date) + " " + date, Toast.LENGTH_SHORT).show();
         }
 

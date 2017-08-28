@@ -1,13 +1,9 @@
 package com.carpediemsolution.fitdiary.charts.presenters;
 
 import android.os.AsyncTask;
-import android.view.Gravity;
-import android.widget.Toast;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.fitdiary.App;
-import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.charts.views.ReminderChartView;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.database.DbSchema;
@@ -26,7 +22,7 @@ import java.util.Locale;
 @InjectViewState
 public class ReminderChartPresenter extends MvpPresenter<ReminderChartView> {
     //init presenter
-    public void initAsync(List<Weight> weightList, Person person) {
+    private void initAsync(List<Weight> weightList, Person person) {
         new CaloriesAsync(weightList).execute();
         new WeightAverageAsync(weightList).execute();
         new WeightStatisticAsync(weightList, person).execute();
