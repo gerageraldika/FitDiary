@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.charts;
+package com.carpediemsolution.fitdiary.statistic;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.charts.presenters.CaloriesPresenter;
-import com.carpediemsolution.fitdiary.charts.views.CaloriesView;
+import com.carpediemsolution.fitdiary.statistic.presenters.CaloriesPresenter;
+import com.carpediemsolution.fitdiary.statistic.views.CaloriesView;
 
 import com.carpediemsolution.fitdiary.model.Weight;
 
@@ -78,16 +78,15 @@ public class CaloriesChartFragment extends MvpAppCompatFragment implements Calor
         boolean hasAxesNames = true;
         boolean hasLabels = false;
         boolean hasLabelForSelected = false;
-
-        int numSubcolumns = 1;
+        int numSubColumns = 1;
 
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
 
         for (int i = 0; i < weights.size(); ++i) {
 
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
+            values = new ArrayList<>();
+            for (int j = 0; j < numSubColumns; ++j) {
                 values.add(new SubcolumnValue(Float.parseFloat
                         (String.valueOf(weights.get(i).getCalories())), Color.rgb(105, 158, 58)));
             }
@@ -102,7 +101,6 @@ public class CaloriesChartFragment extends MvpAppCompatFragment implements Calor
         SimpleDateFormat mFormat = new SimpleDateFormat("dd.MM");
 
         for (int i = 0; i < weights.size(); ++i) {
-
             String label = mFormat.format(weights.get(i).getDate());
             axisValues.add(new AxisValue(i).setLabel(label));
         }
@@ -138,8 +136,8 @@ public class CaloriesChartFragment extends MvpAppCompatFragment implements Calor
 
             SimpleDateFormat mFormat = new SimpleDateFormat("dd.MM");
             String date = mFormat.format(weights.get(columnIndex).getDate());
-            String calorii = weights.get(columnIndex).getCalories();
-            Toast.makeText(getActivity(), getString(R.string.calorii) + " " + calorii + " " + getString(R.string.graph_date) + " " + date, Toast.LENGTH_SHORT).show();
+            String calorie = weights.get(columnIndex).getCalories();
+            Toast.makeText(getActivity(), getString(R.string.calorii) + " " + calorie + " " + getString(R.string.graph_date) + " " + date, Toast.LENGTH_SHORT).show();
         }
 
         @Override

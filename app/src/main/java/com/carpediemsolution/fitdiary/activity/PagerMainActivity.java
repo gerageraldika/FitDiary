@@ -18,7 +18,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,15 +35,17 @@ import com.carpediemsolution.fitdiary.ui.adapter.LockableViewPager;
 import com.carpediemsolution.fitdiary.ui.adapter.MainFragmentPagerAdapter;
 import com.carpediemsolution.fitdiary.util.Constants;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by Юлия on 04.03.2017.
  */
-public class PagerMainActivity extends MvpAppCompatActivity implements PagerMainView{
+public class PagerMainActivity extends MvpAppCompatActivity implements PagerMainView {
 
     @InjectPresenter
     PagerMainPresenter presenter;
@@ -74,19 +75,21 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
         scrollView.setFillViewport(true);
         setSupportActionBar(toolbar);
 
-        viewPager.setSwipeable(false);
-        viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
-                getResources().getStringArray(R.array.titles_tab)));
-        tableLayout.setupWithViewPager(viewPager);
-
-       presenter.init(imageView);
+        presenter.init(imageView);
+        initViewPager();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         toolbar.inflateMenu(R.menu.fragment_menu_list);
         return true;
+    }
+
+    private void initViewPager() {
+        viewPager.setSwipeable(false);
+        viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(),
+                getResources().getStringArray(R.array.titles_tab)));
+        tableLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -97,14 +100,11 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
             startActivity(remindIntent);
             return true;
         }
-
         if (id == R.id.action_show_graph) {
             Intent graphIntent = new Intent(PagerMainActivity.this, ChartActivity.class);
             startActivity(graphIntent);
-
             return true;
         }
-
         if (id == R.id.action_new_weight) {
             if (!App.getFitLab().returnPerson()) {
                 FragmentManager fm = getSupportFragmentManager();
@@ -127,8 +127,6 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
         if (id == R.id.menu_item_change_image) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(PagerMainActivity.this);
             String imagePath = prefs.getString(Constants.IMAGE, "");
-            Bitmap bitmap = null;
-
             if (!"".equals(imagePath)) {
                 prefs.edit().remove(Constants.IMAGE).apply();
                 imageView.setImageDrawable(getResources().getDrawable(R.drawable.rectangle_imageview));
@@ -140,7 +138,6 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
                 Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, REQUEST_PHOTO);
             }
-
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -192,7 +189,6 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
         }
     }
 
-
     private boolean checkPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             int result;
@@ -213,7 +209,7 @@ public class PagerMainActivity extends MvpAppCompatActivity implements PagerMain
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],@NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
       /*  if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

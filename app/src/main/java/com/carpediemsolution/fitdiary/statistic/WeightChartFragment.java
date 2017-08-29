@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.charts;
+package com.carpediemsolution.fitdiary.statistic;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.charts.presenters.WeightChartPresenter;
-import com.carpediemsolution.fitdiary.charts.views.WeightChartView;
+import com.carpediemsolution.fitdiary.statistic.presenters.WeightChartPresenter;
+import com.carpediemsolution.fitdiary.statistic.views.WeightChartView;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;

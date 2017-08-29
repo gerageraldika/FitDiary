@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.charts.views;
+package com.carpediemsolution.fitdiary.statistic.views;
 
 import com.arellomobile.mvp.MvpView;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;

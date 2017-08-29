@@ -58,8 +58,7 @@ public class NewReminderFragment extends DialogFragment implements CompoundButto
     private static final String CALENDAR_DIALOG_TIME = "CalendarDialogTime";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
-
-    String REMIND_LOG = "RemindLog";
+    private String REMIND_LOG = "RemindLog";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +68,6 @@ public class NewReminderFragment extends DialogFragment implements CompoundButto
         reminder = new Reminder(id);
         sCalcLab = App.getFitLab();
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

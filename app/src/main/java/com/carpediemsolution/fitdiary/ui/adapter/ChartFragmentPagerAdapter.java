@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.carpediemsolution.fitdiary.charts.CaloriesChartFragment;
-import com.carpediemsolution.fitdiary.charts.ReminderChartFragment;
-import com.carpediemsolution.fitdiary.charts.WeightChartFragment;
+import com.carpediemsolution.fitdiary.statistic.CaloriesChartFragment;
+import com.carpediemsolution.fitdiary.statistic.ReminderChartFragment;
+import com.carpediemsolution.fitdiary.statistic.WeightChartFragment;
 
 /**
  * Created by Юлия on 08.03.2017.

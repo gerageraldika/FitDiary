@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.charts;
+package com.carpediemsolution.fitdiary.statistic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,8 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.activity.PagerMainActivity;
 import com.carpediemsolution.fitdiary.R;
-import com.carpediemsolution.fitdiary.charts.presenters.ReminderChartPresenter;
-import com.carpediemsolution.fitdiary.charts.views.ReminderChartView;
+import com.carpediemsolution.fitdiary.statistic.presenters.ReminderChartPresenter;
+import com.carpediemsolution.fitdiary.statistic.views.ReminderChartView;
 import com.carpediemsolution.fitdiary.model.RemindsCounter;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
 

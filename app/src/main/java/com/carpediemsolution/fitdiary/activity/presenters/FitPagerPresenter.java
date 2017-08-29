@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.activity.views.FitPagerView;
+import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Weight;
 
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
 public class FitPagerPresenter extends MvpPresenter<FitPagerView> {
 
     public void init(){
-        List<Weight> weightList = App.getFitLab().getWeights();
+        FitLab fitLab = App.getFitLab();
+        List<Weight> weightList = fitLab.getWeights();
         getViewState().showSuccess(weightList);
     }
 }

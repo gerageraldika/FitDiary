@@ -1,4 +1,4 @@
-package com.carpediemsolution.fitdiary.charts.views;
+package com.carpediemsolution.fitdiary.statistic.views;
 
 import android.support.annotation.NonNull;
 

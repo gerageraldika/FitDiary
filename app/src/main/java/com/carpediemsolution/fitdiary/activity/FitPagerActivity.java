@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.carpediemsolution.fitdiary.R;
@@ -18,10 +16,8 @@ import com.carpediemsolution.fitdiary.activity.views.FitPagerView;
 import com.carpediemsolution.fitdiary.fragment.FitDetailsFragment;
 import com.carpediemsolution.fitdiary.model.Weight;
 import com.carpediemsolution.fitdiary.util.OnBackListener;
-
 import java.util.List;
 import java.util.UUID;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,6 +51,7 @@ public class FitPagerActivity extends MvpAppCompatActivity implements OnBackList
 
     @Override
     public void showSuccess(@NonNull List<Weight> weightList) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override

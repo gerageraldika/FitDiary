@@ -3,6 +3,7 @@ package com.carpediemsolution.fitdiary.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -68,7 +69,6 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
     private static final String ARG_WEIGHT_ID = "weight_id";
     private boolean isEnabledPhoto = true;
 
-
     public static FitDetailsFragment newInstance(UUID weightId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_WEIGHT_ID, weightId);
@@ -98,19 +98,14 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
             @Override
             public void onClick(View view) {
                 if (!isEnabledText) { //enabled for update
-                    viewWeight.setEnabled(false);
-                    viewNotes.setEnabled(false);
-                    viewDate.setEnabled(false);
-                    viewCalories.setEnabled(false);
+                    isEnabled(false);
+                    isEnabledText = true;
+
                     buttonForRewrite.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_create_white_24dp));
                     presenter.updateWeight(weightId, viewWeight.getText().toString(),
                             viewCalories.getText().toString(), viewNotes.getText().toString(), date);
-                    isEnabledText = true;
                 } else {
-                    viewWeight.setEnabled(true);
-                    viewNotes.setEnabled(true);
-                    viewDate.setEnabled(true);
-                    viewCalories.setEnabled(true);
+                    isEnabled(true);
                     isEnabledText = false;
                     buttonForRewrite.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_check_white_24dp));
                 }
@@ -141,17 +136,27 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
     }
 
     @Override
-    public void showFitDetails(Weight weight) {
-        viewDate.setText(DateFormat.format("dd MM yyyy", weight.getDate()));
-        viewDate.setEnabled(false);
-        viewDate.setOnClickListener((View viewDate) -> {
-            FragmentManager fm = getActivity().getSupportFragmentManager();
-            DatePickerFragment dialog = DatePickerFragment
-                    .newInstance(weight.getDate());
-            dialog.setTargetFragment(FitDetailsFragment.this, REQUEST_DATE);
-            dialog.show(fm, DIALOG_DATE);//зачем константа?
-        });
+    public void showFitDetails(@NonNull Weight weight) {
+        viewWeight.setText(weight.getsWeight());
+        viewCalories.setText(weight.getCalories());
+        viewNotes.setText(weight.getNotes());
 
+        setTextFilters();
+        isEnabled(false);
+        initPhotoView(weight);
+        initDateView(weight);
+
+        showAsyncPhoto(weight); //in presenter!!!!
+    }
+
+    private void isEnabled(boolean isEnabled){
+        viewWeight.setEnabled(isEnabled);
+        viewNotes.setEnabled(isEnabled);
+        viewDate.setEnabled(isEnabled);
+        viewCalories.setEnabled(isEnabled);
+    }
+
+    private void setTextFilters(){
         int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
         int maxLength = 6;
         InputFilter[] FilterArray = new InputFilter[1];
@@ -159,24 +164,24 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
 
         viewWeight.setInputType(type);
         viewWeight.setFilters(FilterArray);
-        viewWeight.setText(weight.getsWeight());
-        viewWeight.setEnabled(false);
-
-
         viewCalories.setInputType(type);
         viewCalories.setFilters(FilterArray);
-        viewCalories.setText(weight.getCalories());
-        viewCalories.setEnabled(false);
+    }
 
-        viewNotes.setText(weight.getNotes());
-        viewNotes.setEnabled(false);
+    private void initDateView(Weight weight){
+       viewDate.setText(DateFormat.format("dd MM yyyy", weight.getDate()));
+       viewDate.setOnClickListener((View viewDate) -> {
+           FragmentManager fm = getActivity().getSupportFragmentManager();
+           DatePickerFragment dialog = DatePickerFragment
+                   .newInstance(weight.getDate());
+           dialog.setTargetFragment(FitDetailsFragment.this, REQUEST_DATE);
+           dialog.show(fm, DIALOG_DATE);//зачем константа?
+       });
+   }
 
+    private void initPhotoView(Weight weight){
         viewPhoto.setImageDrawable(getResources().getDrawable(R.drawable.ic_perm_identity_white_24dp));
         viewPhoto.setScaleType(ImageView.ScaleType.CENTER);
-
-        showAsynkPhoto(weight); //
-
-
         viewPhoto.setOnClickListener((View photoView) -> {
             if (!isEnabledPhoto) {
                 Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
@@ -186,14 +191,13 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
         });
     }
 
-
     @Override
     public void onBackPressed() {
         Intent i = new Intent(getActivity(), PagerMainActivity.class);
         startActivity(i);
     }
 
-    public void showAsynkPhoto(Weight weight) {
+    public void showAsyncPhoto(Weight weight) {
         if (weight.getPhotoUri() != null) {
             try {
                 new FitDetailsAsync(viewPhoto, weight, isEnabledPhoto).execute();
