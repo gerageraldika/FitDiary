@@ -60,6 +60,7 @@ public class NewReminderFragment extends DialogFragment implements CompoundButto
     private static final int REQUEST_TIME = 1;
     private String REMIND_LOG = "RemindLog";
 
+    //to do ..
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

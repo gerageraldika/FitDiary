@@ -55,12 +55,7 @@ public class ReminderListFragment extends MvpAppCompatFragment implements Remind
         View v = inflater.inflate(R.layout.reminder_list_fragment, container, false);
         ButterKnife.bind(this, v);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setEmptyView(mEmptyView);
-        adapter = new ReminderAdapter(new ArrayList<>());
-        adapter.attachToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(this);
-
+        initRecyclerView();
         presenter.loadData();
 
         return v;
@@ -82,7 +77,7 @@ public class ReminderListFragment extends MvpAppCompatFragment implements Remind
     }
 
     @Override
-    public void showRemindsList(List<Reminder> reminderList) {
+    public void showRemindsList(@NonNull List<Reminder> reminderList) {
 
         adapter.changeDataSet(reminderList);
 
@@ -101,16 +96,16 @@ public class ReminderListFragment extends MvpAppCompatFragment implements Remind
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyTheme_Blue_Dialog); //alert for confirm to delete
                             builder.setMessage(getString(R.string.sure_to_delete));    //set message
-                            builder.setPositiveButton(getString(R.string.remove),(dialog, which)-> {
-                                    adapter.notifyItemRemoved(position);//item removed from recylcerview
-                                    presenter.deleteReminder(reminderList.get(position));
-                                    adapter.remove(reminderList.get(position));
-                                    adapter.refreshRecycler();
-                                })
-                                    .setNegativeButton(getString(R.string.cancel), ( dialog,which)-> {
-                                    adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
-                                    adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
-                                })
+                            builder.setPositiveButton(getString(R.string.remove), (dialog, which) -> {
+                                adapter.notifyItemRemoved(position);//item removed from recylcerview
+                                presenter.deleteReminder(reminderList.get(position));
+                                adapter.remove(reminderList.get(position));
+                                adapter.refreshRecycler();
+                            })
+                                    .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+                                        adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
+                                        adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
+                                    })
                                     .show();
                         }
                     }
@@ -122,7 +117,15 @@ public class ReminderListFragment extends MvpAppCompatFragment implements Remind
 
     @Override
     public void onItemClick(@NonNull Reminder item) {
-        //
+        //to do
+    }
+
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setEmptyView(mEmptyView);
+        adapter = new ReminderAdapter(new ArrayList<>());
+        adapter.attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(this);
     }
 }
 

@@ -3,12 +3,8 @@ package com.carpediemsolution.fitdiary.util;
 import com.carpediemsolution.fitdiary.App;
 import com.carpediemsolution.fitdiary.R;
 import com.carpediemsolution.fitdiary.dao.FitLab;
-import com.carpediemsolution.fitdiary.model.Person;
-import com.carpediemsolution.fitdiary.model.Weight;
-
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**

@@ -68,7 +68,6 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
     @BindView(R.id.fab_weight_write)
     FloatingActionButton fabWriteData;
 
-
     private InterstitialAd interstitial;
     private Date date;
     private String photoUri;

@@ -1,25 +1,17 @@
 package com.carpediemsolution.fitdiary;
 
-import android.widget.ImageView;
 
 import com.carpediemsolution.fitdiary.activity.presenters.FitPagerPresenter;
 import com.carpediemsolution.fitdiary.activity.views.FitPagerView;
 import com.carpediemsolution.fitdiary.dao.FitLab;
 import com.carpediemsolution.fitdiary.model.Weight;
-import com.carpediemsolution.fitdiary.util.async.IconPhotoAsync;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
