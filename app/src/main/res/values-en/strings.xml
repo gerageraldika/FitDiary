@@ -53,6 +53,7 @@
     <string name="average_weight">Average weight\nper day</string>
     <string name="changing_weight_by_day">Average change\nin weight per day</string>
     <string name="from_start_changing_weight">Total weight\nchange</string>
+    <string name="fit_diary">Fit Diary</string>
 
     <string-array name="titles_tab">
         <item>Results</item>

@@ -64,13 +64,7 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
         View view = inflater.inflate(R.layout.fit_list, container, false);
         ButterKnife.bind(this, view);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setEmptyView(mEmptyView);
-
-        adapter = new FitAdapter(new ArrayList<>());
-        adapter.attachToRecyclerView(recyclerView);
-        adapter.setOnItemClickListener(this);
-
+        initRecyclerView();
         presenter.loadData();
 
         return view;
@@ -99,9 +93,20 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
 
     @Override
     public void showFitList(List<Weight> weightList) {
-
         adapter.changeDataSet(weightList);
+        initSwipeRefreshLayout(weightList);
+    }
 
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setEmptyView(mEmptyView);
+
+        adapter = new FitAdapter(new ArrayList<>());
+        adapter.attachToRecyclerView(recyclerView);
+        adapter.setOnItemClickListener(this);
+    }
+
+    private void initSwipeRefreshLayout(List<Weight> weights) {
         ItemTouchHelper.SimpleCallback simpleCallback =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
                     @Override
@@ -116,17 +121,17 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
                         if (direction == ItemTouchHelper.LEFT) {    //if swipe left
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.MyTheme_Blue_Dialog); //alert for confirm to delete
                             builder.setMessage(getString(R.string.sure_to_delete))    //set message
-                            .setPositiveButton(getString(R.string.remove), (dialog, which)-> {
-                                    adapter.notifyItemRemoved(position);//item removed from recylcerview
-                                    presenter.deleteWeight(weightList.get(position));
-                                    adapter.remove(weightList.get(position));
-                                    adapter.refreshRecycler();
-                                })
-                            .setNegativeButton(getString(R.string.cancel),(dialog,which)-> {
-                                    adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
-                                    adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
-                                })
-                             .show();
+                                    .setPositiveButton(getString(R.string.remove), (dialog, which) -> {
+                                        adapter.notifyItemRemoved(position);//item removed from recylcerview
+                                        presenter.deleteWeight(weights.get(position));
+                                        adapter.remove(weights.get(position));
+                                        adapter.refreshRecycler();
+                                    })
+                                    .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+                                        adapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
+                                        adapter.notifyItemRangeChanged(position, adapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
+                                    })
+                                    .show();
                         }
                     }
                 };
@@ -134,7 +139,6 @@ public class FitListFragment extends MvpAppCompatFragment implements FitView,
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView); //set swipe to recylcerview
     }
-
 
     @Override
     public void onBackPressed() {

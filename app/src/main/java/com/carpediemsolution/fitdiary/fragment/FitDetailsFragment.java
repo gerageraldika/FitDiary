@@ -146,7 +146,7 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
         initPhotoView(weight);
         initDateView(weight);
 
-        showAsyncPhoto(weight); //in presenter!!!!
+        showAsyncPhoto(weight); //to do in presenter!!!!
     }
 
     private void isEnabled(boolean isEnabled){
@@ -214,7 +214,6 @@ public class FitDetailsFragment extends MvpAppCompatFragment implements OnBackLi
             date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             // mWeight.setDate(date);
-
             updateDate();
         }
     }

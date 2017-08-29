@@ -63,8 +63,12 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
     EditText caloriesEditText;
     @BindView(R.id.notes_now)
     EditText notesEditText;
+    @BindView(R.id.calc_photo)
+    ImageView mPhotoView;
+    @BindView(R.id.fab_weight_write)
+    FloatingActionButton fabWriteData;
 
-    private ImageView mPhotoView;
+
     private InterstitialAd interstitial;
     private Date date;
     private String photoUri;
@@ -90,6 +94,15 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
         dialog.show(fm, DIALOG_DATE);
     }
 
+    @OnClick(R.id.fab_weight_write)
+    public void writeData(){
+        String weight = currentWeightView.getText().toString();
+        String calories = caloriesEditText.getText().toString();
+        String notes = notesEditText.getText().toString();
+
+        presenter.saveFit(weight, calories, notes, date, photoUri);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,32 +116,11 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
         ButterKnife.bind(this, v);
 
         date = new Date();
+        initPhotoView();
+        setStringFilters();
+        updateDate();
 
-        FloatingActionButton fabWriteData = (FloatingActionButton) v.findViewById(R.id.fab_weight_write);
         fabWriteData.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_check_white_24dp));
-        fabWriteData.setOnClickListener((View view) -> {
-
-            String weight = currentWeightView.getText().toString();
-            String calories = caloriesEditText.getText().toString();
-            String notes = notesEditText.getText().toString();
-
-            presenter.saveFit(weight, calories, notes, date, photoUri);
-        });
-
-        int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
-        int maxLength = 6;
-        InputFilter[] FilterArray = new InputFilter[1];
-        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
-
-        currentWeightView.setInputType(type);
-        currentWeightView.setFilters(FilterArray);
-        caloriesEditText.setInputType(type);
-        caloriesEditText.setFilters(FilterArray);
-
-        mPhotoView = (ImageView) v.findViewById(R.id.calc_photo);
-        mPhotoView.setAdjustViewBounds(true);
-        mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_perm_identity_white_24dp));
-        mPhotoView.setScaleType(ImageView.ScaleType.CENTER);
 
         FloatingActionButton weightPhoto = (FloatingActionButton) v.findViewById(R.id.fab_new_photo);
         weightPhoto.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add_a_photo_white_24dp));
@@ -139,8 +131,6 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
             Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, REQUEST_TAKE_PHOTO);
         });
-
-        updateDate();
 
         interstitial = new InterstitialAd(getActivity());
         interstitial.setAdUnitId(String.valueOf(R.string.adw));
@@ -212,6 +202,24 @@ public class NewFitFragment extends MvpAppCompatFragment implements NewFitView {
                 interstitial.show();
             }
         }
+    }
+
+    private void setStringFilters(){
+        int type = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL;
+        int maxLength = 6;
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+
+        currentWeightView.setInputType(type);
+        currentWeightView.setFilters(FilterArray);
+        caloriesEditText.setInputType(type);
+        caloriesEditText.setFilters(FilterArray);
+    }
+
+    private void initPhotoView(){
+        mPhotoView.setAdjustViewBounds(true);
+        mPhotoView.setImageDrawable(getResources().getDrawable(R.drawable.ic_perm_identity_white_24dp));
+        mPhotoView.setScaleType(ImageView.ScaleType.CENTER);
     }
 
     private boolean checkPermissions() {

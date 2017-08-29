@@ -54,6 +54,7 @@
     <string name="changing_weight_by_day">Среднее изменение\nвеса в день</string>
     <string name="average_calories">Среднее потребление\nкалорий в день</string>
     <string name="adw">ca-app-pub-9016583513972837/7607885104</string>
+    <string name="fit_diary">Fit Diary</string>
 
 
     <string-array name="titles_tab">
